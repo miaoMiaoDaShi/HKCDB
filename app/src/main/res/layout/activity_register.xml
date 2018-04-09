@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/bg_login"
+              android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/mIvBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15px"
+        android:padding="26px"
+        android:fitsSystemWindows="true"
+        android:src="@drawable/ic_back"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30px"
+        android:text="賬號註冊"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"/>
+
+    <LinearLayout
+        android:layout_width="650px"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="120px"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80px"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/mTxtLastName"
+                style="@style/registerEditView"
+                android:maxLines="1"
+                android:inputType="text"
+                android:hint="名字*"/>
+
+            <View
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <EditText
+                android:id="@+id/mTxtFirstName"
+                style="@style/registerEditView"
+                android:inputType="text"
+                android:maxLines="1"
+                android:hint="姓氏*"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80px"
+            android:layout_marginTop="26px"
+            android:background="@drawable/bg_btn_white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="26px"
+            android:paddingRight="26px">
+
+            <TextView
+                android:id="@+id/mTvCodeName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="26px"
+                android:drawableRight="@drawable/ic_bottom_more"
+                android:text="+86"
+                android:textColor="@color/gray"
+                android:textSize="15sp"/>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="40px"
+                android:layout_marginLeft="26px"
+                android:layout_marginRight="26px"
+                android:background="@color/gray"/>
+
+            <EditText
+                android:id="@+id/mTxtPhoneNum"
+                style="@style/registerEditView"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:maxLines="1"
+                android:hint="請輸入手機號碼"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80px"
+            android:layout_marginTop="26px"
+            android:background="@drawable/bg_btn_white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingRight="26px">
+
+            <EditText
+                android:id="@+id/mTxtVerificationCode"
+                style="@style/registerEditView"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:maxLines="1"
+                android:hint="請輸入驗證碼"/>
+
+            <cn.zcoder.xxp.base.widget.TimerButton
+                android:id="@+id/mBtnGetVerCode"
+                android:layout_width="210px"
+                android:layout_height="60px"
+                android:background="@drawable/bg_btn_black"
+                android:text="獲取驗證碼"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"/>
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/mTxtEmail"
+            style="@style/registerEditView"
+            android:layout_width="match_parent"
+            android:layout_height="80px"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:layout_marginTop="26px"
+            android:hint="請輸入郵箱 (非填)"/>
+
+        <EditText
+            android:id="@+id/mTxtInvitationCode"
+            style="@style/registerEditView"
+            android:layout_width="match_parent"
+            android:layout_height="80px"
+            android:inputType="text"
+            android:maxLines="1"
+            android:layout_marginTop="26px"
+            android:hint="請輸入邀請碼 (非填)"/>
+
+        <Button
+            android:id="@+id/mBtnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="80px"
+            android:layout_marginTop="100px"
+            android:background="@drawable/select_btn_yellow"
+            android:text="註冊"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/mTvToLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="20px"
+            android:text="已有賬號,去登入"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="註冊即表示閱讀并同意"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"/>
+
+
+                <CheckBox
+                    android:layout_marginLeft="50px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="使用條款"
+                    android:button="@drawable/bg_cb_white"
+                    android:textColor="@color/yellow"
+                    android:textSize="12sp"/>
+
+                <CheckBox
+                    android:layout_marginLeft="30px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="隱私政策"
+                    android:button="@drawable/bg_cb_white"
+                    android:textColor="@color/yellow"
+                    android:textSize="12sp"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:background="@drawable/bg_login">
+
+
+    <ImageView
+        android:padding="26px"
+        android:layout_marginTop="15px"
+        android:id="@+id/mIvBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_back"/>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/mCardViewBlock"
+        android:layout_marginTop="50px"
+        android:layout_below="@+id/mIvBack"
+        android:layout_marginBottom="130px"
+        android:layout_centerHorizontal="true"
+        android:layout_width="600px"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@android:color/transparent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_login_card_view">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="100px"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:text="手機綁定"
+                android:background="@android:color/white"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"/>
+            <EditText
+                android:paddingLeft="26px"
+                android:paddingRight="26px"
+                android:layout_width="match_parent"
+                android:layout_height="100px"
+                android:hint="請輸入手機號碼"
+                android:textSize="15sp"
+                android:drawableLeft="@drawable/ic_account"
+                android:drawablePadding="20px"
+                android:textColorHint="@color/gray"
+                android:background="@android:color/transparent"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="26px"
+                android:layout_marginRight="26px"
+                android:background="@android:color/white"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100px"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <EditText
+                    android:layout_weight="1"
+                    android:paddingLeft="26px"
+                    android:paddingRight="26px"
+                    android:layout_width="0px"
+                    android:textSize="15sp"
+                    android:layout_height="100px"
+                    android:hint="請輸入密碼"
+                    android:drawableLeft="@drawable/ic_verify_code"
+                    android:drawablePadding="20px"
+                    android:textColorHint="@color/gray"
+                    android:background="@android:color/transparent"/>
+
+                <cn.zcoder.xxp.base.widget.TimerButton
+                    android:layout_marginRight="26px"
+                    android:layout_width="210px"
+                    android:layout_height="60px"
+                    android:textSize="15sp"
+                    android:background="@drawable/bg_btn_black"
+                    android:gravity="center"
+                    android:textColor="@color/yellow"
+                    android:text="獲取驗證碼"/>
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <Button
+        android:id="@+id/mBtnLogin"
+        android:layout_below="@+id/mCardViewBlock"
+        android:background="@drawable/select_btn_yellow"
+        android:layout_centerHorizontal="true"
+        android:layout_width="600px"
+        android:layout_height="80px"
+        android:textColor="@android:color/black"
+        android:textSize="15sp"
+        android:text="登入"/>
+
+</RelativeLayout>

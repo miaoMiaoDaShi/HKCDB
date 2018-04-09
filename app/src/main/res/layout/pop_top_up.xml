@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_pop_top_up_head"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="120px">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="120px"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="@string/pay"
+                android:textColor="@android:color/black"
+                android:textSize="24sp"/>
+
+            <ImageView
+                android:id="@+id/ivClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="26px"
+                android:src="@drawable/ic_close_circle"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvCount"
+            android:layout_width="match_parent"
+            android:layout_height="120px"
+            android:layout_centerHorizontal="true"
+            android:background="@color/divisionColor50"
+            android:gravity="center"
+            android:text="$ %.2f"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/mRvPayType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <Button
+            android:id="@+id/btnCount"
+            android:layout_width="490px"
+            android:layout_height="80px"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="20px"
+            android:background="@drawable/bg_btn_yellow_true"
+            android:text="確認支付$%.2f元"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"/>
+    </LinearLayout>
+</LinearLayout>

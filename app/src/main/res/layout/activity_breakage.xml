@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+<include layout="@layout/tool_bar"/>
+    <LinearLayout
+        android:id="@+id/mLlPhoto"
+        android:layout_margin="26px"
+        android:layout_width="match_parent"
+        android:layout_height="300px"
+        android:gravity="center"
+        android:background="@drawable/bg_btn_white"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="拍照"
+            android:gravity="center"
+            android:drawableTop="@drawable/ic_take_photo"
+            android:textColor="@color/gray"
+            android:textSize="15sp"
+            android:drawablePadding="26px"/>
+    </LinearLayout>
+    <EditText
+        android:layout_marginRight="26px"
+        android:layout_marginLeft="26px"
+        android:layout_width="match_parent"
+        android:layout_height="250px"
+        android:background="@drawable/bg_btn_white"
+        android:textSize="15sp"
+        android:textColorHint="@color/gray"
+        android:gravity="top"
+        android:padding="26px"
+        android:hint="描述下怎麼不能用......"/>
+
+    <Button
+        android:layout_marginTop="90px"
+        android:layout_marginLeft="26px"
+        android:layout_marginRight="26px"
+        android:layout_width="match_parent"
+        android:layout_height="80px"
+        android:textSize="15sp"
+        android:text="報損充電寶"
+        android:textColor="@android:color/black"
+        android:background="@drawable/select_btn_yellow_oval"/>
+</LinearLayout>

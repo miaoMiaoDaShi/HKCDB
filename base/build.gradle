@@ -1,0 +1,75 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+android {
+    signingConfigs {
+    }
+    compileSdkVersion 26
+    defaultConfig {
+        minSdkVersion 18
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+    buildToolsVersion '27.0.3'
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    api 'com.android.support:design:26.1.0'
+    api 'com.android.support:cardview-v7:26.1.0'
+    api 'com.android.support:recyclerview-v7:26.1.0'
+    api 'de.hdodenhof:circleimageview:2.1.0'
+    //webView
+    api 'com.just.agentweb:agentweb:2.0.1'
+    //最新版本
+    api 'com.zhy:autolayout:1.4.5'
+    api 'com.zhihu.android:matisse:0.4.3'
+    api 'com.google.android.gms:play-services-maps:11.0.4'
+    api 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'
+    api 'com.contrarywind:Android-PickerView:4.1.2'
+    //Goon
+    api 'com.google.code.gson:gson:2.6.2'
+    api 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    // Because RxAndroid releases are few and far between, it is recommended you also
+    // explicitly depend on RxJava's latest version for bug fixes and new features.
+    api 'io.reactivex.rxjava2:rxjava:2.1.5'
+    api 'com.squareup.retrofit2:retrofit:2.3.0'
+    api 'com.squareup.retrofit2:converter-gson:2.3.0'
+    api 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    api 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+    //二维码
+    api 'me.dm7.barcodescanner:zxing:1.9.8'
+    // MVP + ViewState + LCE Views
+    // Null Object MvpPresenter for MVP
+    api 'com.google.guava:guava:23.6-android'
+    api 'com.jakewharton.timber:timber:4.6.0'
+    //一个强大RecyclerViewAdapter库
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
+    //高效的图片加载库
+    api 'com.github.bumptech.glide:glide:4.0.0'
+    // Anko Commons
+    api "org.jetbrains.anko:anko-commons:$anko_version"
+    // Support-v4 (only Anko Commons)
+    api "org.jetbrains.anko:anko-support-v4-commons:$anko_version"
+    //ARouter
+    api "com.alibaba:arouter-api:$arouter_api_version"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+}

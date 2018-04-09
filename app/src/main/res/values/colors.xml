@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="yellow">#fff101</color>
+    <color name="yellowDark">#a79e00</color>
+    <color name="gray">#898989</color>
+    <color name="blue">#157efb</color>
+    <color name="itemColor">#333333</color>
+    <color name="desColor">#333333</color>
+    <color name="payTypeItemText">#333333</color>
+    <color name="divisionColor50">#50d2d2d2</color>
+</resources>

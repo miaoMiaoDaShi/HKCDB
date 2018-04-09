@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/tool_bar"/>
+
+    <EditText
+        android:id="@+id/mEtCount"
+        android:layout_width="match_parent"
+        android:layout_height="80px"
+        android:layout_margin="26px"
+        android:background="@drawable/bg_btn_white"
+        android:backgroundTint="@color/divisionColor50"
+        android:hint="@string/input_top_up_count"
+        android:inputType="number"
+        android:maxLines="1"
+        android:paddingLeft="26px"
+        android:paddingRight="26px"
+        android:textSize="15sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="26px"
+        android:layout_marginTop="26px"
+        android:text="@string/top_up_rule"
+        android:textColor="@android:color/black"
+        android:textSize="15sp"/>
+
+    <TextView
+        android:id="@+id/mTvTopUpRule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="26px"
+        android:layout_marginTop="26px"
+        android:lines="5"
+        android:textColor="@color/gray"
+        android:textSize="15sp"
+        tools:text="充多少 :送多少位"/>
+
+    <Button
+        android:id="@+id/mBtnTopUp"
+        android:layout_width="match_parent"
+        android:layout_height="80px"
+        android:layout_marginLeft="26px"
+        android:layout_marginRight="26px"
+        android:layout_marginTop="26px"
+        android:background="@drawable/select_btn_yellow_oval"
+        android:text="@string/topup"
+        android:textColor="@android:color/black"
+        android:textSize="15sp"/>
+    <CheckBox
+        android:id="@+id/mCbAgree"
+        android:layout_margin="26px"
+        android:padding="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/bg_cb_white"
+        android:text="@string/top_up_protocol"/>
+</LinearLayout>

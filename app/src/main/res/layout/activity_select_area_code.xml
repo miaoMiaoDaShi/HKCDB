@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/tool_bar" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/divisionColor50" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/mRvSelectAreaCode"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.bigkoo.quicksidebar.QuickSideBarTipsView
+            android:id="@+id/mQuickSideBarTipsView"
+            android:layout_width="@dimen/height_quicksidebartips"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/mQuickSideBarView"
+            app:sidebarBackgroundColor="@color/colorPrimary"
+            app:sidebarTextColor="@android:color/white"
+            app:sidebarTextSize="@dimen/textSize_quicksidebartips" />
+
+        <com.bigkoo.quicksidebar.QuickSideBarView
+            android:id="@id/mQuickSideBarView"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            app:sidebarItemHeight="@dimen/height_quicksidebaritem"
+            app:sidebarTextColor="@android:color/black"
+            app:sidebarTextColorChoose="@color/colorPrimary"
+            app:sidebarTextSize="16sp"
+            app:sidebarTextSizeChoose="@dimen/textSize_quicksidebar_choose" />
+    </RelativeLayout>
+</LinearLayout>

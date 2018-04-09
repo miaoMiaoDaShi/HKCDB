@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+    android:background="@drawable/bg_login">
+    <ImageView
+        android:id="@+id/mIvBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15px"
+        android:padding="26px"
+        android:fitsSystemWindows="true"
+        android:src="@drawable/ic_back"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30px"
+        android:text="@string/forget_pwd"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"/>
+
+    <LinearLayout
+        android:layout_width="650px"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="120px"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80px"
+            android:layout_marginTop="26px"
+            android:background="@drawable/bg_btn_white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="26px"
+            android:paddingRight="26px">
+
+            <TextView
+                android:id="@+id/mTvCodeName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="26px"
+                android:drawableRight="@drawable/ic_bottom_more"
+                android:text="+86"
+                android:textColor="@color/gray"
+                android:textSize="15sp"/>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="40px"
+                android:layout_marginLeft="26px"
+                android:layout_marginRight="26px"
+                android:background="@color/gray"/>
+
+            <EditText
+                android:id="@+id/mTxtPhoneNum"
+                style="@style/registerEditView"
+                android:layout_weight="1"
+                android:hint="@string/please_input_phone_num"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80px"
+            android:layout_marginTop="26px"
+            android:background="@drawable/bg_btn_white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingRight="26px">
+
+            <EditText
+                android:id="@+id/mTxtVerificationCode"
+                style="@style/registerEditView"
+                android:layout_weight="1"
+                android:hint="@string/please_input_verification_code"/>
+
+            <cn.zcoder.xxp.base.widget.TimerButton
+                android:layout_width="210px"
+                android:layout_height="60px"
+                android:background="@drawable/bg_btn_black"
+                android:text="@string/get_ver_code"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"/>
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/mTxtEmail"
+            style="@style/registerEditView"
+            android:layout_width="match_parent"
+            android:layout_height="80px"
+            android:layout_marginTop="26px"
+            android:hint="@string/please_input_new_pwd"/>
+
+        <EditText
+            android:id="@+id/mTxtInvitationCode"
+            style="@style/registerEditView"
+            android:layout_width="match_parent"
+            android:layout_height="80px"
+            android:layout_marginTop="26px"
+            android:hint="@string/please_input_twice_pwd"/>
+
+        <Button
+            android:id="@+id/mBtnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="80px"
+            android:layout_marginTop="200px"
+            android:background="@drawable/select_btn_yellow"
+            android:text="@string/confirm"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"/>
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/select_bg"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100px">
+
+        <TextView
+            android:id="@+id/tvPayName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="40px"
+            android:drawableLeft="@drawable/ic_pay_alipay"
+            android:drawablePadding="30px"
+            android:text="支付寶支付"
+            android:textColor="@color/payTypeItemText"/>
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:clickable="false"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="40px"
+            android:button="@drawable/bg_cb_select_pay"/>
+    </RelativeLayout>
+</LinearLayout>

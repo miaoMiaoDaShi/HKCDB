@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".mvp.ui.activity.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80px"
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="26px"
+        android:paddingRight="26px">
+
+        <ImageView
+            android:id="@+id/mIvLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_man" />
+
+        <View
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/mIvMine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:src="@drawable/ic_mine" />
+
+        <ImageView
+            android:id="@+id/mIvProtocol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="78px"
+            android:padding="5dp"
+            android:src="@drawable/ic_protocol" />
+
+        <ImageView
+            android:id="@+id/mIvAbout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="78px"
+            android:padding="5dp"
+            android:src="@drawable/ic_about" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1">
+
+        <com.amap.api.maps.MapView
+            android:id="@+id/mMapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.amap.api.maps.MapView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20px">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_borrowing"
+                android:gravity="center"
+                android:text="@string/borrowing"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_open_merchant" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150px"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="16px"
+            android:paddingLeft="26px"
+            android:paddingRight="26px"
+            android:paddingTop="16px">
+
+            <ImageView
+                android:id="@+id/mIvLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_location" />
+
+            <View
+                android:layout_width="0px"
+                android:layout_height="1px"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/mTvBorrow"
+                android:layout_width="220px"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_to_scan"
+                android:gravity="center"
+                android:text="@string/borrow"
+                android:textColor="@android:color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/mTvRepay"
+                android:layout_width="220px"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_to_scan"
+                android:gravity="center"
+                android:text="@string/repay"
+                android:textColor="@android:color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="0px"
+                android:layout_height="1px"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/mIvRefresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_refresh" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/mIvCenterLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_center_location" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/black"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="15px"
+        android:paddingTop="15px">
+
+        <TextView
+            android:id="@+id/mTvToWallet"
+            style="@style/homeTabTextView"
+            android:drawableTop="@drawable/ic_home_wallet"
+            android:text="@string/wallet" />
+
+        <TextView
+            android:id="@+id/mTvToUseRecord"
+            style="@style/homeTabTextView"
+            android:drawableTop="@drawable/ic_home_use_record"
+            android:text="@string/use_record" />
+
+        <TextView
+            android:id="@+id/mTvToMsg"
+            style="@style/homeTabTextView"
+            android:drawableTop="@drawable/ic_home_msg"
+            android:text="@string/msg" />
+
+        <TextView
+            android:id="@+id/mTvToCredits"
+            style="@style/homeTabTextView"
+            android:drawableTop="@drawable/ic_home_credits"
+            android:text="@string/credits" />
+    </LinearLayout>
+
+</LinearLayout>

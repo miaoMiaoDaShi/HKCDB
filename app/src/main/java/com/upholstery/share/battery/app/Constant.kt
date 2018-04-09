@@ -1,0 +1,26 @@
+package com.upholstery.share.battery.app
+
+/**
+ * Created by Zcoder
+ * Email : 1340751953@qq.com
+ * Time :  2018/3/31
+ * Description :
+ */
+class Constant {
+    companion object {
+        /**
+         * 用戶信息
+         */
+        val KEY_USER_INFO = "userInfo"
+        /**
+         * 用户详细信息
+         */
+        val KEY_USER_DETAIL_INFO = "userDetailInfo"
+        /**
+         * 第一次進入
+         */
+        val KEY_IS_FIRST_ENTER = "isFirstEnter"
+    }
+}
+
+

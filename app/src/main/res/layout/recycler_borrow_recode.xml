@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical">
+
+
+            <TextView
+                android:id="@+id/tvCreatTime"
+                style="@style/useRecordItemStyle"
+                android:text="2017-05-06" />
+
+
+            <TextView
+                android:id="@+id/tvUseTime"
+                style="@style/useRecordItemStyle"
+                android:text="30分" />
+
+
+            <TextView
+                android:id="@+id/tvMoney"
+                style="@style/useRecordItemStyle"
+                android:text="1元" />
+
+            <!--<View-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1" />-->
+
+            <TextView
+                android:id="@+id/tvStatus"
+                style="@style/useRecordItemStyle"
+                android:text="使用中" />
+
+
+            <TextView
+                android:id="@+id/tvOperation"
+                style="@style/useRecordItemStyle"
+                android:text="转借" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/divisionColor50" />
+    </LinearLayout>
+
+</LinearLayout>

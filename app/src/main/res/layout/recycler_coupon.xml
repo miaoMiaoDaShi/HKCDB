@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/select_bg">
+
+    <FrameLayout
+        android:id="@+id/llCoupon"
+        android:layout_width="match_parent"
+        android:layout_height="275px"
+        android:layout_marginLeft="26px"
+        android:layout_marginRight="26px"
+        android:layout_marginTop="26px"
+        android:background="@android:color/white"
+        android:padding="15px">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/bg_coupon"/>
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:gravity="center_vertical"
+           android:orientation="horizontal"
+           android:weightSum="3">
+           <RelativeLayout
+               android:layout_width="0px"
+               android:layout_height="wrap_content"
+               android:layout_weight="1">
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_toLeftOf="@+id/tvCount"
+                   android:text="¥"
+                   android:textColor="@android:color/white"
+                   android:textSize="15sp"/>
+
+
+               <TextView
+                   android:id="@+id/tvCount"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_centerInParent="true"
+                   android:text="2"
+                   android:textColor="@android:color/white"
+                   android:textSize="40sp"
+                   android:textStyle="bold"/>
+
+           </RelativeLayout>
+
+           <LinearLayout
+               android:layout_width="0px"
+               android:layout_marginLeft="20dp"
+               android:layout_height="wrap_content"
+               android:layout_weight="2"
+               android:orientation="vertical">
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:gravity="center"
+                   android:lines="1"
+                   android:text="有效期至"
+                   android:textColor="@android:color/black"
+                   android:textSize="13sp" />
+
+               <TextView
+                   android:id="@+id/tvTime"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:gravity="center"
+                   android:lines="1"
+                   android:textColor="@android:color/black"
+                   android:textSize="13sp"
+                   tools:text="2017-12-23"/>
+           </LinearLayout>
+       </LinearLayout>
+
+    </FrameLayout>
+</LinearLayout>
