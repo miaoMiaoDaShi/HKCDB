@@ -61,7 +61,7 @@ class MineActivity : BaseMvpActivity<MvpView, ModPersonalDataPresenter>(), View.
     override fun handlerError(type: Int, e: String) {
         when (type) {
             9 -> {
-                toast(R.string.load_failed)
+                toast(R.string.load_error)
                 onBackPressed()
             }
 //            0x10 -> {
