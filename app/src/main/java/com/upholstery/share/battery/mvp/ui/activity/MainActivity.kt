@@ -1,34 +1,98 @@
 package com.upholstery.share.battery.mvp.ui.activity
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.graphics.Point
+import android.location.Location
 import android.os.Bundle
 import android.os.Handler
+import android.os.Message
+import android.os.SystemClock
+import android.view.MotionEvent
 import android.view.View
+import android.view.animation.BounceInterpolator
 import cn.zcoder.xxp.base.ext.onClick
 import cn.zcoder.xxp.base.mvp.ui.MvpView
-import cn.zcoder.xxp.base.mvp.ui.activity.BaseActivity
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseMvpActivity
-import com.upholstery.share.battery.R
 import com.amap.api.maps.AMap
+import com.amap.api.maps.CameraUpdateFactory
+import com.amap.api.maps.model.LatLng
+import com.amap.api.maps.model.Marker
+import com.amap.api.maps.model.MyLocationStyle
 import com.tbruyelle.rxpermissions2.RxPermissions
+import com.upholstery.share.battery.R
+import com.upholstery.share.battery.app.Constant
 import com.upholstery.share.battery.mvp.presenter.HomePresenter
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
-import android.os.SystemClock
-import android.view.animation.BounceInterpolator
-import com.amap.api.maps.model.LatLng
-import com.amap.api.maps.model.Marker
+
+/**
+ *
+ */
+class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickListener, AMap.OnMyLocationChangeListener, AMap.OnMapTouchListener {
+
+    private var mIsMove = false
+    override fun onTouch(p0: MotionEvent) {
+        when (p0.action) {
+            MotionEvent.ACTION_MOVE -> {
+                mIsMove = true
+
+            }
+            MotionEvent.ACTION_UP -> {
+                if (mIsMove) {
+                    calculateCenterLocation()
+                    mIsMove = false
+                }
+            }
+            else -> {
+            }
+        }
+    }
+
+    /**
+     * 计算当前中心点  对应的经纬度
+     */
+    private fun calculateCenterLocation() {
+        val projection = mAmap.projection
+        val centerLatLng = projection.fromScreenLocation(
+                Point(mIvCenterLocation.x.toInt(), mIvCenterLocation.y.toInt()))
+
+        loadNearTheSitesByLocation(centerLatLng)
+    }
 
 
-class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickListener {
+    private val mHandler = @SuppressLint("HandlerLeak")
+    object : Handler() {
+        override fun handleMessage(msg: Message?) {
+            super.handleMessage(msg)
+
+        }
+    }
+
     override fun showLoading(type: Int) {
+        when (type) {
+        //加载附近商家数据ing
+            0x10 -> {
 
+            }
+            else -> {
+            }
+        }
 
     }
 
     override fun dismissLoading(type: Int) {
+        when (type) {
+        //加载附近商家数据ing
+            0x10 -> {
+
+            }
+            else -> {
+            }
+        }
     }
+
 
     override fun handlerError(type: Int, e: String) {
     }
@@ -58,24 +122,67 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
 
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
-        checkPermission()
-        mMapView.onCreate(savedInstanceState)
-        mAmap = mMapView.map
-        mAmap.uiSettings.isZoomControlsEnabled = false
+        checkPermission(savedInstanceState)
+
     }
 
-    fun checkPermission() {
+    fun checkPermission(savedInstanceState: Bundle?) {
         RxPermissions(this)
                 .request(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.ACCESS_FINE_LOCATION)
+                        Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE)
                 .subscribe { granted ->
                     if (!granted) {
                         toast(R.string.disagree_permission)
+                    } else {
+                        initMap(savedInstanceState)
                     }
                 }
 
 
     }
+
+    /**
+     * 地图的初始化操作 ,,以及预先的定位
+     */
+    private fun initMap(savedInstanceState: Bundle?) {
+        mMapView.onCreate(savedInstanceState)
+        mAmap = mMapView.map
+        mAmap.uiSettings.isZoomControlsEnabled = false
+
+        //定位
+        val myLocationStyle = MyLocationStyle()
+        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE_NO_CENTER)
+        myLocationStyle.interval(2_000)
+        mAmap.myLocationStyle = myLocationStyle
+        mAmap.isMyLocationEnabled = true
+        mAmap.setOnMyLocationChangeListener(this)
+        mAmap.setOnMapTouchListener(this)
+
+    }
+
+    /**
+     * 定位  回调
+     */
+    private var mIsFrist = true//第一次???
+
+    override fun onMyLocationChange(p0: Location) {
+        //第一次 位移到当前位置
+        if (mIsFrist) {
+            mIsFrist = false
+            val latLng = LatLng(p0.latitude, p0.longitude)
+            mAmap.animateCamera(CameraUpdateFactory.newLatLng(latLng))
+            loadNearTheSitesByLocation(latLng)
+        }
+    }
+
+    /**
+     * 根据位置 加载数据
+     */
+    private fun loadNearTheSitesByLocation(latLng: LatLng) {
+        getPresenter().getNearTheSites("${latLng.latitude}", "${latLng.longitude}",
+                Constant.LOAD_NEAR_THE_SITES_RANGE, 0x10)
+    }
+
 
     override fun onResume() {
         super.onResume()
@@ -169,12 +276,12 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
     fun jumpPoint(marker: Marker) {
         val handler = Handler()
         val start = SystemClock.uptimeMillis()
+        val duration: Long = 1500
         val proj = mAmap.projection
         val markerLatlng = marker.position
         val markerPoint = proj.toScreenLocation(markerLatlng)
         markerPoint.offset(0, -100)
         val startLatLng = proj.fromScreenLocation(markerPoint)
-        val duration: Long = 1500
 
         val interpolator = BounceInterpolator()
         handler.post(object : Runnable {
@@ -190,4 +297,6 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
             }
         })
     }
+
+
 }

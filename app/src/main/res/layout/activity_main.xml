@@ -145,6 +145,7 @@
             android:id="@+id/mIvCenterLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:alpha="1"
             android:layout_centerInParent="true"
             android:src="@drawable/ic_center_location" />
     </RelativeLayout>

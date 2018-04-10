@@ -20,6 +20,11 @@ class Constant {
          * 第一次進入
          */
         val KEY_IS_FIRST_ENTER = "isFirstEnter"
+
+        /**
+         * 加载的范围
+         */
+        val LOAD_NEAR_THE_SITES_RANGE = "5"
     }
 }
 
