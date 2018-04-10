@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/llParent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/select_bg"
-    android:paddingTop="26px"
     android:orientation="horizontal">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="230px"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@android:color/white">
         <ImageView
             android:id="@+id/ivItemMerchantPhoto"
             android:layout_width="180px"
@@ -85,6 +85,7 @@
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/llToNav"
             android:layout_marginRight="26px"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -108,4 +109,4 @@
 
     </LinearLayout>
 
-</com.zhy.autolayout.AutoLinearLayout>
+</LinearLayout>

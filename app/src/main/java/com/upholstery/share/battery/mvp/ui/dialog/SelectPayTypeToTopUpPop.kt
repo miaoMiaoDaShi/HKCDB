@@ -1,16 +1,17 @@
-package com.upholstery.share.battery.mvp.ui.widgets
+package com.upholstery.share.battery.mvp.ui.dialog
 
 import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import cn.zcoder.xxp.base.app.Preference
 import cn.zcoder.xxp.base.ext.onClick
 import com.upholstery.share.battery.R
 import com.upholstery.share.battery.mvp.modle.entity.PayTypeInfo
-import com.upholstery.share.battery.mvp.ui.dialog.BasePopupWindow
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import org.jetbrains.anko.find
@@ -20,24 +21,16 @@ import org.jetbrains.anko.find
  * Author : zhongwenpeng
  * Email : 1340751953@qq.com
  * Time :  2018/3/5
- * Description : 支付的時候選擇支付的type
+ * Description : 充值的時候選擇支付的type
  */
 
-class SelectPayTypeToPayPop(money: Double, context: Context) : BasePopupWindow(context) {
+class SelectPayTypeToTopUpPop(money: Double, context: Context) : BasePopupWindow(context) {
     val mDefaultPay by Preference("defaultPayType", 0)
 
     init {
-        val contentView = LayoutInflater.from(context).inflate(R.layout.pop_pay, null)
+        val contentView = LayoutInflater.from(context).inflate(R.layout.pop_top_up, null)
         contentView.find<ImageView>(R.id.ivClose).onClick {
             dismiss()
-        }
-
-        contentView.find<RelativeLayout>(R.id.rlSelectCoupon).onClick {
-            //去選擇優惠券的頁面
-        }
-
-        contentView.find<RelativeLayout>(R.id.rlUseCredits).onClick {
-            contentView.find<CheckBox>(R.id.checkbox).toggle()
         }
 
         val tvCount = contentView.find<TextView>(R.id.tvCount)

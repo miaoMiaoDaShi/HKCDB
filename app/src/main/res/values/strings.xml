@@ -122,4 +122,8 @@
     <string name="mod_failed">修改失敗</string>
     <string name="mod_success">修改成功</string>
     <string name="no_data_mod_location">附近沒有商家,換個位置試試吧</string>
+    <string name="format_can_use">可用 %d</string>
+    <string name="format_repayable">可還 %d</string>
+    <string name="site_detail">網點詳情</string>
+    <string name="site_list">網點列表</string>
 </resources>

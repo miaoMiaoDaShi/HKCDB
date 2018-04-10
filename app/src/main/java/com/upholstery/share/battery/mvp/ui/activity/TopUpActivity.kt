@@ -5,7 +5,7 @@ import android.view.View
 import cn.zcoder.xxp.base.ext.toast
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseActivity
 import com.upholstery.share.battery.R
-import com.upholstery.share.battery.mvp.ui.widgets.SelectPayTypeToTopUpPop
+import com.upholstery.share.battery.mvp.ui.dialog.SelectPayTypeToTopUpPop
 import com.upholstery.share.battery.mvp.ui.widgets.ToolBar
 import kotlinx.android.synthetic.main.activity_top_up.*
 

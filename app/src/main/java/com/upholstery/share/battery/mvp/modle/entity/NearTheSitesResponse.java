@@ -45,6 +45,16 @@ public class NearTheSitesResponse extends BaseResponse {
         private String logo;
         private String name;
         private String wall;
+        //距離米
+        private double  distance;
+
+        public double getDistance() {
+            return distance;
+        }
+
+        public void setDistance(double distance) {
+            this.distance = distance;
+        }
 
         public String getAddress() {
             return address;

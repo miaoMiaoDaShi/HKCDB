@@ -17,11 +17,14 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/mIvLogo"
                 android:layout_width="match_parent"
                 android:layout_height="360px"
-                android:background="@android:color/darker_gray"/>
+                android:scaleType="fitXY"
+                android:background="@color/divisionColor50"/>
 
             <TextView
+                android:id="@+id/mTvSiteName"
                 android:layout_width="match_parent"
                 android:layout_height="100px"
                 android:background="@android:color/white"
@@ -39,12 +42,15 @@
                 android:paddingRight="26px">
 
                 <TextView
+                    android:id="@+id/mTvAddrs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:singleLine="true"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
                     android:drawableLeft="@drawable/ic_merchant_location"
                     android:drawablePadding="26px"
-                    android:text="的撒的撒的撒多"
                     android:textColor="@color/itemColor"
                     />
 
@@ -84,11 +90,11 @@
 
 
                 <TextView
+                    android:id="@+id/mTvPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="的撒的撒的撒多"
                     android:textColor="@color/gray"/>
 
             </RelativeLayout>
@@ -119,20 +125,22 @@
                     />
 
                 <TextView
+                    android:id="@+id/mTvWorkTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="的撒的撒的撒多"
                     android:textColor="@color/gray"/>
 
             </RelativeLayout>
 
             <ImageView
+                android:id="@+id/mIvWall"
                 android:layout_width="match_parent"
                 android:layout_height="360px"
                 android:layout_marginTop="26px"
-                android:background="@android:color/darker_gray"/>
+                android:scaleType="fitXY"
+                android:background="@color/divisionColor50"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -142,6 +150,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/mTvCanUseCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="26px"
@@ -154,6 +163,7 @@
                     android:textSize="15sp"/>
 
                 <TextView
+                    android:id="@+id/mTvFreeNumCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="26px"

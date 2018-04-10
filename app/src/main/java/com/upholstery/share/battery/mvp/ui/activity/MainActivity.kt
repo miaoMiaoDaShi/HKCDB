@@ -11,6 +11,7 @@ import android.os.SystemClock
 import android.support.design.widget.Snackbar
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.BounceInterpolator
 import cn.zcoder.xxp.base.ext.onClick
 import cn.zcoder.xxp.base.ext.showSnackBar
@@ -18,24 +19,41 @@ import cn.zcoder.xxp.base.mvp.ui.MvpView
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseMvpActivity
 import com.amap.api.maps.AMap
 import com.amap.api.maps.CameraUpdateFactory
-import com.amap.api.maps.model.LatLng
-import com.amap.api.maps.model.Marker
-import com.amap.api.maps.model.MyLocationStyle
+import com.amap.api.maps.model.*
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.upholstery.share.battery.R
 import com.upholstery.share.battery.app.Constant
 import com.upholstery.share.battery.mvp.modle.entity.NearTheSitesResponse
 import com.upholstery.share.battery.mvp.presenter.HomePresenter
+import com.upholstery.share.battery.mvp.ui.dialog.SiteDetailPop
+import com.upholstery.share.battery.utils.MapUtils
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
+import android.view.Gravity
+
 
 /**
  *
  */
 class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickListener,
-        AMap.OnMyLocationChangeListener, AMap.OnMapTouchListener {
+        AMap.OnMyLocationChangeListener, AMap.OnMapTouchListener, AMap.OnMarkerClickListener {
+    override fun onMarkerClick(p0: Marker): Boolean {
 
+        mMarkerData[p0.id]?.let {
+            SiteDetailPop(it, this)
+                    .showAtLocation(find(R.id.mTvBorrow),
+                            Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL, 0, 0)
+        }
+
+        return true
+    }
+
+    /**
+     * marker 和 data两两对应
+     */
+    private val mMarkerData = HashMap<String, NearTheSitesResponse.DataBean>()
     private var mIsMove = false
     override fun onTouch(p0: MotionEvent) {
         when (p0.action) {
@@ -114,12 +132,40 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
             0x10 -> {
                 if ((data as NearTheSitesResponse).data.isEmpty()) {
                     showSnackBar(R.string.no_data_mod_location, Snackbar.LENGTH_LONG)
+                    return
                 }
+
+                setupMarkerToMap(data.data)
+
+
             }
             else -> {
 
             }
         }
+    }
+
+    /**
+     * 添加商家信息到地图上
+     */
+    private fun setupMarkerToMap(data: List<NearTheSitesResponse.DataBean>) {
+        mAmap.clear()
+
+
+
+        data.forEach {
+            //計算距離
+            it.distance = MapUtils
+                    .calculateLineDistance(LatLng(mLocation.latitude, mLocation.longitude),
+                            LatLng(it.lat, it.lng))
+
+            mMarkerData[mAmap.addMarker(MarkerOptions()
+                    .icon(BitmapDescriptorFactory
+                            .fromResource(R.drawable.ic_merchant))
+                    .position(LatLng(it.lat, it.lng))).id] = it
+        }
+
+
     }
 
     override fun createPresenter(): HomePresenter = HomePresenter()
@@ -132,6 +178,7 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
         mIvMine.onClick(this)
         mIvProtocol.onClick(this)
         mIvAbout.onClick(this)
+        mIvToSite.onClick(this)
         mIvLocation.onClick(this)
         mIvRefresh.onClick(this)
         mTvBorrow.onClick(this)
@@ -179,6 +226,7 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
         mAmap.isMyLocationEnabled = true
         mAmap.setOnMyLocationChangeListener(this)
         mAmap.setOnMapTouchListener(this)
+        mAmap.setOnMarkerClickListener(this)
 
     }
 
@@ -186,8 +234,13 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
      * 定位  回调
      */
     private var mIsFrist = true//第一次???
+    /**
+     * 當前位置
+     */
+    private lateinit var mLocation: Location
 
     override fun onMyLocationChange(p0: Location) {
+        mLocation = p0
         //第一次 位移到当前位置
         if (mIsFrist) {
             mIsFrist = false
@@ -233,6 +286,16 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
             R.id.mIvAbout -> {
                 startActivity<AboutActivity>()
             }
+            R.id.mIvToSite -> {
+
+                mLocation?.let {
+                    val projection = mAmap.projection
+                    val centerLatLng = projection.fromScreenLocation(
+                            Point(mIvCenterLocation.x.toInt(), mIvCenterLocation.y.toInt()))
+                    startActivity<NearTheSitesActivity>("lat" to centerLatLng.latitude,
+                            "lng" to centerLatLng.longitude)
+                }
+            }
             R.id.mIvLocation -> {
                 toCurrentLocation()
             }
@@ -269,7 +332,10 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
      * 重新加載數據
      */
     private fun toRefresh() {
-
+        mLocation?.let {
+            val latLng = LatLng(mLocation.latitude, mLocation.longitude)
+            loadNearTheSitesByLocation(latLng)
+        }
 
     }
 
@@ -277,8 +343,7 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
      * 定位到當前位置(真實位置)
      */
     private fun toCurrentLocation() {
-
-
+        mIsFrist = true
     }
 
     private var mExitTime = 0L
