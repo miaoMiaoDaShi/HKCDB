@@ -121,4 +121,5 @@
     <string name="add_failed">添加失敗</string>
     <string name="mod_failed">修改失敗</string>
     <string name="mod_success">修改成功</string>
+    <string name="no_data_mod_location">附近沒有商家,換個位置試試吧</string>
 </resources>

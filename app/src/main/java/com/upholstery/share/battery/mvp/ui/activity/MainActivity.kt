@@ -8,10 +8,12 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.os.SystemClock
+import android.support.design.widget.Snackbar
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.BounceInterpolator
 import cn.zcoder.xxp.base.ext.onClick
+import cn.zcoder.xxp.base.ext.showSnackBar
 import cn.zcoder.xxp.base.mvp.ui.MvpView
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseMvpActivity
 import com.amap.api.maps.AMap
@@ -22,6 +24,7 @@ import com.amap.api.maps.model.MyLocationStyle
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.upholstery.share.battery.R
 import com.upholstery.share.battery.app.Constant
+import com.upholstery.share.battery.mvp.modle.entity.NearTheSitesResponse
 import com.upholstery.share.battery.mvp.presenter.HomePresenter
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
@@ -30,7 +33,8 @@ import org.jetbrains.anko.toast
 /**
  *
  */
-class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickListener, AMap.OnMyLocationChangeListener, AMap.OnMapTouchListener {
+class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickListener,
+        AMap.OnMyLocationChangeListener, AMap.OnMapTouchListener {
 
     private var mIsMove = false
     override fun onTouch(p0: MotionEvent) {
@@ -95,9 +99,27 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
 
 
     override fun handlerError(type: Int, e: String) {
+        when (type) {
+            0x10 -> {
+
+            }
+            else -> {
+
+            }
+        }
     }
 
     override fun handlerSuccess(type: Int, data: Any) {
+        when (type) {
+            0x10 -> {
+                if ((data as NearTheSitesResponse).data.isEmpty()) {
+                    showSnackBar(R.string.no_data_mod_location, Snackbar.LENGTH_LONG)
+                }
+            }
+            else -> {
+
+            }
+        }
     }
 
     override fun createPresenter(): HomePresenter = HomePresenter()
