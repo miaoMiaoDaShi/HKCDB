@@ -262,6 +262,7 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
     override fun onResume() {
         super.onResume()
         mMapView.onResume()
+        getPresenter().getUsingRecord(0x11)
     }
 
     override fun onPause() {
@@ -327,7 +328,6 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
         }
 
     }
-
     /**
      * 重新加載數據
      */

@@ -1,15 +1,24 @@
 package com.upholstery.share.battery.mvp.ui.activity
 
+import android.Manifest
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.view.Gravity
+import android.view.View
+import android.widget.TextView
 import cn.zcoder.xxp.base.ext.load
+import cn.zcoder.xxp.base.ext.onClick
 import cn.zcoder.xxp.base.ext.showDialog
 import cn.zcoder.xxp.base.ext.showSnackBar
 import cn.zcoder.xxp.base.mvp.ui.MvpView
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseMvpActivity
+import com.tbruyelle.rxpermissions2.RxPermissions
 import com.upholstery.share.battery.R
 import com.upholstery.share.battery.mvp.modle.entity.NearTheSiteDetailResponse
 import com.upholstery.share.battery.mvp.presenter.NearTheSitePresenter
 import com.upholstery.share.battery.mvp.ui.dialog.LoadingDialog
+import com.upholstery.share.battery.mvp.ui.dialog.PhoneNumsPop
 import com.upholstery.share.battery.mvp.ui.widgets.ToolBar
 import kotlinx.android.synthetic.main.activity_merchant_detail.*
 import org.jetbrains.anko.find
@@ -22,7 +31,8 @@ import org.jetbrains.anko.find
  * Description : 網點列表詳情頁面
  */
 
-class NearTheSiteDetailActivity : BaseMvpActivity<MvpView, NearTheSitePresenter>() {
+class NearTheSiteDetailActivity : BaseMvpActivity<MvpView, NearTheSitePresenter>(), View.OnClickListener {
+
 
     private val mLoadingDialog by lazy {
         LoadingDialog.getInstance(supportFragmentManager)
@@ -78,5 +88,53 @@ class NearTheSiteDetailActivity : BaseMvpActivity<MvpView, NearTheSitePresenter>
 
 
         getPresenter().getNearTheSiteDetail("${intent.getIntExtra("id", 0)}", 0x10)
+    }
+
+    override fun bindListener() {
+        super.bindListener()
+        mRlContactUs.onClick(this)
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.mRlContactUs -> {
+                //(v as TextView).text.toString()
+                showPhoneNums("323213,4324324,4134314")
+            }
+            else -> {
+            }
+        }
+
+    }
+
+    /**
+     * 显示号码,列表
+     */
+    private fun showPhoneNums(text: String?) {
+        text?.let {
+            //联系号码可能是多个 由逗号分隔
+            val phoneNums = it.split(",")
+            val phoneNumsPop = PhoneNumsPop(phoneNums, this)
+            phoneNumsPop.showAtLocation(find(R.id.mTvPhone),
+                    Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL, 0, 0)
+            phoneNumsPop.setOnItemClickListener { callPhoneByNum(it) }
+        }
+    }
+
+    /**
+     * 根據號碼 撥打電話
+     */
+    private fun callPhoneByNum(it: String) {
+        RxPermissions(this)
+                .request(Manifest.permission.CALL_PHONE)
+                .subscribe {
+                    if (it) {
+                        val intent = Intent()
+                        intent.action = Intent.ACTION_CALL
+                        intent.data = Uri.parse("tel:$it")
+                        startActivity(intent)
+                    }
+                }
+
     }
 }

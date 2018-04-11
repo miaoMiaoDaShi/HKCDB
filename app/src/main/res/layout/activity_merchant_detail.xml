@@ -72,6 +72,7 @@
                 android:background="@color/gray"/>
 
             <RelativeLayout
+                android:id="@+id/mRlContactUs"
                 android:layout_width="match_parent"
                 android:layout_height="100px"
                 android:background="@android:color/white"

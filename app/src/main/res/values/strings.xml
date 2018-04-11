@@ -126,4 +126,5 @@
     <string name="format_repayable">可還 %d</string>
     <string name="site_detail">網點詳情</string>
     <string name="site_list">網點列表</string>
+    <string name="select_phone">聯繫號碼選擇</string>
 </resources>
