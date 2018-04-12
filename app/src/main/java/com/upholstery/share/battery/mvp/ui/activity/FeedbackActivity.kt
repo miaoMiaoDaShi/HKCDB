@@ -2,27 +2,28 @@ package com.upholstery.share.battery.mvp.ui.activity
 
 import android.Manifest
 import android.app.Activity
-import android.view.View
-import cn.zcoder.xxp.base.mvp.ui.MvpView
-import cn.zcoder.xxp.base.mvp.ui.activity.BaseMvpActivity
-import com.upholstery.share.battery.R
-import com.upholstery.share.battery.mvp.presenter.FeedbackPresenter
-import com.upholstery.share.battery.mvp.ui.dialog.LoadingDialog
-import kotlinx.android.synthetic.main.activity_feedback.*
-import com.zhihu.matisse.engine.impl.GlideEngine
-import android.content.pm.ActivityInfo
-import com.zhihu.matisse.Matisse
-import com.zhihu.matisse.MimeType
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.net.Uri
+import android.os.Bundle
 import android.os.Environment
+import android.view.View
 import cn.zcoder.xxp.base.app.GlideImageEngine
 import cn.zcoder.xxp.base.ext.*
+import cn.zcoder.xxp.base.mvp.ui.MvpView
+import cn.zcoder.xxp.base.mvp.ui.activity.BaseMvpActivity
 import com.tbruyelle.rxpermissions2.RxPermissions
+import com.upholstery.share.battery.R
+import com.upholstery.share.battery.app.getRealFilePath
 import com.upholstery.share.battery.mvp.modle.entity.UploadImageResponse
-import com.zhihu.matisse.filter.Filter
+import com.upholstery.share.battery.mvp.presenter.FeedbackPresenter
+import com.upholstery.share.battery.mvp.ui.dialog.LoadingDialog
+import com.upholstery.share.battery.mvp.ui.widgets.ToolBar
+import com.zhihu.matisse.Matisse
+import com.zhihu.matisse.MimeType
 import com.zhihu.matisse.internal.entity.CaptureStrategy
-import timber.log.Timber
+import kotlinx.android.synthetic.main.activity_feedback.*
+import org.jetbrains.anko.find
 
 
 /**
@@ -55,7 +56,7 @@ class FeedbackActivity : BaseMvpActivity<MvpView, FeedbackPresenter>(), View.OnC
         when (type) {
             0x10 -> {
                 toast(R.string.upload_image_file_error)
-                mIvImage.setImageDrawable(resources.getDrawable(R.drawable.ic_add_image))
+                mIvImage.setImageResource(R.drawable.ic_add_image)
             }
             else -> {
                 toast(R.string.commit_failed)
@@ -102,10 +103,17 @@ class FeedbackActivity : BaseMvpActivity<MvpView, FeedbackPresenter>(), View.OnC
 
             }
             else -> {
-                getPresenter().feedback(mImageFilePath,mEtContent.text.toString(),0x11 )
+                getPresenter().feedback(mImageFilePath, mEtContent.text.toString(), 0x11)
             }
         }
 
+    }
+
+    override fun initView(savedInstanceState: Bundle?) {
+        super.initView(savedInstanceState)
+        find<ToolBar>(R.id.mToolBar)
+                .setTitle(R.string.feedback)
+                .setOnLeftImageListener { onBackPressed() }
     }
 
     override fun bindListener() {
@@ -123,7 +131,7 @@ class FeedbackActivity : BaseMvpActivity<MvpView, FeedbackPresenter>(), View.OnC
                 mSelectedImages.clear()
                 mSelectedImages.addAll(Matisse.obtainResult(data))
                 mIvImage.load(Matisse.obtainResult(data)[0])
-                val imageFilePath = Environment.getExternalStorageDirectory().absolutePath + mSelectedImages[0].path
+                val imageFilePath = "${mSelectedImages[0].getRealFilePath(applicationContext)}"
                 getPresenter().uploadImageFile(imageFilePath, 0x10)
             }
 

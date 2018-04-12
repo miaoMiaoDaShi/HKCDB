@@ -69,10 +69,12 @@
             android:padding="20px">
 
             <TextView
+                android:id="@+id/mTvUsing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_borrowing"
                 android:gravity="center"
+                android:visibility="gone"
                 android:text="@string/borrowing"
                 android:textColor="@android:color/black"
                 android:textSize="15sp" />

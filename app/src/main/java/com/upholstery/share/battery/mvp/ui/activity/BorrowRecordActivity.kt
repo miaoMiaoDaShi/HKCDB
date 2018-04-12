@@ -31,7 +31,8 @@ import java.text.SimpleDateFormat
  * 0x11 加载更多
  */
 
-class BorrowRecordActivity : BaseMvpActivity<MvpView, BorrowRecordPresenter>(), SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.RequestLoadMoreListener {
+class BorrowRecordActivity : BaseMvpActivity<MvpView, BorrowRecordPresenter>(),
+        SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.RequestLoadMoreListener {
 
 
     /**
@@ -108,7 +109,7 @@ class BorrowRecordActivity : BaseMvpActivity<MvpView, BorrowRecordPresenter>(), 
         findViewById<ToolBar>(R.id.mToolBar)
                 .setTitle(R.string.use_record)
                 .setOnLeftImageListener { finish() }
-
+        mSwipeRefreshBorrowRecord.setOnRefreshListener(this)
         mSwipeRefreshBorrowRecord.post {
             mSwipeRefreshBorrowRecord.isRefreshing = true
             onRefresh()

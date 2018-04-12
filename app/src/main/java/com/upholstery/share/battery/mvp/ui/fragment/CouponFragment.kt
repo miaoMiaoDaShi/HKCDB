@@ -73,6 +73,11 @@ class CouponFragment : BaseMvpFragment<MvpView, CouponPresenter>(), SwipeRefresh
         super.initView(savedInstanceState)
         mSwipeRefreshCoupon.setOnRefreshListener(this)
         initRecyclerView()
+
+    }
+
+    override fun lazyLoad() {
+        super.lazyLoad()
         onRefresh()
     }
 

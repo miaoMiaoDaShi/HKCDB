@@ -35,7 +35,13 @@ class ModPersonalDataPresenter : UploadImageFilePresenter() {
      * 修改用户资料
      */
     fun modPersonalData(key: String, value: String, type: Int) {
-        mapOf(key to value)
+        addSubscribe(getApi().modUserInfo(mapOf(key to value))
+                .compose(RetrofitClient.getDefaultTransformer(getView(), type))
+                .subscribe({
+                    if ((it as BaseResponse).isOk) {
+                        getView().handlerSuccess(type, it)
+                    } else throw RuntimeException(it.resmsg)
+                }, { getView().handlerError(type, it.message!!) }))
     }
 
 

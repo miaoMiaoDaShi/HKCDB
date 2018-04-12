@@ -21,7 +21,7 @@ open class UploadImageFilePresenter : RxPresenter<MvpView>() {
     fun uploadImageFile(path: String, type: Int) {
         val imageFile = File(path)
         val requestFile = RequestBody.create(MediaType.parse("image/png"), imageFile)
-        val part = MultipartBody.Part.createFormData("file", imageFile.getName(), requestFile)
+        val part = MultipartBody.Part.createFormData("file", imageFile.name, requestFile)
         addSubscribe(getApi().uploadImageFile(part)
                 .compose(RetrofitClient.getDefaultTransformer(getView(), type))
                 .subscribe({

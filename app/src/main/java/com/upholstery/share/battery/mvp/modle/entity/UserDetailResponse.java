@@ -40,19 +40,19 @@ public class UserDetailResponse extends BaseResponse {
          * uid : 212
          */
 
-        private long birth;
+        private long birth ;
         private int deposit;
-        private String head;
+        private String head= "";
         private int money;
-        private String name;
+        private String name= "";
         private long phone;
         private int point;
-        private String realname;
+        private String realname = "";
         private int sex;
-        private String surname;
+        private String surname = "";
         private int type;
         private int uid;
-        private String email;
+        private String email= "";
 
         public String getEmail() {
             return email;

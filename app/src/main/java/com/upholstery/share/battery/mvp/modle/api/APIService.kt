@@ -73,7 +73,28 @@ interface APIService {
      * 钱包信息
      */
     @GET("walletController/queryWallet")
-    fun getWallet():Observable<WalletResponse>
+    fun getWallet(): Observable<WalletResponse>
+
+    /**
+     * 充值
+     * 支付方式 0-微信 1-信用卡（stripe支持支付宝支付）---pay_type
+     * 0:充值 1:押金(默认为0)===>used_to
+     * 这是信用卡strip支付需要传的东西—信用卡支付时此参数必须传 +==:>backToken
+    默认为HKD，信用卡支付需要
+     *
+     *
+     *  用于标识是公众号的请求还是app 的请求                  0--公众号请求
+     * 1--app请求====>type
+
+     */
+    @POST("walletController/charge")
+    @FormUrlEncoded
+    fun topUp(@Field("amount") amount: Int, @Field("pay_type") payType: Int,
+              @Field("used_to") usedTo: Int, @Field("backToken") backToken: String,
+              @Field("currency") currency: String, @Field("type") type: Int
+
+    ): Observable<TopUpResponse>
+
     /**
      * 银行卡列表
      */
@@ -173,6 +194,12 @@ interface APIService {
      */
     @GET("personController/queryBankDetail")
     fun getBankCardDetail(): Observable<BankCardDetailResponse>
+
+    /**
+     * 充值规则
+     */
+    @GET("walletController/getSystemCharge")
+    fun getTopUpRule(): Observable<TopUpRuleResponse>
 
     /**
      * 5，	获取我的借还记录列表、

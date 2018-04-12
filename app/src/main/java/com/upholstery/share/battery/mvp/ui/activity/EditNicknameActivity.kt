@@ -1,6 +1,7 @@
 package com.upholstery.share.battery.mvp.ui.activity
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -83,8 +84,9 @@ class EditNicknameActivity : BaseActivity() {
             toast(R.string.last_name_or_first_name_not_be_null)
             return
         }
-        intent.putExtra("lastName", mTxtLastName.text)
-        intent.putExtra("firstName", mTxtFirstName.text)
+        //val intent =Intent()
+        intent.putExtra("lastName", mTxtLastName.text.toString())
+        intent.putExtra("firstName", mTxtFirstName.text.toString())
         setResult(Activity.RESULT_OK, intent)
         onBackPressed()
     }

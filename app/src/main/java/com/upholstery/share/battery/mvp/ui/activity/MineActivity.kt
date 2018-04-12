@@ -18,17 +18,18 @@ import com.blankj.utilcode.util.TimeUtils
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.upholstery.share.battery.R
 import com.upholstery.share.battery.app.Constant
+import com.upholstery.share.battery.app.getRealFilePath
+import com.upholstery.share.battery.mvp.modle.entity.UploadImageResponse
 import com.upholstery.share.battery.mvp.modle.entity.UserDetailResponse
-import com.upholstery.share.battery.mvp.modle.entity.UserResponse
 import com.upholstery.share.battery.mvp.presenter.ModPersonalDataPresenter
 import com.upholstery.share.battery.mvp.ui.dialog.LoadingDialog
 import com.upholstery.share.battery.mvp.ui.widgets.ToolBar
 import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
 import com.zhihu.matisse.internal.entity.CaptureStrategy
-import kotlinx.android.synthetic.main.activity_feedback.*
 import kotlinx.android.synthetic.main.activity_mine.*
 import org.jetbrains.anko.startActivityForResult
+import timber.log.Timber
 import java.text.SimpleDateFormat
 
 
@@ -50,11 +51,13 @@ import java.text.SimpleDateFormat
 
 class MineActivity : BaseMvpActivity<MvpView, ModPersonalDataPresenter>(), View.OnClickListener {
     override fun showLoading(type: Int) {
+        if (type != 9) return
         showDialog(mLoadingDialog)
 
     }
 
     override fun dismissLoading(type: Int) {
+        if (type != 9) return
         cn.zcoder.xxp.base.ext.dismissDialog(mLoadingDialog)
     }
 
@@ -117,8 +120,12 @@ class MineActivity : BaseMvpActivity<MvpView, ModPersonalDataPresenter>(), View.
                 }
 
             }
-//            0x10 -> {
-//            }
+            0x10 -> {
+                getPresenter().modPersonalData("head", (data as UploadImageResponse).data.img, 0x11)
+            }
+            0x11, 0x12, 0x13, 0x14, 0x15, 0x16 -> {
+                getPresenter().getUserDetail(9)
+            }
 //            0x11 -> {
 //
 //            }
@@ -218,7 +225,7 @@ class MineActivity : BaseMvpActivity<MvpView, ModPersonalDataPresenter>(), View.
             }
             R.id.mRlBirthday -> {
                 startActivityForResult<ChangeBirthdayActivity>(0x16, "birthday" to
-                        fromJson<UserDetailResponse>(mUserDetailInfo)?.data?.birth)
+                        mTvBirthday.text.toString())
             }
             R.id.mRlCity -> {
                 //startActivity<ChangeCityActivity>()
@@ -236,14 +243,9 @@ class MineActivity : BaseMvpActivity<MvpView, ModPersonalDataPresenter>(), View.
 
     override fun initData() {
         super.initData()
-
-    }
-
-    override fun onResume() {
-        super.onResume()
         getPresenter().getUserDetail(9)
-
     }
+
 
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
@@ -258,8 +260,9 @@ class MineActivity : BaseMvpActivity<MvpView, ModPersonalDataPresenter>(), View.
             data?.let {
                 mSelectedImages.clear()
                 mSelectedImages.addAll(Matisse.obtainResult(data))
-                mIvImage.load(Matisse.obtainResult(data)[0])
-                val imageFilePath = Environment.getExternalStorageDirectory().absolutePath + mSelectedImages[0].path
+                //mIvImage.load(Matisse.obtainResult(data)[0])
+                val imageFilePath = "${mSelectedImages[0].getRealFilePath(applicationContext)}"
+                Timber.i(imageFilePath)
                 getPresenter().uploadImageFile(imageFilePath, 0x10)
             }
 
@@ -267,13 +270,14 @@ class MineActivity : BaseMvpActivity<MvpView, ModPersonalDataPresenter>(), View.
             data?.let {
                 getPresenter().modPersonalData("firstName", it.getStringExtra("firstName"), 0x12)
                 getPresenter().modPersonalData("lastName", it.getStringExtra("lastName"), 0x12)
+
             }
         } else if (requestCode == 0x14 && resultCode == Activity.RESULT_OK) {
             data?.let { getPresenter().modPersonalData("email", it.getStringExtra("email"), 0x14) }
         } else if (requestCode == 0x15 && resultCode == Activity.RESULT_OK) {
             data?.let { getPresenter().modPersonalData("sex", it.getStringExtra("sex"), 0x15) }
         } else if (requestCode == 0x16 && resultCode == Activity.RESULT_OK) {
-            data?.let { getPresenter().modPersonalData("birth", it.getStringExtra("birth"), 0x16) }
+            data?.let { getPresenter().modPersonalData("birth", it.getStringExtra("birthday"), 0x16) }
         }
 //        else if (requestCode == 0x17 && resultCode == Activity.RESULT_OK) {
 //            data?.let { getPresenter().modPersonalData("", it.getStringExtra("value"), 0x17) }

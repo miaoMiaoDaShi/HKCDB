@@ -9,12 +9,12 @@ import android.os.Handler
 import android.os.Message
 import android.os.SystemClock
 import android.support.design.widget.Snackbar
-import android.view.MotionEvent
+import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
 import android.view.animation.BounceInterpolator
 import cn.zcoder.xxp.base.ext.onClick
 import cn.zcoder.xxp.base.ext.showSnackBar
+import cn.zcoder.xxp.base.ext.visible
 import cn.zcoder.xxp.base.mvp.ui.MvpView
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseMvpActivity
 import com.amap.api.maps.AMap
@@ -24,6 +24,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import com.upholstery.share.battery.R
 import com.upholstery.share.battery.app.Constant
 import com.upholstery.share.battery.mvp.modle.entity.NearTheSitesResponse
+import com.upholstery.share.battery.mvp.modle.entity.UsingOrderResponse
 import com.upholstery.share.battery.mvp.presenter.HomePresenter
 import com.upholstery.share.battery.mvp.ui.dialog.SiteDetailPop
 import com.upholstery.share.battery.utils.MapUtils
@@ -31,14 +32,45 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
-import android.view.Gravity
 
 
 /**
  *
  */
 class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickListener,
-        AMap.OnMyLocationChangeListener, AMap.OnMapTouchListener, AMap.OnMarkerClickListener {
+        AMap.OnMyLocationChangeListener, AMap.OnMarkerClickListener, AMap.OnCameraChangeListener {
+    override fun onCameraChangeFinish(p0: CameraPosition?) {
+        if (p0 != null) return
+        calculateCenterLocation()
+//        p0?.let {
+//            if (mCurrentZoom != it.zoom) {
+//                mCurrentZoom = it.zoom
+//            } else {
+//
+//            }
+//        }
+
+    }
+
+    private var mCurrentZoom = 0f
+    override fun onCameraChange(p0: CameraPosition?) {
+    }
+//    override fun onCameraChange(p0: CameraPosition?) {
+//
+//        p0?.let {
+//            if (it.zoom != mMapZoom) {
+//                mMapZoom = it.zoom
+//                calculateCenterLocation()
+//            }
+//        }
+//    }
+//
+//    var mMapZoom = 0f
+//    override fun onCameraChangeFinish(p0: CameraPosition?) {
+//
+//
+//    }
+
     override fun onMarkerClick(p0: Marker): Boolean {
 
         mMarkerData[p0.id]?.let {
@@ -54,23 +86,7 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
      * marker 和 data两两对应
      */
     private val mMarkerData = HashMap<String, NearTheSitesResponse.DataBean>()
-    private var mIsMove = false
-    override fun onTouch(p0: MotionEvent) {
-        when (p0.action) {
-            MotionEvent.ACTION_MOVE -> {
-                mIsMove = true
 
-            }
-            MotionEvent.ACTION_UP -> {
-                if (mIsMove) {
-                    calculateCenterLocation()
-                    mIsMove = false
-                }
-            }
-            else -> {
-            }
-        }
-    }
 
     /**
      * 计算当前中心点  对应的经纬度
@@ -138,6 +154,12 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
                 setupMarkerToMap(data.data)
 
 
+            }
+            0x11 -> {
+                //借还状态：0-初始化 1-使用中 2-待支付  3-已完成  4-报失 5-报损',
+                data as UsingOrderResponse
+
+                mTvUsing.visible(data.data.statusX == 1)
             }
             else -> {
 
@@ -213,6 +235,8 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
     /**
      * 地图的初始化操作 ,,以及预先的定位
      */
+    private var mIsMove = false
+
     private fun initMap(savedInstanceState: Bundle?) {
         mMapView.onCreate(savedInstanceState)
         mAmap = mMapView.map
@@ -225,7 +249,23 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
         mAmap.myLocationStyle = myLocationStyle
         mAmap.isMyLocationEnabled = true
         mAmap.setOnMyLocationChangeListener(this)
-        mAmap.setOnMapTouchListener(this)
+        mAmap.setOnCameraChangeListener(this)
+//        mAmap.setOnMapTouchListener { event ->
+//            when (event.action) {
+//                MotionEvent.ACTION_MOVE -> {
+//                    mIsMove = true
+//                }
+//                MotionEvent.ACTION_UP -> {
+//                    if (mIsMove) {
+//                        mIsMove = false
+//                        calculateCenterLocation()
+//                    }
+//                }
+//                else -> {
+//                }
+//            }
+//            false
+//        }
         mAmap.setOnMarkerClickListener(this)
 
     }
@@ -328,6 +368,7 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
         }
 
     }
+
     /**
      * 重新加載數據
      */
