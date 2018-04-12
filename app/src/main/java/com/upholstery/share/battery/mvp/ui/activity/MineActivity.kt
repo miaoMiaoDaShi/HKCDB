@@ -52,13 +52,17 @@ import java.text.SimpleDateFormat
 class MineActivity : BaseMvpActivity<MvpView, ModPersonalDataPresenter>(), View.OnClickListener {
     override fun showLoading(type: Int) {
         if (type != 9) return
-        showDialog(mLoadingDialog)
+        try {
+            //showDialog(mLoadingDialog)
+        } catch (e: IllegalStateException) {
+            e.printStackTrace()
+        }
 
     }
 
     override fun dismissLoading(type: Int) {
         if (type != 9) return
-        cn.zcoder.xxp.base.ext.dismissDialog(mLoadingDialog)
+      //  cn.zcoder.xxp.base.ext.dismissDialog(mLoadingDialog)
     }
 
     override fun handlerError(type: Int, e: String) {

@@ -89,9 +89,30 @@ interface APIService {
      */
     @POST("walletController/charge")
     @FormUrlEncoded
-    fun topUp(@Field("amount") amount: Int, @Field("pay_type") payType: Int,
-              @Field("used_to") usedTo: Int, @Field("backToken") backToken: String,
-              @Field("currency") currency: String, @Field("type") type: Int
+    fun topUpByAlipay(@Field("amount") amount: Int, @Field("pay_type") payType: Int = 1,
+                      @Field("type") type: Int = 1
+
+    ): Observable<TopUpResponse>
+
+    /**
+     * 微信支付
+     */
+    @POST("walletController/charge")
+    @FormUrlEncoded
+    fun topUpWeChat(@Field("amount") amount: Int, @Field("pay_type") payType: Int = 0,
+                   @Field("type") type: Int = 1
+
+    ): Observable<TopUpResponse>
+
+
+    /**
+     * 銀行卡充值
+     */
+    @POST("walletController/charge")
+    @FormUrlEncoded
+    fun topUpBankCard(@Field("amount") amount: Int, @Field("pay_type") payType: Int = 2,
+                      @Field("backToken") backToken: String,
+                      @Field("currency") currency: String, @Field("type") type: Int = 1
 
     ): Observable<TopUpResponse>
 
@@ -138,6 +159,7 @@ interface APIService {
      * 更换手机号
      */
     @POST("userController/bindPhone")
+    @FormUrlEncoded
     fun modPhone(@Field("areaCode") areaCode: String,
                  @Field("phone") phone: String,
                  @Field("code") code: String,

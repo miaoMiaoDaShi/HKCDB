@@ -1,5 +1,6 @@
 package com.upholstery.share.battery.mvp.ui.activity
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import cn.zcoder.xxp.base.ext.toast
@@ -11,6 +12,8 @@ import com.upholstery.share.battery.mvp.presenter.PayPresenter
 import com.upholstery.share.battery.mvp.ui.dialog.SelectPayTypeToTopUpPop
 import com.upholstery.share.battery.mvp.ui.widgets.ToolBar
 import kotlinx.android.synthetic.main.activity_top_up.*
+import android.content.Context.INPUT_METHOD_SERVICE
+import android.view.inputmethod.InputMethodManager
 
 
 /**
@@ -52,6 +55,14 @@ class TopUpActivity : BaseMvpActivity<MvpView, PayPresenter>(), View.OnClickList
         }
     }
 
+    private fun closeKeyboard() {
+        val view = window.peekDecorView()
+        if (view != null) {
+            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager!!.hideSoftInputFromWindow(view.windowToken, 0)
+        }
+    }
+
     override fun handlerSuccess(type: Int, data: Any) {
         when (type) {
             0x10 -> {
@@ -73,10 +84,13 @@ class TopUpActivity : BaseMvpActivity<MvpView, PayPresenter>(), View.OnClickList
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.mBtnTopUp -> {
-                if (mCbAgree.isChecked) {
+                if (mCbAgree.isChecked || !mEtCount.text.isEmpty()) {
+                    closeKeyboard()
                     popTopUpWindow(v)
-                } else {
+                } else if (!mCbAgree.isChecked) {
                     toast(R.string.please_agree_relevant_protocol)
+                } else {
+                    toast(R.string.topup_count_not_be_null)
                 }
             }
             else -> {
@@ -90,9 +104,35 @@ class TopUpActivity : BaseMvpActivity<MvpView, PayPresenter>(), View.OnClickList
     }
 
     private fun popTopUpWindow(v: View) {
-
-        val selectPayTypePop = SelectPayTypeToTopUpPop(2.00, this)
+//充值金額 元
+        val money = mEtCount.text.toString().toFloat()
+        val selectPayTypePop = SelectPayTypeToTopUpPop(money, this)
+        selectPayTypePop.setPayTypeListener({ toAliPay() }, { toWeChatPay() }, { bankCardPay() })
         selectPayTypePop.showAsDropDown(v)
+    }
+
+    /**
+     * 銀行卡  信用卡支付
+     */
+    private fun bankCardPay() {
+
+
+    }
+
+    /**
+     * 微信支付
+     */
+    private fun toWeChatPay() {
+
+        getPresenter().topUpToWallet((mEtCount.text.toString().toFloat() * 100).toInt(), 0)
+    }
+
+    /**
+     * 支付寶支付
+     */
+    private fun toAliPay() {
+        getPresenter().topUpToWallet((mEtCount.text.toString().toFloat() * 100).toInt(), 1)
+
     }
 
     override fun getLayoutId(): Int {

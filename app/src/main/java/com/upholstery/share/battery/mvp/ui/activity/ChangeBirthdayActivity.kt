@@ -34,15 +34,23 @@ class ChangeBirthdayActivity : BaseActivity() {
         super.initView(savedInstanceState)
         findViewById<ToolBar>(R.id.mToolBar)
                 .setTitle(R.string.birthday)
-                .setOnLeftImageListener { onBackPressed() }
+                .setOnLeftImageListener { finish() }
+                .setRightText(getString(R.string.save))
 
 
         initTiemPickView()
     }
 
+    private fun save() {
+        intent.putExtra("birthday", mTvBirthday.text.toString())
+        setResult(Activity.RESULT_OK, intent)
+        finish()
+    }
+
     private lateinit var mPickerView: TimePickerView
     private fun initTiemPickView() {
         mPickerView = TimePickerBuilder(this, { data, view ->
+            findViewById<ToolBar>(R.id.mToolBar).showRightText(mTvBirthday.text != mOriginalBirthday)
             mTvBirthday.text = TimeUtils.millis2String(data.time, SimpleDateFormat(" yyyy-MM-dd"))
         })
                 .setCancelText(getString(R.string.cancel))
@@ -72,10 +80,9 @@ class ChangeBirthdayActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        if (mOriginalBirthday != mTvBirthday.text.toString()) {
-            intent.putExtra("birthday",mTvBirthday.text.toString())
-            setResult(Activity.RESULT_OK,intent)
-        }
+//        if (mOriginalBirthday != mTvBirthday.text.toString()) {
+//
+//        }
         super.onBackPressed()
 
     }

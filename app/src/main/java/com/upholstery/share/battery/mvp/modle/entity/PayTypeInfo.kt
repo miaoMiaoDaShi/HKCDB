@@ -8,5 +8,5 @@ package com.upholstery.share.battery.mvp.modle.entity
  * Description :
  */
 
-class PayTypeInfo(val name: String, val icon: Int, var selected: Boolean) {
+class PayTypeInfo(val position:Int,val name: String, val icon: Int, var selected: Boolean) {
 }

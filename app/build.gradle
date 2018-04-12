@@ -9,7 +9,7 @@ android {
         config {
             keyAlias 'HKCDB'
             keyPassword '123456'
-            storeFile file('E:/MyApplication/HKCDB/HKCDB.jks')
+            storeFile file('E:/project/HKCDB/Android/HKCDB.jks')
             storePassword '123456'
         }
     }
@@ -62,6 +62,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation project(':base')
-    implementation 'com.stripe:stripe-android:6.1.2'
+    implementation('com.stripe:stripe-android:6.1.2') {
+        exclude group: 'com.android.support'
+    }
     implementation files('libs/alipaySdk-20180316.jar')
 }

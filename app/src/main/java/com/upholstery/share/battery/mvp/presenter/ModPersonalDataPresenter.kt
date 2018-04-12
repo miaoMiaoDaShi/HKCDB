@@ -5,6 +5,7 @@ import cn.zcoder.xxp.base.ext.parseData
 import cn.zcoder.xxp.base.ext.toJson
 import cn.zcoder.xxp.base.net.BaseResponse
 import cn.zcoder.xxp.base.net.RetrofitClient
+import com.blankj.utilcode.util.RegexUtils
 import com.upholstery.share.battery.app.Constant.Companion.KEY_USER_DETAIL_INFO
 import com.upholstery.share.battery.app.getApi
 import com.upholstery.share.battery.mvp.modle.entity.UserDetailResponse
@@ -45,4 +46,25 @@ class ModPersonalDataPresenter : UploadImageFilePresenter() {
     }
 
 
+    /**
+     * 修改绑定的手机号码
+     */
+    fun modBindPhone( areaCode: String, phone: String, code: String, userId: String,type:Int){
+        if (!RegexUtils.isMobileSimple(phone)) {
+            getView().handlerError(0x10, "")
+            return
+        }
+        if (code.isNullOrEmpty()) {
+            getView().handlerError(0x13, "")
+            return
+        }
+
+        addSubscribe(getApi().modPhone(areaCode, phone, code, userId)
+                .compose(RetrofitClient.getDefaultTransformer(getView(), type))
+                .subscribe({
+                    if ((it as BaseResponse).isOk) {
+                        getView().handlerSuccess(type, it)
+                    } else throw RuntimeException(it.resmsg)
+                }, { getView().handlerError(type, it.message!!) }))
+    }
 }

@@ -57,7 +57,7 @@ fun getRealFilePath(context: Context, uri: Uri?): String? {
 }
 
 
-fun AppCompatActivity.showDialog(dialog: DialogFragment) {
+fun AppCompatActivity.showDialog(dialog: DialogFragment)  {
     dialog.show(supportFragmentManager, "TAG")
 }
 

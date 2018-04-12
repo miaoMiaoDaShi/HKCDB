@@ -15,6 +15,8 @@
         android:hint="請輸入郵箱地址"
         android:paddingLeft="26px"
         android:paddingRight="26px"
+        android:lines="1"
+        android:inputType="textEmailAddress"
         android:textColorHint="#494949"
         android:textSize="15sp"
         />

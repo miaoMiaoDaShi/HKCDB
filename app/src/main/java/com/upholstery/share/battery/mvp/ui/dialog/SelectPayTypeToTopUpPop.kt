@@ -24,8 +24,11 @@ import org.jetbrains.anko.find
  * Description : 充值的時候選擇支付的type
  */
 
-class SelectPayTypeToTopUpPop(money: Double, context: Context) : BasePopupWindow(context) {
+class SelectPayTypeToTopUpPop(money: Float, context: Context) : BasePopupWindow(context) {
     val mDefaultPay by Preference("defaultPayType", 0)
+    private var mToAliPay:(()->Unit)? = null
+    private var mToWeChatPay:(()->Unit)? = null
+    private var mToBankCardPay:(()->Unit)? = null
 
     init {
         val contentView = LayoutInflater.from(context).inflate(R.layout.pop_top_up, null)
@@ -40,9 +43,9 @@ class SelectPayTypeToTopUpPop(money: Double, context: Context) : BasePopupWindow
         btnCount.text = String.format(btnCount.text.toString(), money)
 
         val rvPayType = contentView.find<RecyclerView>(R.id.mRvPayType)
-        var payTypes = mutableListOf(PayTypeInfo(context.getString(R.string.pay_alipay), R.drawable.ic_pay_alipay, false),
-                PayTypeInfo(context.getString(R.string.pay_we_char), R.drawable.ic_pay_wechar, false),
-                PayTypeInfo(context.getString(R.string.pay_bank_card), R.drawable.ic_pay_bank_card, false))
+        var payTypes = mutableListOf(PayTypeInfo(0,context.getString(R.string.pay_alipay), R.drawable.ic_pay_alipay, false),
+                PayTypeInfo(1,context.getString(R.string.pay_we_char), R.drawable.ic_pay_wechar, false),
+                PayTypeInfo(2,context.getString(R.string.pay_bank_card), R.drawable.ic_pay_bank_card, false))
 
         payTypes[mDefaultPay].selected = true
 
@@ -68,10 +71,34 @@ class SelectPayTypeToTopUpPop(money: Double, context: Context) : BasePopupWindow
             payTypes[position].selected = true
             adapter.notifyDataSetChanged()
         }
+
+        btnCount.onClick {
+            var payType = 0
+            payTypes.forEach {
+                if (it.selected) {
+                    payType = it.position
+                }
+            }
+
+            when (payType) {
+                0 -> mToAliPay?.invoke()
+                1 -> mToWeChatPay?.invoke()
+                2 -> mToBankCardPay?.invoke()
+                else -> {
+                }
+            }
+        }
         rvPayType.adapter = adapter
         setContentView(contentView)
         width = ViewGroup.LayoutParams.MATCH_PARENT
         height = ViewGroup.LayoutParams.WRAP_CONTENT
 
     }
+
+    fun setPayTypeListener(alipay:()->Unit,weChatPay:()->Unit,bankCardPay:()->Unit){
+        mToAliPay = alipay
+        mToWeChatPay = weChatPay
+        mToBankCardPay = bankCardPay
+    }
+
 }

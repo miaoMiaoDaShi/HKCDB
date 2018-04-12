@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v4.app.FragmentManager
 import android.view.View
 import com.upholstery.share.battery.R
-import com.upholstery.share.ui.widget.dialog.BaseDialogFragment
 import kotlinx.android.synthetic.main.dialog_tip.*
 
 

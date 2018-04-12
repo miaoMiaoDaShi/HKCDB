@@ -1,4 +1,4 @@
-package com.upholstery.share.ui.widget.dialog
+package com.upholstery.share.battery.mvp.ui.dialog
 
 import android.app.Dialog
 import android.content.DialogInterface

@@ -34,8 +34,35 @@ class PayPresenter : RxPresenter<MvpView>() {
      * 充值到钱包
      * @param money 分为单位
      */
-    fun topUpToWallet(money:Int,type: Int){
-
+    fun topUpToWallet(money: Int, type: Int) {
+        when (type) {
+            0 -> {
+                addSubscribe(getApi().topUpWeChat(money)
+                        .compose(RetrofitClient.getDefaultTransformer(getView(), type))
+                        .subscribe({
+                            if ((it as BaseResponse).isOk) {
+                                getView().handlerSuccess(type, it)
+                            } else throw RuntimeException(it.resmsg)
+                        }, {
+                            getView().handlerError(type, it.message!!)
+                        }))
+            }
+            1 -> {
+                addSubscribe(getApi().topUpByAlipay(money)
+                        .compose(RetrofitClient.getDefaultTransformer(getView(), type))
+                        .subscribe({
+                            if ((it as BaseResponse).isOk) {
+                                getView().handlerSuccess(type, it)
+                            } else throw RuntimeException(it.resmsg)
+                        }, {
+                            getView().handlerError(type, it.message!!)
+                        }))
+            }
+            2 -> {
+            }
+            else -> {
+            }
+        }
     }
 
 }
