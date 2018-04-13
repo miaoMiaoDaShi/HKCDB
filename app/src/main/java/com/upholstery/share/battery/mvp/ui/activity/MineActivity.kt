@@ -52,17 +52,14 @@ import java.text.SimpleDateFormat
 class MineActivity : BaseMvpActivity<MvpView, ModPersonalDataPresenter>(), View.OnClickListener {
     override fun showLoading(type: Int) {
         if (type != 9) return
-        try {
-            //showDialog(mLoadingDialog)
-        } catch (e: IllegalStateException) {
-            e.printStackTrace()
-        }
+            showDialog(mLoadingDialog)
+
 
     }
 
     override fun dismissLoading(type: Int) {
         if (type != 9) return
-      //  cn.zcoder.xxp.base.ext.dismissDialog(mLoadingDialog)
+        cn.zcoder.xxp.base.ext.dismissDialog(mLoadingDialog)
     }
 
     override fun handlerError(type: Int, e: String) {
@@ -125,7 +122,7 @@ class MineActivity : BaseMvpActivity<MvpView, ModPersonalDataPresenter>(), View.
 
             }
             0x10 -> {
-                getPresenter().modPersonalData("head", (data as UploadImageResponse).data.img, 0x11)
+                getPresenter().modPersonalData(mapOf("head" to  (data as UploadImageResponse).data.img), 0x11)
             }
             0x11, 0x12, 0x13, 0x14, 0x15, 0x16 -> {
                 getPresenter().getUserDetail(9)
@@ -272,16 +269,16 @@ class MineActivity : BaseMvpActivity<MvpView, ModPersonalDataPresenter>(), View.
 
         } else if (requestCode == 0x12 && resultCode == Activity.RESULT_OK) {//姓氏和名字
             data?.let {
-                getPresenter().modPersonalData("firstName", it.getStringExtra("firstName"), 0x12)
-                getPresenter().modPersonalData("lastName", it.getStringExtra("lastName"), 0x12)
+                getPresenter().modPersonalData(mapOf("surname" to it.getStringExtra("firstName"),
+                        "realname" to it.getStringExtra("lastName")), 0x12)
 
             }
         } else if (requestCode == 0x14 && resultCode == Activity.RESULT_OK) {
-            data?.let { getPresenter().modPersonalData("email", it.getStringExtra("email"), 0x14) }
+            data?.let { getPresenter().modPersonalData(mapOf("email" to it.getStringExtra("email")), 0x14) }
         } else if (requestCode == 0x15 && resultCode == Activity.RESULT_OK) {
-            data?.let { getPresenter().modPersonalData("sex", it.getStringExtra("sex"), 0x15) }
+            data?.let { getPresenter().modPersonalData(mapOf("sex" to it.getStringExtra("sex")), 0x15) }
         } else if (requestCode == 0x16 && resultCode == Activity.RESULT_OK) {
-            data?.let { getPresenter().modPersonalData("birth", it.getStringExtra("birthday"), 0x16) }
+            data?.let { getPresenter().modPersonalData(mapOf("birth" to it.getStringExtra("birthday")), 0x16) }
         }
 //        else if (requestCode == 0x17 && resultCode == Activity.RESULT_OK) {
 //            data?.let { getPresenter().modPersonalData("", it.getStringExtra("value"), 0x17) }
