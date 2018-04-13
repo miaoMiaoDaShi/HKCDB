@@ -8,7 +8,7 @@ import cn.zcoder.xxp.base.mvp.ui.MvpView
  * Time :  2018/4/4
  * Description : 首页
  */
-class HomePresenter : UsingRecordPresenter() {
+class HomePresenter : UsePresenter() {
     private val mNearTheSitePresenter by lazy {
         NearTheSitePresenter()
     }

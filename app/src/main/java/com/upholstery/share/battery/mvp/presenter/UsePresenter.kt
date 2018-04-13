@@ -1,21 +1,24 @@
 package com.upholstery.share.battery.mvp.presenter
 
+import cn.zcoder.xxp.base.mvp.presenter.RxPresenter
+import cn.zcoder.xxp.base.mvp.ui.MvpView
 import cn.zcoder.xxp.base.net.BaseResponse
 import cn.zcoder.xxp.base.net.RetrofitClient
 import com.upholstery.share.battery.app.getApi
+import java.util.concurrent.TimeUnit
 
 /**
  * Created by Zcoder
  * Email : 1340751953@qq.com
  * Time :  2018/4/4
- * Description : 網點  商家列表
+ * Description : 使用
  */
-class NearTheSitePresenter : UsePresenter() {
+open class UsePresenter : RxPresenter<MvpView>() {
     /**
-     * 获取附近网点列表
+     * 正在使用的(最新订单)
      */
-    fun getNearTheSites(lat: String, lng: String, distance: String, type: Int) {
-        addSubscribe(getApi().getNearTheSite(lat, lng, distance)
+    fun getUsingRecord(type: Int) {
+        addSubscribe(getApi().getUsingOrder()
                 .compose(RetrofitClient.getDefaultTransformer(getView(), type))
                 .subscribe({
                     if ((it as BaseResponse).isOk) {
@@ -27,10 +30,26 @@ class NearTheSitePresenter : UsePresenter() {
     }
 
     /**
-     * 獲取網點詳情
+     * 借用设备
      */
-    fun getNearTheSiteDetail(id: String, type: Int) {
-        addSubscribe(getApi().getNearTheSiteDetail(id)
+    fun borrowOne(sno: String, nonce: String, type: Int) {
+        addSubscribe(getApi().borrowOne(sno, nonce)
+                .compose(RetrofitClient.getDefaultTransformer(getView(), type))
+                .subscribe({
+                    if ((it as BaseResponse).isOk) {
+                        getView().handlerSuccess(type, it)
+                    } else throw RuntimeException(it.resmsg)
+                }, {
+                    getView().handlerError(type, it.message!!)
+                }))
+    }
+
+
+    /**
+     * 开启仓位
+     */
+    fun openFreightSpace(sno: String, type: Int) {
+        addSubscribe(getApi().openFreightSpace(sno)
                 .compose(RetrofitClient.getDefaultTransformer(getView(), type))
                 .subscribe({
                     if ((it as BaseResponse).isOk) {

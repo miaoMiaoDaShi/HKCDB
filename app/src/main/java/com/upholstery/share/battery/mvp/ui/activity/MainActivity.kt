@@ -346,10 +346,10 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
 
             }
             R.id.mTvBorrow -> {
-                startActivity<ScanActivity>()
+                startActivity<ScanActivity>("type" to 0x10)
             }
             R.id.mTvRepay -> {
-                startActivity<ScanActivity>()
+                startActivity<ScanActivity>("type" to 0x11)
             }
             R.id.mTvToWallet -> {
                 startActivity<MyWalletActivity>()

@@ -46,6 +46,8 @@ class BorrowRecordDetailActivity : BaseMvpActivity<MvpView, BorrowRecordDetailPr
 
     //订单状态订单状态1-使用中 2-待支付  3-已完成  4-报失 5-报损',
     private val types = arrayOf("使用中", "待支付", "已完成", "报失", "报损")
+    private val typeColors = arrayOf(R.color.yellow, R.color.yellow, R.color.yellow, R.color.black,
+            R.color.black, R.color.black)
 
     @SuppressLint("SetTextI18n")
     override fun handlerSuccess(type: Int, data: Any) {
@@ -53,7 +55,8 @@ class BorrowRecordDetailActivity : BaseMvpActivity<MvpView, BorrowRecordDetailPr
         val borrowRecordDetail = data.data[0]
 
         //订单状态
-        tvUseStatus.text = types[borrowRecordDetail.statusX]
+        tvUseStatus.text = types[borrowRecordDetail.statusX - 1]
+        tvUseStatus.setTextColor(typeColors[borrowRecordDetail.statusX - 1])
         //使用时长
         tvUseTime.text = "${borrowRecordDetail.used}分钟"
         //费用

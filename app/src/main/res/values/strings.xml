@@ -128,4 +128,13 @@
     <string name="site_list">網點列表</string>
     <string name="select_phone">聯繫號碼選擇</string>
     <string name="topup_count_not_be_null">充值金額不能為空</string>
+    <string name="borrow_power_bank">借用充電寶</string>
+    <string name="borrow_success">借用成功</string>
+    <string name="format_position">進度: %s %%</string>
+    <string name="borrow_failed">借用失敗</string>
+    <string name="borrow_failed_hint">很抱歉,借用失敗</string>
+    <string name="please_once_more_scan">請再次掃碼</string>
+    <string name="please_wait">請等待</string>
+    <string name="borrowing_power_bank">正在借用充電寶</string>
+    <string name="rich_scan">掃一掃</string>
 </resources>

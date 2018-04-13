@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -153,6 +153,11 @@
             android:name="com.upholstery.share.battery.mvp.ui.activity.MyCouponActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
+        <!--借用失敗-->
+        <activity
+            android:name="com.upholstery.share.battery.mvp.ui.activity.BorrowFailedActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <!--使用記錄-->
         <activity
             android:name="com.upholstery.share.battery.mvp.ui.activity.BorrowRecordActivity"
@@ -167,6 +172,11 @@
         <!--積分-->
         <activity
             android:name="com.upholstery.share.battery.mvp.ui.activity.CreditsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
+        <!--借用中-->
+        <activity
+            android:name="com.upholstery.share.battery.mvp.ui.activity.BorrowingActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <!--消息-->

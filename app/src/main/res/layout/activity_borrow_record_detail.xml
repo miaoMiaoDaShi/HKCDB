@@ -100,6 +100,7 @@
       android:layout_height="match_parent"
       android:orientation="vertical">
       <Button
+          android:id="@+id/mBtnToPay"
           android:layout_marginTop="60px"
           android:layout_width="match_parent"
           android:layout_height="80px"
@@ -108,6 +109,7 @@
           android:background="@drawable/select_btn_yellow_oval"
           android:textColor="@android:color/black"
           android:textSize="15sp"
+          android:visibility="invisible"
           android:textStyle="bold"
           android:text="@string/pay_order"/>
 
@@ -118,18 +120,22 @@
           android:orientation="horizontal"
           android:gravity="center">
           <TextView
+              android:id="@+id/mTvBreakage"
               android:layout_width="336px"
               android:layout_height="80px"
               android:textColor="@android:color/white"
               android:textSize="15sp"
+              android:visibility="invisible"
               android:gravity="center"
               android:textStyle="bold"
               android:text="@string/breakage"
               android:background="@drawable/bg_btn_black_oval"/>
           <TextView
+              android:id="@+id/mTvReportTheLoss"
               android:layout_marginLeft="26px"
               android:layout_width="336px"
               android:layout_height="80px"
+              android:visibility="invisible"
               android:textColor="@android:color/black"
               android:textSize="15sp"
               android:gravity="center"

@@ -5,11 +5,12 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <include layout="@layout/tool_bar"/>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
 
         <me.dm7.barcodescanner.zxing.ZXingScannerView
             android:id="@+id/mScannerView"
@@ -22,6 +23,7 @@
             app:laserColor="@color/yellow">
 
         </me.dm7.barcodescanner.zxing.ZXingScannerView>
+        <include layout="@layout/tool_bar"/>
 
         <TextView
             android:layout_width="wrap_content"

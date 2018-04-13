@@ -123,7 +123,8 @@ class BorrowRecordActivity : BaseMvpActivity<MvpView, BorrowRecordPresenter>(),
 
     private fun initRecycler() {
         val types = arrayOf("使用中", "待支付", "已完成", "报失", "报损")
-        val typeColors = arrayOf(R.color.yellow, R.color.yellow, R.color.yellow, R.color.black, R.color.black, R.color.black)
+        val typeColors = arrayOf(R.color.yellow, R.color.yellow, R.color.yellow,
+                R.color.black, R.color.black, R.color.black)
         mRvBorrowRecord.layoutManager = LinearLayoutManager(applicationContext)
 
         mAdapter = object : BaseQuickAdapter<BorrowRecordResponse.DataBean, BaseViewHolder>(R
@@ -132,8 +133,8 @@ class BorrowRecordActivity : BaseMvpActivity<MvpView, BorrowRecordPresenter>(),
                 helper.setText(R.id.tvCreatTime, TimeUtils.millis2String(item.createTime, SimpleDateFormat(" yyyy-MM-dd")))
                         .setText(R.id.tvUseTime, "${item.used}分")
                         .setText(R.id.tvMoney, String.format("%.2f", item.cost / 100.0))
-                        .setText(R.id.tvOperation, types[item.statusX + 1])
-                        .setTextColor(R.id.tvOperation, typeColors[item.statusX + 1])
+                        .setText(R.id.tvOperation, types[item.statusX - 1])
+                        .setTextColor(R.id.tvOperation, typeColors[item.statusX -1])
             }
         }
         mRvBorrowRecord.adapter = mAdapter

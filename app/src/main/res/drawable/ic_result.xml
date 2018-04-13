@@ -2,11 +2,14 @@
 <level-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:drawable="@drawable/ic_result_failed"
+        android:maxLevel="0"
         android:minLevel="0"/>
     <item
-        android:drawable="@drawable/ic_result_open"
+        android:drawable="@drawable/ic_result_borrowing"
+        android:maxLevel="1"
         android:minLevel="1"/>
     <item
         android:drawable="@drawable/ic_result_open"
+        android:maxLevel="2"
         android:minLevel="2"/>
 </level-list>

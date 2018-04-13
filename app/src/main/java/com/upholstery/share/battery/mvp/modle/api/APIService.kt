@@ -100,7 +100,7 @@ interface APIService {
     @POST("walletController/charge")
     @FormUrlEncoded
     fun topUpWeChat(@Field("amount") amount: Int, @Field("pay_type") payType: Int = 0,
-                   @Field("type") type: Int = 1
+                    @Field("type") type: Int = 1
 
     ): Observable<TopUpResponse>
 
@@ -121,6 +121,21 @@ interface APIService {
      */
     @GET("personController/queryBank")
     fun getBankCard(): Observable<BankCardResponse>
+
+    /**
+     * 接一个设备
+     */
+    @POST("deviceController/borrowOne")
+    @FormUrlEncoded
+    fun borrowOne(@Field("sno") sno: String, @Field("nonce") nonce: String,
+                  @Field("openId") openId: String? = null): Observable<BorrowOneResponse>
+
+    /**
+     * 开启仓位
+     * 位仓状态：0-空闲 1-有设备 2-报修 3-开启成功 4-设备摆放位置不正确
+     */
+    @GET("deviceController/returnOne")
+    fun openFreightSpace(@Query("sno")sno:String):Observable<OpenFreightSpaceResponse>
 
     /**
      * 优惠卷列表  0-未使用 1-已使用 2-已过期 3-全部（默认）
