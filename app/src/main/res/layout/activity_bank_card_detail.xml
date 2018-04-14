@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="信用卡號"
+            android:text="@string/bank_card_num"
             android:layout_centerVertical="true"
             android:textColor="@android:color/black"
             android:textSize="15sp"/>
@@ -40,7 +40,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="到期日"
+            android:text="@string/expire"
             android:layout_centerVertical="true"
             android:textColor="@android:color/black"
             android:textSize="15sp"/>

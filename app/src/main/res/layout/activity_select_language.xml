@@ -19,7 +19,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="100px"
-                android:text="請選擇語言"
+                android:text="@string/please_select_language"
                 android:textSize="18sp"
                 android:gravity="center"
                 android:background="@android:color/white"
@@ -27,7 +27,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="100px"
-                android:text="中文"
+                android:text="@string/chinese"
                 android:textSize="18sp"
                 android:gravity="center"
                 android:textColor="@android:color/black"/>
@@ -40,7 +40,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="100px"
-                android:text="英文"
+                android:text="@string/english"
                 android:textSize="18sp"
                 android:gravity="center"
                 android:textColor="@android:color/black"/>

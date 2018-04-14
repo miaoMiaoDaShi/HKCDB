@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:textColor="@android:color/black"
-        android:text="請將充電寶插入打開倉位中"/>
+        android:text="@string/please_insert_the_charger_into_the_open_position"/>
 
     <Button
         android:layout_marginTop="90px"
@@ -25,6 +25,6 @@
         android:layout_height="80px"
         android:textColor="@android:color/black"
         android:background="@drawable/select_btn_yellow_oval"
-        android:text="去支付訂單"
+        android:text="@string/to_pay_order"
         android:textSize="15sp"/>
 </LinearLayout>

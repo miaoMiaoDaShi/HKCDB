@@ -17,6 +17,9 @@ import kotlinx.android.synthetic.main.activity_borrow_record_detail.*
  * Email : 1340751953@qq.com
  * Time :  2018/4/8
  * Description : 借用记录  详情页面
+ *
+ * intent type  0x10 扫码借用成功后
+ *              0x11 订单页面  点击进入的
  */
 
 class BorrowRecordDetailActivity : BaseMvpActivity<MvpView, BorrowRecordDetailPresenter>() {

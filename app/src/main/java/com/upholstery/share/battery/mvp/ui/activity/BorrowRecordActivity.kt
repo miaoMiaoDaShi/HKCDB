@@ -39,7 +39,7 @@ class BorrowRecordActivity : BaseMvpActivity<MvpView, BorrowRecordPresenter>(),
      * 加载更多的毁掉
      */
     override fun onLoadMoreRequested() {
-
+        getPresenter().getBorrowRecord(0x11)
 
     }
 
@@ -48,7 +48,7 @@ class BorrowRecordActivity : BaseMvpActivity<MvpView, BorrowRecordPresenter>(),
         /**
          * 传入  id  进行详细信息查询
          */
-        startActivity<BorrowRecordDetailActivity>("id" to data.id)
+        startActivity<BorrowRecordDetailActivity>("type" to 0x11,"id" to data.id)
     }
 
     private lateinit var mAdapter: BaseQuickAdapter<BorrowRecordResponse.DataBean, BaseViewHolder>

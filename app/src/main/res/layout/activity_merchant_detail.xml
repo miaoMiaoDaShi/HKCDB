@@ -85,7 +85,7 @@
                     android:layout_centerVertical="true"
                     android:drawableLeft="@drawable/ic_merchant_call"
                     android:drawablePadding="26px"
-                    android:text="電話"
+                    android:text="@string/phone"
                     android:textColor="@color/itemColor"
                     />
 
@@ -121,7 +121,7 @@
                     android:layout_centerVertical="true"
                     android:drawableLeft="@drawable/ic_merchant_work_time"
                     android:drawablePadding="26px"
-                    android:text="營業時間"
+                    android:text="@string/work_time"
                     android:textColor="@color/itemColor"
                     />
 
@@ -179,11 +179,12 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/mBtnToBorrow"
                 android:layout_margin="60px"
                 android:layout_width="380px"
                 android:layout_height="80px"
                 android:textSize="15sp"
-                android:text="借用充電寶"
+                android:text="@string/borrow_power_bank"
                 android:background="@drawable/bg_btn_black_oval"
                 android:textColor="@color/yellow"/>
         </LinearLayout>

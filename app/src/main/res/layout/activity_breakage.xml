@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="拍照"
+            android:text="@string/take_photo"
             android:gravity="center"
             android:drawableTop="@drawable/ic_take_photo"
             android:textColor="@color/gray"
@@ -32,7 +32,7 @@
         android:textColorHint="@color/gray"
         android:gravity="top"
         android:padding="26px"
-        android:hint="描述下怎麼不能用......"/>
+        android:hint="@string/how_can_it_not_be_used"/>
 
     <Button
         android:layout_marginTop="90px"
@@ -41,7 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="80px"
         android:textSize="15sp"
-        android:text="報損充電寶"
+        android:text="@string/breakage_power_bank"
         android:textColor="@android:color/black"
         android:background="@drawable/select_btn_yellow_oval"/>
 </LinearLayout>

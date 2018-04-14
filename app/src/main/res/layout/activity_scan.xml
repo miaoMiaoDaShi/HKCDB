@@ -31,7 +31,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="400px"
-            android:text="請掃描二維碼"
+            android:text="@string/please_scan_or_code"
             android:textColor="@color/gray"
             android:textSize="14sp"/>
     </RelativeLayout>

@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/ic_man"
             android:drawablePadding="26px"
-            android:text="男"
+            android:text="@string/man"
             android:gravity="center"
             android:textColor="@android:color/black"
             android:textStyle="bold"
@@ -37,7 +37,7 @@
             android:textColor="@android:color/black"
             android:textStyle="bold"
             android:textSize="18sp"
-            android:text="女"
+            android:text="@string/wo_man"
             />
     </LinearLayout>
 </LinearLayout>

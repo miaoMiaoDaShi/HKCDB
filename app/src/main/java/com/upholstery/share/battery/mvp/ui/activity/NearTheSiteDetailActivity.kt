@@ -22,6 +22,7 @@ import com.upholstery.share.battery.mvp.ui.dialog.PhoneNumsPop
 import com.upholstery.share.battery.mvp.ui.widgets.ToolBar
 import kotlinx.android.synthetic.main.activity_merchant_detail.*
 import org.jetbrains.anko.find
+import org.jetbrains.anko.startActivity
 
 
 /**
@@ -93,6 +94,7 @@ class NearTheSiteDetailActivity : BaseMvpActivity<MvpView, NearTheSitePresenter>
     override fun bindListener() {
         super.bindListener()
         mRlContactUs.onClick(this)
+        mBtnToBorrow.onClick(this)
     }
 
     override fun onClick(v: View?) {
@@ -101,6 +103,7 @@ class NearTheSiteDetailActivity : BaseMvpActivity<MvpView, NearTheSitePresenter>
                 //(v as TextView).text.toString()
                 showPhoneNums("323213,4324324,4134314")
             }
+            R.id.mBtnToBorrow->  startActivity<ScanActivity>("type" to 0x10)
             else -> {
             }
         }

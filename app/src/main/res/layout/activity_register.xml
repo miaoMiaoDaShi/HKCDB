@@ -10,8 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15px"
-        android:padding="26px"
         android:fitsSystemWindows="true"
+        android:padding="26px"
         android:src="@drawable/ic_back"/>
 
     <TextView
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30px"
-        android:text="賬號註冊"
+        android:text="@string/account_register"
         android:textColor="@android:color/white"
         android:textSize="24sp"/>
 
@@ -38,9 +38,9 @@
             <EditText
                 android:id="@+id/mTxtLastName"
                 style="@style/registerEditView"
-                android:maxLines="1"
+                android:hint="@string/real_name"
                 android:inputType="text"
-                android:hint="名字*"/>
+                android:maxLines="1"/>
 
             <View
                 android:layout_width="0px"
@@ -50,9 +50,9 @@
             <EditText
                 android:id="@+id/mTxtFirstName"
                 style="@style/registerEditView"
+                android:hint="@string/sur_name"
                 android:inputType="text"
-                android:maxLines="1"
-                android:hint="姓氏*"/>
+                android:maxLines="1"/>
         </LinearLayout>
 
         <LinearLayout
@@ -86,9 +86,9 @@
                 android:id="@+id/mTxtPhoneNum"
                 style="@style/registerEditView"
                 android:layout_weight="1"
+                android:hint="@string/please_input_phone_num"
                 android:inputType="number"
-                android:maxLines="1"
-                android:hint="請輸入手機號碼"/>
+                android:maxLines="1"/>
         </LinearLayout>
 
         <LinearLayout
@@ -104,16 +104,16 @@
                 android:id="@+id/mTxtVerificationCode"
                 style="@style/registerEditView"
                 android:layout_weight="1"
+                android:hint="@string/please_input_verification_code"
                 android:inputType="number"
-                android:maxLines="1"
-                android:hint="請輸入驗證碼"/>
+                android:maxLines="1"/>
 
             <cn.zcoder.xxp.base.widget.TimerButton
                 android:id="@+id/mBtnGetVerCode"
                 android:layout_width="210px"
                 android:layout_height="60px"
                 android:background="@drawable/bg_btn_black"
-                android:text="獲取驗證碼"
+                android:text="@string/get_ver_code"
                 android:textColor="@android:color/white"
                 android:textSize="15sp"/>
         </LinearLayout>
@@ -123,20 +123,20 @@
             style="@style/registerEditView"
             android:layout_width="match_parent"
             android:layout_height="80px"
-            android:inputType="textEmailAddress"
-            android:maxLines="1"
             android:layout_marginTop="26px"
-            android:hint="請輸入郵箱 (非填)"/>
+            android:hint="@string/please_input_email_not_required"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"/>
 
         <EditText
             android:id="@+id/mTxtInvitationCode"
             style="@style/registerEditView"
             android:layout_width="match_parent"
             android:layout_height="80px"
-            android:inputType="text"
-            android:maxLines="1"
             android:layout_marginTop="26px"
-            android:hint="請輸入邀請碼 (非填)"/>
+            android:hint="@string/please_invite_not_required"
+            android:inputType="text"
+            android:maxLines="1"/>
 
         <Button
             android:id="@+id/mBtnRegister"
@@ -144,7 +144,7 @@
             android:layout_height="80px"
             android:layout_marginTop="100px"
             android:background="@drawable/select_btn_yellow"
-            android:text="註冊"
+            android:text="@string/register"
             android:textColor="@android:color/black"
             android:textSize="15sp"/>
 
@@ -154,7 +154,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:padding="20px"
-            android:text="已有賬號,去登入"
+            android:text="@string/already_have_account_to_login"
             android:textColor="@android:color/white"
             android:textSize="15sp"/>
 
@@ -172,28 +172,28 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="註冊即表示閱讀并同意"
+                android:text="@string/registration_means_reading_and_agreeing"
                 android:textColor="@android:color/white"
                 android:textSize="12sp"/>
 
 
-                <CheckBox
-                    android:layout_marginLeft="50px"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="使用條款"
-                    android:button="@drawable/bg_cb_white"
-                    android:textColor="@color/yellow"
-                    android:textSize="12sp"/>
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50px"
+                android:button="@drawable/bg_cb_white"
+                android:text="@string/use_rule"
+                android:textColor="@color/yellow"
+                android:textSize="12sp"/>
 
-                <CheckBox
-                    android:layout_marginLeft="30px"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="隱私政策"
-                    android:button="@drawable/bg_cb_white"
-                    android:textColor="@color/yellow"
-                    android:textSize="12sp"/>
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+                android:button="@drawable/bg_cb_white"
+                android:text="@string/privacy_policy"
+                android:textColor="@color/yellow"
+                android:textSize="12sp"/>
         </LinearLayout>
 
         <View

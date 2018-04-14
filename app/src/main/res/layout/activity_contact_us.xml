@@ -14,6 +14,7 @@
         android:background="@android:color/white"
         android:orientation="vertical">
     <RelativeLayout
+        android:id="@+id/mRlContactByPhone"
         android:layout_width="match_parent"
         android:layout_height="100px"
         android:background="@drawable/select_bg"
@@ -24,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="聯絡電話"
+            android:text="@string/contact_by_phone"
             android:drawablePadding="26px"
             android:drawableLeft="@drawable/ic_call"
             android:textColor="@android:color/black"
@@ -46,6 +47,7 @@
         android:layout_height="0.5dp"
         android:background="@color/divisionColor50"/>
         <RelativeLayout
+            android:id="@+id/mRlContactByEmail"
             android:layout_width="match_parent"
             android:layout_height="100px"
             android:background="@drawable/select_bg"
@@ -56,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="電子郵箱"
+                android:text="@string/contact_by_email"
                 android:drawablePadding="26px"
                 android:drawableLeft="@drawable/ic_email"
                 android:textColor="@android:color/black"
@@ -78,6 +80,7 @@
             android:layout_height="0.5dp"
             android:background="@color/divisionColor50"/>
         <RelativeLayout
+            android:id="@+id/mRlAboutWebSite"
             android:layout_width="match_parent"
             android:layout_height="100px"
             android:background="@drawable/select_bg"
@@ -88,7 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="官方網站"
+                android:text="@string/about_web_site"
                 android:drawablePadding="26px"
                 android:drawableLeft="@drawable/ic_web"
                 android:textColor="@android:color/black"
@@ -110,6 +113,7 @@
             android:layout_height="0.5dp"
             android:background="@color/divisionColor50"/>
         <RelativeLayout
+            android:id="@+id/mRlContactByWeChat"
             android:layout_width="match_parent"
             android:layout_height="100px"
             android:background="@drawable/select_bg"
@@ -120,7 +124,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="微信公眾號"
+                android:text="@string/contact_we_chat"
                 android:drawablePadding="26px"
                 android:drawableLeft="@drawable/ic_wechat"
                 android:textColor="@android:color/black"
@@ -142,6 +146,7 @@
             android:layout_height="0.5dp"
             android:background="@color/divisionColor50"/>
         <RelativeLayout
+            android:id="@+id/mRlContractByFacebook"
             android:layout_width="match_parent"
             android:layout_height="100px"
             android:background="@drawable/select_bg"
@@ -152,7 +157,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="Facebook專頁"
+                android:text="@string/facebook_home"
                 android:drawablePadding="38px"
                 android:drawableLeft="@drawable/ic_contact_facebook"
                 android:textColor="@android:color/black"

@@ -13,7 +13,9 @@ import org.jetbrains.anko.startActivity
  * Author : zhongwenpeng
  * Email : 1340751953@qq.com
  * Time :  2018/3/5
- * Description :
+ * Description :  扫码界面
+ *  intent type 0x10 借用
+ *              0x11 还
  */
 
 class ScanActivity : BaseActivity(), ZXingScannerView.ResultHandler {
