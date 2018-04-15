@@ -172,6 +172,4 @@
     <string name="twice_scan">在掃一次</string>
     <string name="not_ing_order">請先借用充電寶</string>
     <string name="have_ing_order">您當前有未結束的訂單</string>
-    <string name="tracing_system">跟隨系統</string>
-    <string name="simplified_chinese">簡體中文</string>
 </resources>

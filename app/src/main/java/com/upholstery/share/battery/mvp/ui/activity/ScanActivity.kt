@@ -31,7 +31,7 @@ class ScanActivity : BaseActivity(), ZXingScannerView.ResultHandler {
                     }
                 //退还
                     0x11 -> {
-
+                        startActivity<ReturnPowerBankActivity>("sno" to sno)
                     }
                     else -> {
                     }

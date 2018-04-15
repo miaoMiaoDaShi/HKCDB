@@ -2,6 +2,7 @@ package com.upholstery.share.battery.mvp.ui.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Point
 import android.location.Location
 import android.os.Bundle
@@ -13,6 +14,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.animation.BounceInterpolator
 import cn.zcoder.xxp.base.ext.onClick
+import cn.zcoder.xxp.base.ext.showDialog
 import cn.zcoder.xxp.base.ext.showSnackBar
 import cn.zcoder.xxp.base.ext.visible
 import cn.zcoder.xxp.base.mvp.ui.MvpView
@@ -24,14 +26,18 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import com.upholstery.share.battery.R
 import com.upholstery.share.battery.app.Constant
 import com.upholstery.share.battery.mvp.modle.entity.NearTheSitesResponse
+import com.upholstery.share.battery.mvp.modle.entity.UserDetailResponse
 import com.upholstery.share.battery.mvp.modle.entity.UsingOrderResponse
 import com.upholstery.share.battery.mvp.presenter.HomePresenter
+import com.upholstery.share.battery.mvp.presenter.ModPersonalDataPresenter
 import com.upholstery.share.battery.mvp.ui.dialog.SiteDetailPop
+import com.upholstery.share.battery.mvp.ui.dialog.WarningDialog
 import com.upholstery.share.battery.utils.MapUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
+import android.location.LocationManager
 
 
 /**
@@ -137,12 +143,20 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
             0x10 -> {
 
             }
+            0x12, 0x13 -> {
+                toast(R.string.load_money_info_error)
+            }
             else -> {
 
             }
         }
     }
 
+    private val mWarningDialog by lazy {
+        WarningDialog()
+    }
+
+    private var mHaveOrder = false
     override fun handlerSuccess(type: Int, data: Any) {
         when (type) {
             0x10 -> {
@@ -160,6 +174,25 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
                 data as UsingOrderResponse
 
                 mTvUsing.visible(data.data.statusX == 1)
+                if (data.data.statusX == 1) {
+                    mHaveOrder = true
+                }
+            }
+            0x12 -> {
+                data as UserDetailResponse
+                if (data.data.money > 0) {
+                    startActivity<ScanActivity>("type" to 0x10)
+                } else {
+                    showDialog(mWarningDialog)
+                }
+            }
+            0x13 -> {
+                data as UserDetailResponse
+                if (data.data.money > 0) {
+                    startActivity<ScanActivity>("type" to 0x11)
+                } else {
+                    showDialog(mWarningDialog)
+                }
             }
             else -> {
 
@@ -190,7 +223,15 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
 
     }
 
-    override fun createPresenter(): HomePresenter = HomePresenter()
+    private val mModPersonalDataPresenter by lazy {
+        ModPersonalDataPresenter()
+    }
+
+    override fun createPresenter(): HomePresenter {
+        mModPersonalDataPresenter.attachView(this)
+        return HomePresenter()
+    }
+
     lateinit var mAmap: AMap
 
     override fun getLayoutId(): Int = R.layout.activity_main
@@ -225,10 +266,27 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
                     if (!granted) {
                         toast(R.string.disagree_permission)
                     } else {
-                        initMap(savedInstanceState)
+                        if (isOpen(applicationContext)) {
+
+                            initMap(savedInstanceState)
+                        } else {
+                            toast("请打开GPS")
+                        }
                     }
                 }
 
+
+    }
+
+    fun isOpen(context: Context): Boolean {
+        val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        // 通过GPS卫星定位，定位级别可以精确到街（通过24颗卫星定位，在室外和空旷的地方定位准确、速度快）
+        val gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        // 通过WLAN或移动网络(3G/2G)确定的位置（也称作AGPS，辅助GPS定位。主要用于在室内或遮盖物（建筑群或茂密的深林等）密集的地方定位）
+        val network = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+        return if (gps || network) {
+            true
+        } else false
 
     }
 
@@ -314,6 +372,7 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
     override fun onDestroy() {
         super.onDestroy()
         mMapView.onDestroy()
+        mModPersonalDataPresenter.detachView()
     }
 
     override fun onClick(v: View?) {
@@ -346,10 +405,18 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
 
             }
             R.id.mTvBorrow -> {
-                startActivity<ScanActivity>("type" to 0x10)
+                if (mHaveOrder) {
+                    toast(R.string.have_ing_order)
+                    return
+                }
+                mModPersonalDataPresenter.getUserDetail(0x12)
             }
             R.id.mTvRepay -> {
-                startActivity<ScanActivity>("type" to 0x11)
+                if (!mHaveOrder) {
+                    toast(R.string.not_ing_order)
+                    return
+                }
+                mModPersonalDataPresenter.getUserDetail(0x13)
             }
             R.id.mTvToWallet -> {
                 startActivity<MyWalletActivity>()
@@ -379,6 +446,7 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
         }
 
     }
+
 
     /**
      * 定位到當前位置(真實位置)

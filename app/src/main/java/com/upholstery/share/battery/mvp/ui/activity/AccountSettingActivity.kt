@@ -16,6 +16,7 @@ import com.upholstery.share.battery.mvp.ui.dialog.TipDialog
 import kotlinx.android.synthetic.main.activity_account_setting.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
+import java.util.*
 
 
 /**
@@ -26,6 +27,7 @@ import org.jetbrains.anko.toast
  */
 
 class AccountSettingActivity : BaseActivity(), View.OnClickListener {
+    private var mCurrentLanguage by Preference("language", "auto")
     private var mUserInfo by Preference(Constant.KEY_USER_INFO, "")
     override fun onClick(v: View?) {
         when (v?.id) {
@@ -67,6 +69,23 @@ class AccountSettingActivity : BaseActivity(), View.OnClickListener {
     override fun getLayoutId(): Int {
         return R.layout.activity_account_setting
 
+    }
+
+    override fun initData() {
+        super.initData()
+        when (mCurrentLanguage) {
+            "auto" -> {
+                mTvCurrentLanguage.text = getString(R.string.tracing_system)
+            }
+            Locale.SIMPLIFIED_CHINESE.language -> {
+                mTvCurrentLanguage.text = getString(R.string.simplified_chinese)
+            }
+            Locale.ENGLISH.language -> {
+                mTvCurrentLanguage.text = "English"
+            }
+            else -> {
+            }
+        }
     }
 
     override fun initView(savedInstanceState: Bundle?) {

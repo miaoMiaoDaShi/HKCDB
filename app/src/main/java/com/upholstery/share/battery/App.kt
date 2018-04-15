@@ -1,5 +1,6 @@
 package com.upholstery.share.battery
 
+import android.content.Context
 import cn.zcoder.xxp.base.BaseApplication
 import cn.zcoder.xxp.base.Configurator
 import cn.zcoder.xxp.base.net.RetrofitClient
@@ -15,6 +16,8 @@ import com.upholstery.share.battery.app.AuthInterceptor
  */
 
 class App : BaseApplication() {
+
+
     override fun onCreate() {
         super.onCreate()
         Utils.init(this)
