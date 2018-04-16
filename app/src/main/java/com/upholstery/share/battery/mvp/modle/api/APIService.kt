@@ -46,7 +46,7 @@ interface APIService {
                  @Field("realName") realname: String,
             //  @Field("password") pwd: String,
                  @Field("email") email: String,
-                 @Field("father_id") fatherId: String): Observable<BaseResponse>
+                 @Field("invitationCode") invitationCode: String): Observable<BaseResponse>
 
     /**
      * 獲取邀請用戶列表

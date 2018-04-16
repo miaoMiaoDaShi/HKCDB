@@ -25,6 +25,13 @@ class Constant {
          * 加载的范围
          */
         val LOAD_NEAR_THE_SITES_RANGE = "5"
+
+        /**
+         * stripe相关
+         */
+        val STRIPE_CUSTOMER_NAME = ""//name
+        val STRIPE_CUSTOMER_EMAIL = ""//email
+        val STRIPE_REDIRECT_ADDRESS = "upholstery://alipay"//回到activity的地址
     }
 }
 

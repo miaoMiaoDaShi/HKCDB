@@ -14,6 +14,8 @@ import com.upholstery.share.battery.mvp.ui.widgets.ToolBar
 import kotlinx.android.synthetic.main.activity_top_up.*
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.view.inputmethod.InputMethodManager
+import com.stripe.android.model.SourceParams
+import com.upholstery.share.battery.app.Constant
 
 
 /**
@@ -84,7 +86,7 @@ class TopUpActivity : BaseMvpActivity<MvpView, PayPresenter>(), View.OnClickList
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.mBtnTopUp -> {
-                if (mCbAgree.isChecked || !mEtCount.text.isEmpty()) {
+                if (mCbAgree.isChecked && !mEtCount.text.isEmpty()) {
                     closeKeyboard()
                     popTopUpWindow(v)
                 } else if (!mCbAgree.isChecked) {
@@ -150,5 +152,20 @@ class TopUpActivity : BaseMvpActivity<MvpView, PayPresenter>(), View.OnClickList
     override fun initData() {
         super.initData()
         getPresenter().getTopUpRule(0x10)
+    }
+
+    /**
+     * stripe.支付(支付宝)
+     * @param amount 人民币   分
+     */
+    private fun stripePayByAlipay(amount: Long) {
+        val sourceParams = SourceParams
+                .createAlipaySingleUseParams(
+                        amount,
+                        "RMB",
+                        Constant.STRIPE_CUSTOMER_NAME,
+                        Constant.STRIPE_CUSTOMER_EMAIL,
+                        Constant.STRIPE_REDIRECT_ADDRESS
+                )
     }
 }
