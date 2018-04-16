@@ -174,4 +174,6 @@
     <string name="have_ing_order">您當前有未結束的訂單</string>
     <string name="tracing_system">跟隨系統</string>
     <string name="simplified_chinese">簡體中文</string>
+    <string name="top_up_success">充值成功</string>
+    <string name="top_up_failed">充值失敗</string>
 </resources>

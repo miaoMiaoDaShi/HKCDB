@@ -1,5 +1,6 @@
 package com.upholstery.share.battery.mvp.ui.activity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.View
@@ -12,10 +13,25 @@ import com.upholstery.share.battery.mvp.presenter.PayPresenter
 import com.upholstery.share.battery.mvp.ui.dialog.SelectPayTypeToTopUpPop
 import com.upholstery.share.battery.mvp.ui.widgets.ToolBar
 import kotlinx.android.synthetic.main.activity_top_up.*
-import android.content.Context.INPUT_METHOD_SERVICE
+import android.os.Handler
+import android.os.Message
+import android.text.TextUtils
 import android.view.inputmethod.InputMethodManager
+import com.stripe.android.Stripe
 import com.stripe.android.model.SourceParams
 import com.upholstery.share.battery.app.Constant
+import cn.zcoder.xxp.base.ext.showDialog
+import cn.zcoder.xxp.base.ext.showSnackBar
+import cn.zcoder.xxp.base.net.RetrofitClient
+import com.upholstery.share.battery.mvp.ui.dialog.LoadingDialog
+import com.alipay.sdk.app.PayTask
+import com.stripe.android.exception.CardException
+import com.stripe.android.model.Source
+import io.reactivex.Observable
+import io.reactivex.ObservableEmitter
+import io.reactivex.ObservableOnSubscribe
+import io.reactivex.ObservableSource
+import timber.log.Timber
 
 
 /**
@@ -25,13 +41,41 @@ import com.upholstery.share.battery.app.Constant
  * Description :  充值页面
  */
 
+
 class TopUpActivity : BaseMvpActivity<MvpView, PayPresenter>(), View.OnClickListener {
+    private val SDK_PAY_FLAG = 0x10
+    private val mLoadingDialog by lazy {
+        LoadingDialog.getInstance(supportFragmentManager)
+    }
+    private val mHandler = @SuppressLint("HandlerLeak")
+    object : Handler() {
+        override fun handleMessage(msg: Message?) {
+            super.handleMessage(msg)
+            when (msg?.what) {
+                SDK_PAY_FLAG -> {
+                    val answer = msg.obj as Map<String, String>
+                    // The result info contains other information about the transaction
+                    val resultInfo = answer["result"]
+                    val resultStatus = answer["resultStatus"]
+                    if (TextUtils.equals(resultStatus, "9000")) {
+                        showSnackBar(R.string.top_up_success)
+                    } else {
+                        showSnackBar(R.string.top_up_failed)
+                    }
+                }
+                else -> {
+                }
+            }
+        }
+    }
+
     override fun showLoading(type: Int) {
         when (type) {
             0x10 -> {
                 mTvTopUpRule.text = getString(R.string.loading)
             }
             else -> {
+                showDialog(mLoadingDialog)
             }
         }
 
@@ -43,6 +87,7 @@ class TopUpActivity : BaseMvpActivity<MvpView, PayPresenter>(), View.OnClickList
 
             }
             else -> {
+                cn.zcoder.xxp.base.ext.dismissDialog(mLoadingDialog)
             }
         }
     }
@@ -53,6 +98,7 @@ class TopUpActivity : BaseMvpActivity<MvpView, PayPresenter>(), View.OnClickList
                 mTvTopUpRule.text = getString(R.string.load_error)
             }
             else -> {
+                showSnackBar(e)
             }
         }
     }
@@ -75,6 +121,12 @@ class TopUpActivity : BaseMvpActivity<MvpView, PayPresenter>(), View.OnClickList
                     rules.append("充${it.amount / 100}元,送${it.give / 100}元").append("\n")
                 }
                 mTvTopUpRule.text = rules.toString()
+            }
+            0 -> {//微信
+
+            }
+            1 -> {//支付寶
+                stripePayByAlipay(mMoneyPoint)
             }
             else -> {
             }
@@ -105,18 +157,22 @@ class TopUpActivity : BaseMvpActivity<MvpView, PayPresenter>(), View.OnClickList
         mBtnTopUp.setOnClickListener(this)
     }
 
+    private var mMoneyPoint = 0
     private fun popTopUpWindow(v: View) {
 //充值金額 元
         val money = mEtCount.text.toString().toFloat()
         val selectPayTypePop = SelectPayTypeToTopUpPop(money, this)
-        selectPayTypePop.setPayTypeListener({ toAliPay() }, { toWeChatPay() }, { bankCardPay() })
+        val moneyPoint = (money * 100).toInt()
+        mMoneyPoint = moneyPoint
+        selectPayTypePop.setPayTypeListener({ toAliPay(moneyPoint) }, { toWeChatPay(moneyPoint) },
+                { bankCardPay(moneyPoint) })
         selectPayTypePop.showAsDropDown(v)
     }
 
     /**
      * 銀行卡  信用卡支付
      */
-    private fun bankCardPay() {
+    private fun bankCardPay(moneyPoint: Int) {
 
 
     }
@@ -124,16 +180,16 @@ class TopUpActivity : BaseMvpActivity<MvpView, PayPresenter>(), View.OnClickList
     /**
      * 微信支付
      */
-    private fun toWeChatPay() {
+    private fun toWeChatPay(moneyPoint: Int) {
 
-        getPresenter().topUpToWallet((mEtCount.text.toString().toFloat() * 100).toInt(), 0)
+        getPresenter().topUpToWallet(moneyPoint, 0)
     }
 
     /**
      * 支付寶支付
      */
-    private fun toAliPay() {
-        getPresenter().topUpToWallet((mEtCount.text.toString().toFloat() * 100).toInt(), 1)
+    private fun toAliPay(moneyPoint: Int) {
+        getPresenter().topUpToWallet(moneyPoint, 1)
 
     }
 
@@ -158,14 +214,51 @@ class TopUpActivity : BaseMvpActivity<MvpView, PayPresenter>(), View.OnClickList
      * stripe.支付(支付宝)
      * @param amount 人民币   分
      */
-    private fun stripePayByAlipay(amount: Long) {
-        val sourceParams = SourceParams
-                .createAlipaySingleUseParams(
-                        amount,
-                        "RMB",
-                        Constant.STRIPE_CUSTOMER_NAME,
-                        Constant.STRIPE_CUSTOMER_EMAIL,
-                        Constant.STRIPE_REDIRECT_ADDRESS
-                )
+    private fun stripePayByAlipay(amount: Int) {
+        Observable.create(ObservableOnSubscribe<Source> {
+            val sourceParams = SourceParams
+                    .createAlipaySingleUseParams(
+                            amount.toLong(),
+                            "HKD",
+                            Constant.STRIPE_CUSTOMER_NAME,
+                            Constant.STRIPE_CUSTOMER_EMAIL,
+                            Constant.STRIPE_REDIRECT_ADDRESS
+                    )
+
+            val source = Stripe(applicationContext)
+                    .createSourceSynchronous(sourceParams, Constant.STRIPE_PUBLISHABLE_KEY)
+            it.onNext(source)
+        })
+                .compose(RetrofitClient.getDefaultTransformer())
+                .subscribe({
+                    invokeAlipayNative(it as Source)
+                }, {
+                    Timber.e(it)
+                    showSnackBar(R.string.top_up_failed)
+                })
+    }
+
+
+    private fun invokeAlipayNative(source: Source) {
+        val alipayParams = source.getSourceTypeData()
+        val dataString = alipayParams.get("data_string") as String
+
+        val payRunnable = Runnable {
+            // The PayTask class is from the Alipay SDK. Do not run this function
+            // on the main thread.
+            val alipay = PayTask(this)
+            // Invoking this function immediately takes the user to the Alipay
+            // app, if in stalled. If not, the user is sent to the browser.
+            val result = alipay.payV2(dataString, true)
+
+            // Once you get the result, communicate it back to the main thread
+            val msg = Message()
+            msg.what = SDK_PAY_FLAG
+            msg.obj = result
+            mHandler.sendMessage(msg)
+        }
+
+        val payThread = Thread(payRunnable)
+        payThread.start()
     }
 }

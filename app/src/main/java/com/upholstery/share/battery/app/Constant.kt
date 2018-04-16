@@ -29,9 +29,10 @@ class Constant {
         /**
          * stripe相关
          */
-        val STRIPE_CUSTOMER_NAME = ""//name
-        val STRIPE_CUSTOMER_EMAIL = ""//email
+        val STRIPE_CUSTOMER_NAME = "Paul Kei"//name
+        val STRIPE_CUSTOMER_EMAIL = "paul.kei@gaadme.com"//email
         val STRIPE_REDIRECT_ADDRESS = "upholstery://alipay"//回到activity的地址
+        val STRIPE_PUBLISHABLE_KEY = "pk_live_JiZpMtKEH6KvTbWEBkf8B9ZA"//回到activity的地址
     }
 }
 
