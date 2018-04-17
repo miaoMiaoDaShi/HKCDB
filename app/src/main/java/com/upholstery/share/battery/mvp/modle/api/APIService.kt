@@ -195,6 +195,24 @@ interface APIService {
                        @Query("distance") distance: String): Observable<NearTheSitesResponse>
 
     /**
+     * 报失
+     */
+    @POST("deviceController/lostDevice")
+    @FormUrlEncoded
+    fun lostDevice(@Field("orderno")orderno:String):Observable<BaseResponse>
+
+    /**
+     * 报损
+     */
+    @POST("deviceController/errorDevice")
+    @FormUrlEncoded
+    fun breakageDevice(@Field("sno")sno:String,
+                       @Field("desc")desc:String,
+                       @Field("orderno")orderno:String,
+                       @Field("image")image:String
+    ):Observable<BaseResponse>
+
+    /**
      * 获取附近网点详情
      */
     @GET("deviceController/getHomeDetail")

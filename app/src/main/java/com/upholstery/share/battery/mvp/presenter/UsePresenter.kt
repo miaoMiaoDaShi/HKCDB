@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
  * Time :  2018/4/4
  * Description : 使用
  */
-open class UsePresenter : RxPresenter<MvpView>() {
+open class UsePresenter : UploadImageFilePresenter() {
     /**
      * 正在使用的(最新订单)
      */
@@ -50,6 +50,40 @@ open class UsePresenter : RxPresenter<MvpView>() {
      */
     fun openFreightSpace(sno: String, type: Int) {
         addSubscribe(getApi().openFreightSpace(sno)
+                .compose(RetrofitClient.getDefaultTransformer(getView(), type))
+                .subscribe({
+                    if ((it as BaseResponse).isOk) {
+                        getView().handlerSuccess(type, it)
+                    } else throw RuntimeException(it.resmsg)
+                }, {
+                    getView().handlerError(type, it.message!!)
+                }))
+    }
+
+    /**
+     * 设备报失
+     */
+    fun lostDevice(orderNo: String, type: Int) {
+        addSubscribe(getApi().lostDevice(orderNo)
+                .compose(RetrofitClient.getDefaultTransformer(getView(), type))
+                .subscribe({
+                    if ((it as BaseResponse).isOk) {
+                        getView().handlerSuccess(type, it)
+                    } else throw RuntimeException(it.resmsg)
+                }, {
+                    getView().handlerError(type, it.message!!)
+                }))
+    }
+
+    /**
+     * 设备报损
+     */
+    fun breakageDevice(sno: String, desc: String, orderno: String, image: String, type: Int) {
+        if(desc.isEmpty()||image.isEmpty()){
+            getView().handlerError(0x12,"")
+            return
+        }
+        addSubscribe(getApi().breakageDevice(sno, desc, orderno, image)
                 .compose(RetrofitClient.getDefaultTransformer(getView(), type))
                 .subscribe({
                     if ((it as BaseResponse).isOk) {

@@ -48,7 +48,7 @@ class BorrowRecordActivity : BaseMvpActivity<MvpView, BorrowRecordPresenter>(),
         /**
          * 传入  id  进行详细信息查询
          */
-        startActivity<BorrowRecordDetailActivity>("type" to 0x11,"id" to data.id)
+        startActivity<BorrowRecordDetailActivity>("type" to 0x11, "id" to data.id)
     }
 
     private lateinit var mAdapter: BaseQuickAdapter<BorrowRecordResponse.DataBean, BaseViewHolder>
@@ -73,6 +73,11 @@ class BorrowRecordActivity : BaseMvpActivity<MvpView, BorrowRecordPresenter>(),
             else -> {
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getPresenter().getBorrowRecord(0x10)
     }
 
     override fun handlerError(type: Int, e: String) {
@@ -134,7 +139,7 @@ class BorrowRecordActivity : BaseMvpActivity<MvpView, BorrowRecordPresenter>(),
                         .setText(R.id.tvUseTime, "${item.used}分")
                         .setText(R.id.tvMoney, String.format("%.2f", item.cost / 100.0))
                         .setText(R.id.tvOperation, types[item.statusX - 1])
-                        .setTextColor(R.id.tvOperation, typeColors[item.statusX -1])
+                        .setTextColor(R.id.tvOperation, typeColors[item.statusX - 1])
             }
         }
         mRvBorrowRecord.adapter = mAdapter
