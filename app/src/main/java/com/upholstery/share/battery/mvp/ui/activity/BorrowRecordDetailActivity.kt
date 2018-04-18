@@ -1,11 +1,9 @@
 package com.upholstery.share.battery.mvp.ui.activity
 
 import android.annotation.SuppressLint
+import android.os.Bundle
 import android.view.View
-import cn.zcoder.xxp.base.ext.onClick
-import cn.zcoder.xxp.base.ext.showDialog
-import cn.zcoder.xxp.base.ext.showSnackBar
-import cn.zcoder.xxp.base.ext.toast
+import cn.zcoder.xxp.base.ext.*
 import cn.zcoder.xxp.base.mvp.ui.MvpView
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseMvpActivity
 import com.upholstery.share.battery.R
@@ -13,7 +11,9 @@ import com.upholstery.share.battery.mvp.modle.entity.BorrowRecordDetailResponse
 import com.upholstery.share.battery.mvp.presenter.BorrowRecordDetailPresenter
 import com.upholstery.share.battery.mvp.presenter.UsePresenter
 import com.upholstery.share.battery.mvp.ui.dialog.LoadingDialog
+import com.upholstery.share.battery.mvp.ui.widgets.ToolBar
 import kotlinx.android.synthetic.main.activity_borrow_record_detail.*
+import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 
 
@@ -102,11 +102,18 @@ class BorrowRecordDetailActivity : BaseMvpActivity<MvpView, BorrowRecordDetailPr
         when (type) {
             0x10 -> {
                 mBorrowRecordDetailResponse = data as BorrowRecordDetailResponse
+                if (data.data[0].statusX==1) {
+                    mTvBreakage.visible(true)
+                    mTvReportTheLoss.visible(true)
+                }
+                if (data.data[0].statusX==2) {
+                    mBtnToPay.visible(true)
+                }
                 val borrowRecordDetail = data.data[0]
 
                 //订单状态
                 tvUseStatus.text = types[borrowRecordDetail.statusX - 1]
-                tvUseStatus.setTextColor(typeColors[borrowRecordDetail.statusX - 1])
+                tvUseStatus.setTextColor(getColor(typeColors[borrowRecordDetail.statusX - 1]))
                 //使用时长
                 tvUseTime.text = "${borrowRecordDetail.used}分钟"
                 //费用
@@ -120,7 +127,7 @@ class BorrowRecordDetailActivity : BaseMvpActivity<MvpView, BorrowRecordDetailPr
 
             }
             0x11 -> {
-                toast(R.string.commit_success)
+                toast(R.string.breakage_success)
                 finish()
             }
             else -> {
@@ -129,6 +136,12 @@ class BorrowRecordDetailActivity : BaseMvpActivity<MvpView, BorrowRecordDetailPr
 
     }
 
+    override fun initView(savedInstanceState: Bundle?) {
+        super.initView(savedInstanceState)
+        find<ToolBar>(R.id.mToolBar)
+                .setOnLeftImageListener { finish() }
+                .setTitle(R.string.order_detail)
+    }
     override fun createPresenter(): BorrowRecordDetailPresenter {
         mUsePresenter.attachView(this)
         return BorrowRecordDetailPresenter()

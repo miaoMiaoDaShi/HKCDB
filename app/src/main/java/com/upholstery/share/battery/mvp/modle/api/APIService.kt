@@ -135,7 +135,7 @@ interface APIService {
      * 位仓状态：0-空闲 1-有设备 2-报修 3-开启成功 4-设备摆放位置不正确
      */
     @GET("deviceController/returnOne")
-    fun openFreightSpace(@Query("sno")sno:String):Observable<OpenFreightSpaceResponse>
+    fun openFreightSpace(@Query("sno") sno: String): Observable<OpenFreightSpaceResponse>
 
     /**
      * 优惠卷列表  0-未使用 1-已使用 2-已过期 3-全部（默认）
@@ -199,18 +199,18 @@ interface APIService {
      */
     @POST("deviceController/lostDevice")
     @FormUrlEncoded
-    fun lostDevice(@Field("orderno")orderno:String):Observable<BaseResponse>
+    fun lostDevice(@Field("orderno") orderno: String): Observable<BaseResponse>
 
     /**
      * 报损
      */
     @POST("deviceController/errorDevice")
     @FormUrlEncoded
-    fun breakageDevice(@Field("sno")sno:String,
-                       @Field("desc")desc:String,
-                       @Field("orderno")orderno:String,
-                       @Field("image")image:String
-    ):Observable<BaseResponse>
+    fun breakageDevice(@Field("sno") sno: String,
+                       @Field("desc") desc: String,
+                       @Field("orderno") orderno: String,
+                       @Field("image") image: String
+    ): Observable<BaseResponse>
 
     /**
      * 获取附近网点详情
@@ -261,6 +261,12 @@ interface APIService {
      */
     @GET("personController/queryBorrow")
     fun getBorrowRecord(@Query("page") page: Int): Observable<BorrowRecordResponse>
+
+    /**
+     * 獲取使用記錄詳情
+     */
+    @GET("personController/queryBorrowDetail")
+    fun getBorrowRecordDetail(@Query("id") id: Int): Observable<BorrowRecordDetailResponse>
 
     /**
      * 上傳文件

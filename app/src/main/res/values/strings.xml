@@ -176,4 +176,8 @@
     <string name="simplified_chinese">簡體中文</string>
     <string name="top_up_success">充值成功</string>
     <string name="top_up_failed">充值失敗</string>
+    <string name="no_more_data">沒有更多數據了</string>
+    <string name="order_detail">訂單詳情</string>
+    <string name="breakage_success">報損成功</string>
+    <string name="check_order_ing">請等待...</string>
 </resources>

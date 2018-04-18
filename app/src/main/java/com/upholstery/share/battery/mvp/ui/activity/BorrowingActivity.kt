@@ -9,6 +9,7 @@ import cn.zcoder.xxp.base.ext.visible
 import cn.zcoder.xxp.base.mvp.ui.MvpView
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseMvpActivity
 import com.upholstery.share.battery.R
+import com.upholstery.share.battery.mvp.modle.entity.OpenFreightSpaceResponse
 import com.upholstery.share.battery.mvp.modle.entity.UsingOrderResponse
 import com.upholstery.share.battery.mvp.presenter.UsePresenter
 import com.upholstery.share.battery.mvp.ui.widgets.ToolBar
@@ -74,11 +75,16 @@ class BorrowingActivity : BaseMvpActivity<MvpView, UsePresenter>() {
             0x11 -> {
                 data as UsingOrderResponse
                 if (data.data.statusX == 1) {
-                    toast(R.string.borrow_success)
-                    startActivity<BorrowRecordDetailActivity>("type" to 0x10, "id" to data.data.id)
-                    finish()
+                    getPresenter().openFreightSpace(data.data.sno,0x12)
+
                 }
 
+            }
+            0x12->{
+                data as OpenFreightSpaceResponse
+                toast(R.string.borrow_success)
+                startActivity<BorrowRecordDetailActivity>("type" to 0x10, "id" to data.data.id)
+                finish()
             }
             else -> {
             }

@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.net.Uri
+import android.os.Bundle
 import android.view.View
 import cn.zcoder.xxp.base.app.GlideImageEngine
 import cn.zcoder.xxp.base.ext.load
@@ -19,10 +20,12 @@ import com.upholstery.share.battery.app.getRealFilePath
 import com.upholstery.share.battery.mvp.modle.entity.UploadImageResponse
 import com.upholstery.share.battery.mvp.presenter.UsePresenter
 import com.upholstery.share.battery.mvp.ui.dialog.LoadingDialog
+import com.upholstery.share.battery.mvp.ui.widgets.ToolBar
 import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
 import com.zhihu.matisse.internal.entity.CaptureStrategy
 import kotlinx.android.synthetic.main.activity_breakage.*
+import org.jetbrains.anko.find
 import timber.log.Timber
 
 /**
@@ -41,6 +44,12 @@ class BreakageActivity : BaseMvpActivity<MvpView, UsePresenter>(), View.OnClickL
         LoadingDialog.getInstance(supportFragmentManager)
     }
 
+    override fun initView(savedInstanceState: Bundle?) {
+        super.initView(savedInstanceState)
+        find<ToolBar>(R.id.mToolBar)
+                .setTitle(R.string.breakage)
+                .setOnLeftImageListener { finish() }
+    }
     override fun getLayoutId(): Int = R.layout.activity_breakage
 
     override fun showLoading(type: Int) {

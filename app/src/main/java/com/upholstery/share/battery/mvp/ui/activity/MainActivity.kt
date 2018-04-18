@@ -120,6 +120,7 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
             0x10 -> {
 
             }
+            0x14, 0x15 -> toast(R.string.check_order_ing)
             else -> {
             }
         }
@@ -181,7 +182,8 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
             0x12 -> {
                 data as UserDetailResponse
                 if (data.data.money > 0) {
-                    startActivity<ScanActivity>("type" to 0x10)
+                    getPresenter().getUsingRecord(0x14)
+
                 } else {
                     showDialog(mWarningDialog)
                 }
@@ -189,10 +191,35 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
             0x13 -> {
                 data as UserDetailResponse
                 if (data.data.money > 0) {
-                    startActivity<ScanActivity>("type" to 0x11)
+                    getPresenter().getUsingRecord(0x15)
                 } else {
                     showDialog(mWarningDialog)
                 }
+            }
+            0x14 -> {
+                //借还状态：0-初始化 1-使用中 2-待支付  3-已完成  4-报失 5-报损',
+                data as UsingOrderResponse
+                data.data?.let {
+                    mTvUsing.visible(data.data.statusX == 1)
+                    if (data.data.statusX == 1) {
+                        toast(R.string.have_ing_order)
+                        return
+                    }
+                }
+
+                startActivity<ScanActivity>("type" to 0x10)
+            }
+            0x15 -> {
+                //借还状态：0-初始化 1-使用中 2-待支付  3-已完成  4-报失 5-报损',
+                data as UsingOrderResponse
+                data.data?.let {
+                    mTvUsing.visible(data.data.statusX == 1)
+                    if (data.data.statusX != 1) {
+                        toast(R.string.not_ing_order)
+                        return
+                    }
+                }
+                startActivity<ScanActivity>("type" to 0x11)
             }
             else -> {
 
@@ -405,17 +432,9 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
 
             }
             R.id.mTvBorrow -> {
-                if (mHaveOrder) {
-                    toast(R.string.have_ing_order)
-                    return
-                }
                 mModPersonalDataPresenter.getUserDetail(0x12)
             }
             R.id.mTvRepay -> {
-                if (!mHaveOrder) {
-                    toast(R.string.not_ing_order)
-                    return
-                }
                 mModPersonalDataPresenter.getUserDetail(0x13)
             }
             R.id.mTvToWallet -> {

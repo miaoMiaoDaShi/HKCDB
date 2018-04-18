@@ -68,7 +68,6 @@ class BorrowRecordActivity : BaseMvpActivity<MvpView, BorrowRecordPresenter>(),
     override fun dismissLoading(type: Int) {
         when (type) {
             0x10 -> mSwipeRefreshBorrowRecord.isRefreshing = false
-            0x11 -> mAdapter.loadMoreComplete()
 
             else -> {
             }
@@ -77,7 +76,10 @@ class BorrowRecordActivity : BaseMvpActivity<MvpView, BorrowRecordPresenter>(),
 
     override fun onResume() {
         super.onResume()
-        getPresenter().getBorrowRecord(0x10)
+        mSwipeRefreshBorrowRecord.post {
+            mSwipeRefreshBorrowRecord.isRefreshing = true
+            onRefresh()
+        }
     }
 
     override fun handlerError(type: Int, e: String) {
@@ -92,12 +94,29 @@ class BorrowRecordActivity : BaseMvpActivity<MvpView, BorrowRecordPresenter>(),
     }
 
     override fun handlerSuccess(type: Int, data: Any) {
-        if ((data as BorrowRecordResponse).data.isEmpty()) {
-            showSnackBar(R.string.no_data, Snackbar.LENGTH_INDEFINITE)
-        }
+        data as BorrowRecordResponse
+
         when (type) {
-            0x10 -> mAdapter.replaceData(data.data)
-            0x11 -> mAdapter.addData(data.data)
+            0x10 -> {
+
+                if (data.data.isEmpty()) {
+                    showSnackBar(R.string.no_data, Snackbar.LENGTH_INDEFINITE)
+                    mAdapter.loadMoreEnd()
+                    return
+                }
+                mAdapter.replaceData(data.data)
+
+            }
+            0x11 -> {
+                if (data.data.isEmpty()) {
+                    //showSnackBar(R.string.no_more_data, Snackbar.LENGTH_SHORT)
+                    mAdapter.loadMoreEnd()
+                    return
+                }
+                mAdapter.addData(data.data)
+                mAdapter.loadMoreComplete()
+
+            }
             else -> {
             }
         }
@@ -115,10 +134,7 @@ class BorrowRecordActivity : BaseMvpActivity<MvpView, BorrowRecordPresenter>(),
                 .setTitle(R.string.use_record)
                 .setOnLeftImageListener { finish() }
         mSwipeRefreshBorrowRecord.setOnRefreshListener(this)
-        mSwipeRefreshBorrowRecord.post {
-            mSwipeRefreshBorrowRecord.isRefreshing = true
-            onRefresh()
-        }
+
         initRecycler()
     }
 
@@ -133,13 +149,14 @@ class BorrowRecordActivity : BaseMvpActivity<MvpView, BorrowRecordPresenter>(),
         mRvBorrowRecord.layoutManager = LinearLayoutManager(applicationContext)
 
         mAdapter = object : BaseQuickAdapter<BorrowRecordResponse.DataBean, BaseViewHolder>(R
-                .layout.activity_borrow_record) {
+                .layout.recycler_borrow_recode) {
             override fun convert(helper: BaseViewHolder, item: BorrowRecordResponse.DataBean) {
                 helper.setText(R.id.tvCreatTime, TimeUtils.millis2String(item.createTime, SimpleDateFormat(" yyyy-MM-dd")))
                         .setText(R.id.tvUseTime, "${item.used}分")
                         .setText(R.id.tvMoney, String.format("%.2f", item.cost / 100.0))
                         .setText(R.id.tvOperation, types[item.statusX - 1])
-                        .setTextColor(R.id.tvOperation, typeColors[item.statusX - 1])
+                        .setTextColor(R.id.tvOperation, getColor(typeColors[item.statusX - 1]))
+                        .addOnClickListener(R.id.tvOperation)
             }
         }
         mRvBorrowRecord.adapter = mAdapter
