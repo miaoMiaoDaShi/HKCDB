@@ -70,7 +70,7 @@
     <string name="repay">還電</string>
     <string name="disagree_permission">拒絕相關權限,軟件無法正常使用!</string>
     <string name="twice_click_to_exit">再按一次退出~</string>
-    <string name="input_top_up_count">輸入充值金額</string>
+    <string name="input_top_up_count">輸入充值金額,不得小于31.39港元</string>
     <string name="top_up_rule">充值規則:</string>
     <string name="top_up_protocol">《充值協議》</string>
     <string name="pay">支付</string>
@@ -180,4 +180,8 @@
     <string name="order_detail">訂單詳情</string>
     <string name="breakage_success">報損成功</string>
     <string name="check_order_ing">請等待...</string>
+    <string name="pay_success">支付成功</string>
+    <string name="pay_failed">支付失敗</string>
+    <string name="format_pay_btn">確認支付$%.2f元</string>
+    <string name="format_pay_money">$ %.2f</string>
 </resources>

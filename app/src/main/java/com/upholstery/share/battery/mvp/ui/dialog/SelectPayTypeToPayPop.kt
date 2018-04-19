@@ -22,35 +22,87 @@ import org.jetbrains.anko.find
  * Description : 支付的時候選擇支付的type
  */
 
-class SelectPayTypeToPayPop(money: Double, context: Context) : BasePopupWindow(context) {
+class SelectPayTypeToPayPop(var money: Long, val point: Int, context: Context) : BasePopupWindow(context) {
     val mDefaultPay by Preference("defaultPayType", 0)
+
+    private var mCurrentMoney = 0L
+    /**
+     * 支付
+     */
+    private var mToPay: ((type: Int,money:Long) -> Unit)? = null
+    /**
+     * 优惠券选择
+     */
+    private var mToSelectCoupon: (() -> Unit)? = null
+
+    public fun setListener(toPay: (type: Int,money:Long) -> Unit, toSelectCoupon: () -> Unit) {
+        mToPay = toPay
+        mToSelectCoupon = toSelectCoupon
+    }
+
+    /**
+     * 选择优惠后调用这个方法  刷新金额
+     */
+    public fun resetMoney(newMoney: Long) {
+        val tvCount = contentView.find<TextView>(R.id.tvCount)
+        tvCount.text = String.format(context.getString(R.string.format_pay_money), newMoney / 100.0)
+
+        val btnCount = contentView.find<Button>(R.id.btnCount)
+        btnCount.text = String.format(context.getString(R.string.format_pay_btn), newMoney / 100.0)
+    }
+
+    public fun reduceMoney(newMoney: Long) {
+        mCurrentMoney = mCurrentMoney - newMoney
+        resetMoney(mCurrentMoney)
+    }
 
     init {
         val contentView = LayoutInflater.from(context).inflate(R.layout.pop_pay, null)
+        setContentView(contentView)
         contentView.find<ImageView>(R.id.ivClose).onClick {
             dismiss()
         }
 
+        resetMoney(money)
         contentView.find<RelativeLayout>(R.id.rlSelectCoupon).onClick {
             //去選擇優惠券的頁面
+            mToSelectCoupon?.let {
+                it.invoke()
+            }
         }
+        contentView.find<CheckBox>(R.id.checkbox).setOnCheckedChangeListener { compoundButton, b ->
+            if (b) {
+                mCurrentMoney = money - point
+            } else {
+                mCurrentMoney = money
+            }
 
+            resetMoney(mCurrentMoney)
+
+        }
         contentView.find<RelativeLayout>(R.id.rlUseCredits).onClick {
             contentView.find<CheckBox>(R.id.checkbox).toggle()
         }
 
-        val tvCount = contentView.find<TextView>(R.id.tvCount)
-        tvCount.text = String.format(tvCount.text.toString(), money)
-
-        val btnCount = contentView.find<Button>(R.id.btnCount)
-        btnCount.text = String.format(btnCount.text.toString(), money)
 
         val rvPayType = contentView.find<RecyclerView>(R.id.mRvPayType)
-        var payTypes = mutableListOf(PayTypeInfo(0,context.getString(R.string.pay_alipay), R.drawable.ic_pay_alipay, false),
-                PayTypeInfo(1,context.getString(R.string.pay_we_char), R.drawable.ic_pay_wechar, false),
-                PayTypeInfo(2,context.getString(R.string.pay_bank_card), R.drawable.ic_pay_bank_card, false))
+        var payTypes = mutableListOf(PayTypeInfo(0, context.getString(R.string.pay_alipay), R.drawable.ic_pay_alipay, false),
+                PayTypeInfo(1, context.getString(R.string.pay_we_char), R.drawable.ic_pay_wechar, false),
+                PayTypeInfo(2, context.getString(R.string.pay_bank_card), R.drawable.ic_pay_bank_card, false))
 
         payTypes[mDefaultPay].selected = true
+
+        contentView.find<Button>(R.id.btnCount).onClick {
+            var payType = 0
+            payTypes.forEach {
+                if (it.selected) {
+                    payType = it.position
+                }
+            }
+            mToPay?.let {
+                it.invoke(payType,mCurrentMoney)
+            }
+        }
 
         rvPayType.layoutManager = LinearLayoutManager(context)
         val adapter = object : BaseQuickAdapter<PayTypeInfo, BaseViewHolder>(R.layout.recycler_recycle_pay_type, payTypes) {
@@ -75,9 +127,10 @@ class SelectPayTypeToPayPop(money: Double, context: Context) : BasePopupWindow(c
             adapter.notifyDataSetChanged()
         }
         rvPayType.adapter = adapter
-        setContentView(contentView)
         width = ViewGroup.LayoutParams.MATCH_PARENT
         height = ViewGroup.LayoutParams.WRAP_CONTENT
 
     }
+
+
 }

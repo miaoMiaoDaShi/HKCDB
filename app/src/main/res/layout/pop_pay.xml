@@ -45,7 +45,7 @@
                 android:layout_height="120px"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
-                android:text="$ %.2f"
+                android:text="@string/format_pay_money"
                 android:textColor="@android:color/black"
                 android:textSize="24sp"/>
 
@@ -113,7 +113,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="20px"
             android:background="@drawable/bg_btn_yellow_true"
-            android:text="確認支付$%.2f元"
+            android:text="@string/format_pay_btn"
             android:textColor="@android:color/black"
             android:textSize="15sp"/>
     </LinearLayout>

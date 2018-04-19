@@ -274,4 +274,50 @@ interface APIService {
     @Multipart
     @POST("systemController/uploadImage")
     fun uploadImageFile(@Part file: MultipartBody.Part): Observable<UploadImageResponse>
+
+    /**
+     * 餘額支付
+     */
+    @POST("walletController/pay")
+    @FormUrlEncoded
+    fun payByWallet(@Field("orderno") orderno: String,
+                    @Field("payType") payType: Int = 3,
+                    @Field("point") point: Int,
+                    @Field("cuponId") cuponId: Int
+    ): Observable<PayByWalletResponse>
+
+    /**
+     * 支付寶支付
+     */
+    @POST("walletController/pay")
+    @FormUrlEncoded
+    fun payByAlipay(@Field("orderno") orderno: String,
+                    @Field("payType") payType: Int = 1,
+                    @Field("point") point: Int,
+                    @Field("cuponId") cuponId: Int
+    ): Observable<PayByAlipayResponse>
+
+    /**
+     * 微信支付
+     */
+    @POST("walletController/pay")
+    @FormUrlEncoded
+    fun payByWechar(@Field("orderno") orderno: String,
+                    @Field("payType") payType: Int = 0,
+                    @Field("point") point: Int,
+                    @Field("cuponId") cuponId: Int
+    ): Observable<PayByWeChatResponse>
+
+    /**
+     * 信用卡(支付)
+     */
+    @POST("walletController/pay")
+    @FormUrlEncoded
+    fun payBybankCard(@Field("orderno") orderno: String,
+                      @Field("payType") payType: Int = 0,
+                      @Field("point") point: Int,
+                      @Field("cuponId") cuponId: Int,
+                      @Field("backToken") backToken: String,
+                      @Field("currency") currency: String
+    ): Observable<PayByBankCard>
 }

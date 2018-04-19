@@ -87,7 +87,7 @@ class TopUpActivity : BaseMvpActivity<MvpView, PayPresenter>(), View.OnClickList
 
             }
             else -> {
-                cn.zcoder.xxp.base.ext.dismissDialog(mLoadingDialog)
+
             }
         }
     }
@@ -123,9 +123,10 @@ class TopUpActivity : BaseMvpActivity<MvpView, PayPresenter>(), View.OnClickList
                 mTvTopUpRule.text = rules.toString()
             }
             0 -> {//微信
-
+                mSelectPayTypePop.dismiss()
             }
             1 -> {//支付寶
+                mSelectPayTypePop.dismiss()
                 stripePayByAlipay(mMoneyPoint)
             }
             else -> {
@@ -158,15 +159,16 @@ class TopUpActivity : BaseMvpActivity<MvpView, PayPresenter>(), View.OnClickList
     }
 
     private var mMoneyPoint = 0
+    private lateinit var mSelectPayTypePop:SelectPayTypeToTopUpPop
     private fun popTopUpWindow(v: View) {
 //充值金額 元
         val money = mEtCount.text.toString().toFloat()
-        val selectPayTypePop = SelectPayTypeToTopUpPop(money, this)
+        mSelectPayTypePop = SelectPayTypeToTopUpPop(money, this)
         val moneyPoint = (money * 100).toInt()
         mMoneyPoint = moneyPoint
-        selectPayTypePop.setPayTypeListener({ toAliPay(moneyPoint) }, { toWeChatPay(moneyPoint) },
+        mSelectPayTypePop.setPayTypeListener({ toAliPay(moneyPoint) }, { toWeChatPay(moneyPoint) },
                 { bankCardPay(moneyPoint) })
-        selectPayTypePop.showAsDropDown(v)
+        mSelectPayTypePop.showAsDropDown(v)
     }
 
     /**
@@ -216,25 +218,32 @@ class TopUpActivity : BaseMvpActivity<MvpView, PayPresenter>(), View.OnClickList
      */
     private fun stripePayByAlipay(amount: Int) {
         Observable.create(ObservableOnSubscribe<Source> {
-            val sourceParams = SourceParams
-                    .createAlipaySingleUseParams(
-                            amount.toLong(),
-                            "HKD",
-                            Constant.STRIPE_CUSTOMER_NAME,
-                            Constant.STRIPE_CUSTOMER_EMAIL,
-                            Constant.STRIPE_REDIRECT_ADDRESS
-                    )
+            try {
+                val sourceParams = SourceParams
+                        .createAlipaySingleUseParams(
+                                amount.toLong(),
+                                "HKD",
+                                Constant.STRIPE_CUSTOMER_NAME,
+                                Constant.STRIPE_CUSTOMER_EMAIL,
+                                Constant.STRIPE_REDIRECT_ADDRESS
+                        )
 
-            val source = Stripe(applicationContext)
-                    .createSourceSynchronous(sourceParams, Constant.STRIPE_PUBLISHABLE_KEY)
-            it.onNext(source)
+                val source = Stripe(applicationContext)
+                        .createSourceSynchronous(sourceParams, Constant.STRIPE_PUBLISHABLE_KEY)
+                it.onNext(source)
+            } catch (e: Exception) {
+                it.onError(e)
+            }
         })
                 .compose(RetrofitClient.getDefaultTransformer())
+                .doFinally {
+                    cn.zcoder.xxp.base.ext.dismissDialog(mLoadingDialog)
+                }
                 .subscribe({
                     invokeAlipayNative(it as Source)
                 }, {
                     Timber.e(it)
-                    showSnackBar(R.string.top_up_failed)
+                    toast(R.string.top_up_failed)
                 })
     }
 

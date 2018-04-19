@@ -50,8 +50,10 @@ class ReturnPowerBankActivity : BaseMvpActivity<MvpView, UsePresenter>() {
     }
 
     private fun setViewByFailed() {
+        mProBar.visible(false)
+        mRlContentBlock.visible(true)
         mStatus = 1
-        mIvStatus.drawable.level = 1
+        mIvStatus.drawable.level = 0
         mTvHint.text = getString(R.string.return_power_bank_failed)
         mBtnConfirm.text = getText(R.string.twice_scan)
     }
@@ -84,19 +86,30 @@ class ReturnPowerBankActivity : BaseMvpActivity<MvpView, UsePresenter>() {
                 /**
                  * 如果不是待支付状态  就继续 查   查5次
                  */
-                if (data.data.statusX != 2) {
-                    if (mTryCount > 5) {
-                        setViewByFailed()
-                        return
+                data.data?.let {
+                    if (it.statusX != 2) {
+                        if (mTryCount > 5) {
+                            setViewByFailed()
+                            return
+                        }
+                        mTryCount++
+                        mHandler.postDelayed(mRunable, 5_000)
+                    } else {
+                        mStatus = 0
+                        mIvStatus.drawable.level = 2
+                        mTvHint.text = getString(R.string.please_insert_the_charger_into_the_open_position)
+                        mBtnConfirm.text = getText(R.string.to_pay_order)
                     }
-                    mTryCount++
-                    mHandler.postDelayed(mRunable, 5_000)
-                } else {
-                    mStatus = 0
-                    mIvStatus.drawable.level = 2
-                    mTvHint.text = getString(R.string.please_insert_the_charger_into_the_open_position)
-                    mBtnConfirm.text = getText(R.string.to_pay_order)
+                    return
                 }
+                if (mTryCount > 5) {
+                    setViewByFailed()
+                    return
+                }
+                mTryCount++
+                mHandler.postDelayed(mRunable, 5_000)
+
+
 
             }
             else -> {

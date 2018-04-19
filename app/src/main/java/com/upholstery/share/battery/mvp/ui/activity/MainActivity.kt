@@ -46,15 +46,13 @@ import android.location.LocationManager
 class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickListener,
         AMap.OnMyLocationChangeListener, AMap.OnMarkerClickListener, AMap.OnCameraChangeListener {
     override fun onCameraChangeFinish(p0: CameraPosition?) {
-        if (p0 != null) return
-        calculateCenterLocation()
-//        p0?.let {
-//            if (mCurrentZoom != it.zoom) {
-//                mCurrentZoom = it.zoom
-//            } else {
-//
-//            }
-//        }
+        p0?.let {
+            if (mCurrentZoom != it.zoom) {
+                mCurrentZoom = it.zoom
+            } else {
+                calculateCenterLocation()
+            }
+        }
 
     }
 
