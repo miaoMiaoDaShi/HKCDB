@@ -75,16 +75,12 @@ class BorrowingActivity : BaseMvpActivity<MvpView, UsePresenter>() {
             0x11 -> {
                 data as UsingOrderResponse
                 if (data.data.statusX == 1) {
-                    getPresenter().openFreightSpace(data.data.sno,0x12)
+                    toast(R.string.borrow_success)
+                    startActivity<BorrowRecordDetailActivity>("type" to 0x10, "id" to data.data.id)
+                    finish()
 
                 }
 
-            }
-            0x12->{
-                data as OpenFreightSpaceResponse
-                toast(R.string.borrow_success)
-                startActivity<BorrowRecordDetailActivity>("type" to 0x10, "id" to data.data.id)
-                finish()
             }
             else -> {
             }
@@ -105,7 +101,6 @@ class BorrowingActivity : BaseMvpActivity<MvpView, UsePresenter>() {
     }
 
     private fun toQuery() {
-
         mValueAnimator.duration = mDuration.toLong()
         mValueAnimator.addUpdateListener {
             val currentPosition = it.animatedValue as Int

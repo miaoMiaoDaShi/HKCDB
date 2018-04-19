@@ -38,12 +38,9 @@ class ReturnPowerBankActivity : BaseMvpActivity<MvpView, UsePresenter>() {
 
     override fun handlerError(type: Int, e: String) {
         when (type) {
-            0x10 -> {
+            0x11 -> {
                 setViewByFailed()
             }
-//            0x11->{
-//                setViewByFailed()
-//            }
             else -> {
             }
         }
@@ -78,37 +75,30 @@ class ReturnPowerBankActivity : BaseMvpActivity<MvpView, UsePresenter>() {
 
     override fun handlerSuccess(type: Int, data: Any) {
         when (type) {
-            0x10 -> {
-                mHandler.post(mRunable)
-            }
             0x11 -> {
                 data as UsingOrderResponse
                 /**
                  * 如果不是待支付状态  就继续 查   查5次
                  */
                 data.data?.let {
-                    if (it.statusX != 2) {
+                    if (it.statusX == 1) {
                         if (mTryCount > 5) {
                             setViewByFailed()
                             return
                         }
                         mTryCount++
                         mHandler.postDelayed(mRunable, 5_000)
-                    } else {
-                        mStatus = 0
-                        mIvStatus.drawable.level = 2
-                        mTvHint.text = getString(R.string.please_insert_the_charger_into_the_open_position)
-                        mBtnConfirm.text = getText(R.string.to_pay_order)
                     }
                     return
                 }
-                if (mTryCount > 5) {
-                    setViewByFailed()
-                    return
-                }
-                mTryCount++
-                mHandler.postDelayed(mRunable, 5_000)
 
+
+                mProBar.visible(false)
+                mRlContentBlock.visible(true)
+                mStatus = 0
+                mIvStatus.drawable.level = 2
+                mTvHint.text = getString(R.string.please_insert_the_charger_into_the_open_position)
+                mBtnConfirm.text = getText(R.string.to_pay_order)
 
 
             }
@@ -131,7 +121,7 @@ class ReturnPowerBankActivity : BaseMvpActivity<MvpView, UsePresenter>() {
 
     override fun initData() {
         super.initData()
-        getPresenter().openFreightSpace(intent.getStringExtra("sno"), 0x10)
+        mHandler.post(mRunable)
     }
 
     override fun bindListener() {
@@ -157,7 +147,7 @@ class ReturnPowerBankActivity : BaseMvpActivity<MvpView, UsePresenter>() {
      * 支付訂單
      */
     private fun toPayOrder() {
-        startActivity<OrderListActivity>()
+        startActivity<BorrowRecordActivity>()
         finish()
 
     }

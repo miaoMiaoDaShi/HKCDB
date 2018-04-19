@@ -236,10 +236,8 @@ class TopUpActivity : BaseMvpActivity<MvpView, PayPresenter>(), View.OnClickList
             }
         })
                 .compose(RetrofitClient.getDefaultTransformer())
-                .doFinally {
-                    cn.zcoder.xxp.base.ext.dismissDialog(mLoadingDialog)
-                }
                 .subscribe({
+                    cn.zcoder.xxp.base.ext.dismissDialog(mLoadingDialog)
                     invokeAlipayNative(it as Source)
                 }, {
                     Timber.e(it)

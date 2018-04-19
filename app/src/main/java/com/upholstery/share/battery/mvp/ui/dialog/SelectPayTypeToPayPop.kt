@@ -88,7 +88,8 @@ class SelectPayTypeToPayPop(var money: Long, val point: Int, context: Context) :
         val rvPayType = contentView.find<RecyclerView>(R.id.mRvPayType)
         var payTypes = mutableListOf(PayTypeInfo(0, context.getString(R.string.pay_alipay), R.drawable.ic_pay_alipay, false),
                 PayTypeInfo(1, context.getString(R.string.pay_we_char), R.drawable.ic_pay_wechar, false),
-                PayTypeInfo(2, context.getString(R.string.pay_bank_card), R.drawable.ic_pay_bank_card, false))
+                PayTypeInfo(2, context.getString(R.string.pay_bank_card), R.drawable.ic_pay_bank_card, false),
+                PayTypeInfo(3, context.getString(R.string.pay_wallet), R.drawable.ic_pay_wallet, false))
 
         payTypes[mDefaultPay].selected = true
 

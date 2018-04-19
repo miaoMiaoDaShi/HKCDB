@@ -212,12 +212,11 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
                 data as UsingOrderResponse
                 data.data?.let {
                     mTvUsing.visible(data.data.statusX == 1)
-                    if (data.data.statusX != 1) {
-                        toast(R.string.not_ing_order)
-                        return
-                    }
+                    startActivity<ScanActivity>("type" to 0x11)
+                    return
                 }
-                startActivity<ScanActivity>("type" to 0x11)
+                toast(R.string.not_ing_order)
+
             }
             else -> {
 

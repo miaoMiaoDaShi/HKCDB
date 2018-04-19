@@ -4,8 +4,10 @@ import android.os.Bundle
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseActivity
 import com.upholstery.share.battery.R
 import com.google.zxing.Result
+import com.upholstery.share.battery.mvp.ui.widgets.ToolBar
 import kotlinx.android.synthetic.main.activity_scan.*
 import me.dm7.barcodescanner.zxing.ZXingScannerView
+import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 
 
@@ -48,6 +50,9 @@ class ScanActivity : BaseActivity(), ZXingScannerView.ResultHandler {
 
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
+        find<ToolBar>(R.id.mToolBar)
+                .setTitle(R.string.scan_scan)
+                .setOnLeftImageListener { finish() }
         mScannerView.setResultHandler(this)
         mScannerView.setAutoFocus(true)
     }

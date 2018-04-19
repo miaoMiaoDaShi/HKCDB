@@ -145,6 +145,9 @@ class BorrowRecordDetailActivity : BaseMvpActivity<MvpView, BorrowRecordDetailPr
             0x11 -> {
                 showSnackBar(R.string.commit_failed)
             }
+            0x12,0x13,0x14,0x15->{
+                toast(R.string.pay_failed)
+            }
             else -> {
             }
         }
@@ -157,6 +160,16 @@ class BorrowRecordDetailActivity : BaseMvpActivity<MvpView, BorrowRecordDetailPr
             R.color.black, R.color.black)
 
     private var mBorrowRecordDetailResponse: BorrowRecordDetailResponse? = null
+    /**
+     * 當前選中的優惠卷
+     */
+    private var mCurrentCouponId = 0
+
+    /**
+     * 當前支付金額
+     */
+    private var mCurrentPayMoney = 0L
+
     @RequiresApi(Build.VERSION_CODES.M)
     @SuppressLint("SetTextI18n")
     override fun handlerSuccess(type: Int, data: Any) {
@@ -167,13 +180,22 @@ class BorrowRecordDetailActivity : BaseMvpActivity<MvpView, BorrowRecordDetailPr
                 mBorrowRecordDetailResponse?.let {
                     mPayPop = SelectPayTypeToPayPop(1000, data.data.point, this)
                     mPayPop.setListener({ type, money ->
+                        mCurrentPayMoney = money
                         when (type) {
-                            0 -> {
-                                stripePayByAlipay(money.toInt())
+                            0 -> {//支付寶支付
+                                getPresenter().payByAlipay(it.data[0].orderno, 1,
+                                        data.data.point, mCurrentCouponId, 0x12)
                             }
-                            1 -> {
+                            1 -> {//微信支付
+                                getPresenter().payByWeChat(it.data[0].orderno, 0,
+                                        data.data.point, mCurrentCouponId, 0x13)
                             }
-                            2 -> {
+                            2 -> {//行用卡支付
+
+                            }
+                            3 -> {//錢包支付
+                                getPresenter().payByWallet(it.data[0].orderno, 3,
+                                        data.data.point, mCurrentCouponId, 0x15)
                             }
                             else -> {
                             }
@@ -216,6 +238,19 @@ class BorrowRecordDetailActivity : BaseMvpActivity<MvpView, BorrowRecordDetailPr
             0x11 -> {
                 toast(R.string.breakage_success)
                 finish()
+            }
+            0x12 -> {//支付寶支付成功(接口調用成功而已)
+                stripePayByAlipay(mCurrentPayMoney.toInt())
+            }
+            0x13 -> {//微信支付(接口調用成功而已)
+
+            }
+            0x14 -> {//信用卡支付(接口調用成功而已)
+
+            }
+            0x15 -> {//餘額支付(真實支付)
+                toast(R.string.pay_success)
+                getPresenter().getBorrowDetail(mId, 0x10)
             }
             else -> {
             }
