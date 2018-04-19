@@ -119,7 +119,7 @@ interface APIService {
     /**
      * 银行卡列表
      */
-    @GET("personController/queryBank")
+    @GET("walletController/queryBank")
     fun getBankCard(): Observable<BankCardResponse>
 
     /**
