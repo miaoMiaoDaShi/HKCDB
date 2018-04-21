@@ -186,4 +186,5 @@
     <string name="format_pay_money">$ %.2f</string>
     <string name="scan_scan">掃一掃</string>
     <string name="pay_wallet">錢包支付</string>
+    <string name="mod">修改</string>
 </resources>

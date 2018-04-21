@@ -33,6 +33,15 @@ public class BankCardDetailResponse extends BaseResponse {
         private int bankExpire;
         private String bankNo;
         private int bankType;
+        private String area;
+
+        public String getArea() {
+            return area;
+        }
+
+        public void setArea(String area) {
+            this.area = area;
+        }
 
         public int getBankExpire() {
             return bankExpire;

@@ -38,6 +38,9 @@ class ReturnPowerBankActivity : BaseMvpActivity<MvpView, UsePresenter>() {
 
     override fun handlerError(type: Int, e: String) {
         when (type) {
+            0x10->{//开启好仓位失败
+                setViewByFailed()
+            }
             0x11 -> {
                 setViewByFailed()
             }
@@ -75,6 +78,9 @@ class ReturnPowerBankActivity : BaseMvpActivity<MvpView, UsePresenter>() {
 
     override fun handlerSuccess(type: Int, data: Any) {
         when (type) {
+            0x10->{
+                mHandler.post(mRunable)
+            }
             0x11 -> {
                 data as UsingOrderResponse
                 /**
@@ -121,7 +127,8 @@ class ReturnPowerBankActivity : BaseMvpActivity<MvpView, UsePresenter>() {
 
     override fun initData() {
         super.initData()
-        mHandler.post(mRunable)
+        getPresenter().openFreightSpace(intent.getStringExtra("sno"), 0x10)
+
     }
 
     override fun bindListener() {

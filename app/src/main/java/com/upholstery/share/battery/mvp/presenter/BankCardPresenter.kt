@@ -42,8 +42,8 @@ class BankCardPresenter : RxPresenter<MvpView>() {
      * 添加银行卡
      */
     fun addBankCard(name: String, bankName: String, bankNo: String, bankExpire: String,
-                    bankCvv: String, type: Int) {
-        addSubscribe(getApi().addBankCard(name, bankName, bankNo, bankExpire, bankCvv)
+                    bankCvv: String,area:String, type: Int) {
+        addSubscribe(getApi().addBankCard(name, bankName, bankNo, bankExpire, bankCvv,area)
                 .compose(RetrofitClient.getDefaultTransformer(getView(), type))
                 .subscribe({
                     if ((it as BaseResponse).isOk) {
@@ -59,6 +59,34 @@ class BankCardPresenter : RxPresenter<MvpView>() {
      */
     fun delBankCard(id: String, type: Int) {
         addSubscribe(getApi().delBankCard(id)
+                .compose(RetrofitClient.getDefaultTransformer(getView(), type))
+                .subscribe({
+                    if ((it as BaseResponse).isOk) {
+                        getView().handlerSuccess(type, it)
+                    } else throw RuntimeException(it.resmsg)
+                }, {
+                    getView().handlerError(type, it.message!!)
+                }))
+    }
+    /**
+     * 获取银行卡详情
+     */
+    fun getBankCardDetail(id: String, type: Int) {
+        addSubscribe(getApi().getBankCardDetail(id)
+                .compose(RetrofitClient.getDefaultTransformer(getView(), type))
+                .subscribe({
+                    if ((it as BaseResponse).isOk) {
+                        getView().handlerSuccess(type, it)
+                    } else throw RuntimeException(it.resmsg)
+                }, {
+                    getView().handlerError(type, it.message!!)
+                }))
+    }
+    /**
+     * 修改银行卡  仅支持 修改地区
+     */
+    fun editBankCard(id: String, area:String, type: Int) {
+        addSubscribe(getApi().editBankCard(id,area)
                 .compose(RetrofitClient.getDefaultTransformer(getView(), type))
                 .subscribe({
                     if ((it as BaseResponse).isOk) {

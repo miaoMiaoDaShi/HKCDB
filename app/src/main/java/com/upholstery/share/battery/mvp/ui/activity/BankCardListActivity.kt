@@ -19,6 +19,7 @@ import com.upholstery.share.battery.mvp.presenter.BankCardPresenter.Companion.TY
 import com.upholstery.share.battery.mvp.ui.dialog.LoadingDialog
 import com.upholstery.share.battery.mvp.ui.widgets.ToolBar
 import kotlinx.android.synthetic.main.activity_bank_card_list.*
+import org.jetbrains.anko.startActivity
 
 
 /**
@@ -39,7 +40,7 @@ class BankCardListActivity : BaseMvpActivity<MvpView, BankCardPresenter>(), Swip
             TYPE_LOAD_BANK_CARD -> {
             }
             else -> {
-                showDialog(mLoadingDialog)
+
             }
         }
 
@@ -50,7 +51,7 @@ class BankCardListActivity : BaseMvpActivity<MvpView, BankCardPresenter>(), Swip
             TYPE_LOAD_BANK_CARD -> {
             }
             else -> {
-                cn.zcoder.xxp.base.ext.dismissDialog(mLoadingDialog)
+                //cn.zcoder.xxp.base.ext.dismissDialog(mLoadingDialog)
             }
         }
     }
@@ -63,7 +64,7 @@ class BankCardListActivity : BaseMvpActivity<MvpView, BankCardPresenter>(), Swip
                 }
             }
             else -> {
-                showSnackBar(R.string.add_failed, Snackbar.LENGTH_LONG)
+                //showSnackBar(R.string.add_failed, Snackbar.LENGTH_LONG)
             }
         }
     }
@@ -142,7 +143,7 @@ class BankCardListActivity : BaseMvpActivity<MvpView, BankCardPresenter>(), Swip
      * 信用卡的添加
      */
     private fun add() {
-
+        startActivity<EditBankCardActivity>("type" to 0)
 
     }
 

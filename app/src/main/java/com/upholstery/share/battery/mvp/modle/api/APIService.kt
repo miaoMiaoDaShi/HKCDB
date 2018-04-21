@@ -234,8 +234,17 @@ interface APIService {
                     @Field("bank_name") bankName: String,
                     @Field("bank_no") bankNo: String,
                     @Field("bank_expire") bankExpire: String,
-                    @Field("bank_cvv") bankCvv: String
+                    @Field("bank_cvv") bankCvv: String,
+                    @Field("area") area: String
     ): Observable<BaseResponse>
+
+    /**
+     * 编辑银行卡
+     */
+    @POST("walletController/updateBank")
+    @FormUrlEncoded
+    fun editBankCard(@Field("id") id: String, @Field("country") country: String)
+            : Observable<BaseResponse>
 
     /**
      * 删除(解绑)银行卡
@@ -248,7 +257,7 @@ interface APIService {
      * 查询银行卡的信息
      */
     @GET("personController/queryBankDetail")
-    fun getBankCardDetail(): Observable<BankCardDetailResponse>
+    fun getBankCardDetail(@Query("id")id:String): Observable<BankCardDetailResponse>
 
     /**
      * 充值规则
