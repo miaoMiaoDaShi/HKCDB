@@ -2,9 +2,11 @@ package com.upholstery.share.battery.mvp.ui.activity
 
 import android.os.Bundle
 import cn.zcoder.xxp.base.ext.showDialog
+import cn.zcoder.xxp.base.ext.toast
 import cn.zcoder.xxp.base.mvp.ui.MvpView
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseMvpActivity
 import com.upholstery.share.battery.R
+import com.upholstery.share.battery.mvp.modle.entity.BankCardDetailResponse
 import com.upholstery.share.battery.mvp.presenter.BankCardPresenter
 import com.upholstery.share.battery.mvp.ui.dialog.LoadingDialog
 import com.upholstery.share.battery.mvp.ui.widgets.ToolBar
@@ -37,6 +39,12 @@ class EditBankCardActivity : BaseMvpActivity<MvpView, BankCardPresenter>() {
         intent.getStringExtra("id")
     }
 
+    /**
+     * 地區名數組
+     */
+    private val mAreaNames by lazy {
+        resources.getStringArray(R.array.area_name)
+    }
 
     override fun getLayoutId(): Int = R.layout.activity_edit_bank_card
 
@@ -51,16 +59,16 @@ class EditBankCardActivity : BaseMvpActivity<MvpView, BankCardPresenter>() {
     override fun handlerError(type: Int, e: String) {
         when (type) {
             0x10 -> {//加載銀行卡詳情
-
+                toast(R.string.load_bank_detail_failed)
             }
             0x11->{//必填字段為空
-
+                toast(R.string.card_holder_name_bank_name_no_not_be_null)
             }
             0x12->{//添加
-
+                toast(R.string.save_error)
             }
             0x13->{//修改
-
+                toast(R.string.save_error)
             }
             else -> {
             }
@@ -70,16 +78,19 @@ class EditBankCardActivity : BaseMvpActivity<MvpView, BankCardPresenter>() {
     override fun handlerSuccess(type: Int, data: Any) {
         when (type) {
             0x10 -> {//加載銀行卡詳情
-
+                data as BankCardDetailResponse
+//                mEtName.setText(data.data[0].userName)
+//                mEtBankName.setText(data.data[0].bankName)
+//                mEtBankCardNo.setText(data.data[0].bankNo)
+                mEtBankCardValidity.isEnabled = false
+                mBankCardVerCode.isEnabled = false
             }
-            0x11->{//必填字段為空
 
-            }
             0x12->{//添加
-
+                toast(R.string.save_success)
             }
             0x13->{//修改
-
+                toast(R.string.save_success)
             }
             else -> {
             }
@@ -111,6 +122,8 @@ class EditBankCardActivity : BaseMvpActivity<MvpView, BankCardPresenter>() {
             }
             1 -> {//只允许修改地区
                 mToolbar.setTitle(R.string.mod)
+                mEtName.isEnabled = false
+                mEtBankName.isEnabled = false
                 mEtBankCardNo.isEnabled = false
                 mEtBankCardValidity.isEnabled = false
                 mBankCardVerCode.isEnabled = false
@@ -125,10 +138,13 @@ class EditBankCardActivity : BaseMvpActivity<MvpView, BankCardPresenter>() {
      */
     private fun save() {
         when (mType) {
-            0 -> {
-                //getPresenter().addBankCard()
+            0 -> {//添加操作
+                getPresenter().addBankCard(  mEtName.text.toString(),mEtBankName.text.toString(),
+                        mEtBankCardNo.toString(),mEtBankCardValidity.toString(),
+                        mBankCardVerCode.text.toString(),mAreaNames[mSpinnerAreaName.selectedItemPosition],0x12)
             }
-            1 -> {
+            1 -> {//編輯保存操作
+                getPresenter().editBankCard(mId,mAreaNames[mSpinnerAreaName.selectedItemPosition],0x13)
 
             }
             else -> {

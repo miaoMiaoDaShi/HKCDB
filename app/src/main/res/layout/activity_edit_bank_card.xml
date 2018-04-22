@@ -1,10 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <include layout="@layout/tool_bar"/>
+    <include layout="@layout/tool_bar" />
+
+    <EditText
+        android:id="@+id/mEtName"
+        android:layout_width="match_parent"
+        android:layout_height="80px"
+        android:layout_margin="26px"
+        android:background="@drawable/bg_btn_white"
+        android:hint="@string/card_holder_name"
+        android:paddingLeft="26px"
+        android:paddingRight="26px"
+        android:textColorHint="@color/gray"
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/mEtBankName"
+        android:layout_width="match_parent"
+        android:layout_height="80px"
+        android:layout_marginLeft="26px"
+        android:layout_marginRight="26px"
+        android:background="@drawable/bg_btn_white"
+        android:hint="@string/bank_name"
+        android:paddingLeft="26px"
+        android:paddingRight="26px"
+        android:textColorHint="@color/gray"
+        android:textSize="15sp" />
 
     <EditText
         android:id="@+id/mEtBankCardNo"
@@ -16,8 +41,7 @@
         android:paddingLeft="26px"
         android:paddingRight="26px"
         android:textColorHint="@color/gray"
-        android:textSize="15sp"
-        />
+        android:textSize="15sp" />
 
     <EditText
         android:id="@+id/mEtBankCardValidity"
@@ -30,8 +54,7 @@
         android:paddingLeft="26px"
         android:paddingRight="26px"
         android:textColorHint="@color/gray"
-        android:textSize="15sp"
-        />
+        android:textSize="15sp" />
 
     <EditText
         android:id="@+id/mBankCardVerCode"
@@ -45,8 +68,7 @@
         android:paddingLeft="26px"
         android:paddingRight="26px"
         android:textColorHint="@color/gray"
-        android:textSize="15sp"
-        />
+        android:textSize="15sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -56,13 +78,15 @@
         android:layout_marginTop="26px"
         android:text="國家 / 地區"
         android:textColor="@color/gray"
-        android:textSize="15sp"/>
+        android:textSize="15sp" />
 
     <Spinner
+        android:id="@+id/mSpinnerAreaName"
         android:layout_width="match_parent"
         android:layout_height="80px"
         android:layout_marginLeft="26px"
         android:layout_marginRight="26px"
+        android:entries="@array/area_name"
         android:background="@drawable/bg_btn_white">
 
     </Spinner>

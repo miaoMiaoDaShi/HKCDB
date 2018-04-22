@@ -187,4 +187,12 @@
     <string name="scan_scan">掃一掃</string>
     <string name="pay_wallet">錢包支付</string>
     <string name="mod">修改</string>
+    <string name="bank_name">銀行名字</string>
+    <string name="card_holder_name">持卡人姓名</string>
+    <string name="save_success">保存成功</string>
+    <string name="card_holder_name_bank_name_no_not_be_null">持卡人姓名,銀行名,卡號不能為空</string>
+    <string name="save_error">保存失敗</string>
+    <string name="load_bank_detail_failed">加載銀行卡詳情失敗</string>
+    <string name="edit">編輯</string>
+    <string name="del">刪除</string>
 </resources>
