@@ -29,10 +29,19 @@ public class BankCardResponse extends BaseResponse {
          * userName : pengshulong
          */
 
+        private String id;
         private String bankName;
         private String bankNo;
         private int bankType;
         private String userName;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
 
         public String getBankName() {
             return bankName;

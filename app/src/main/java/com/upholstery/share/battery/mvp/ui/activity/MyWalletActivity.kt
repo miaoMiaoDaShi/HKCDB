@@ -7,6 +7,7 @@ import cn.zcoder.xxp.base.ext.toast
 import cn.zcoder.xxp.base.mvp.ui.MvpView
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseActivity
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseMvpActivity
+import com.tencent.bugly.crashreport.CrashReport
 import com.upholstery.share.battery.R
 import com.upholstery.share.battery.mvp.modle.entity.WalletResponse
 import com.upholstery.share.battery.mvp.presenter.WalletPresenter
@@ -80,7 +81,6 @@ class MyWalletActivity : BaseMvpActivity<MvpView, WalletPresenter>(), View.OnCli
 
     override fun start() {
         super.start()
-
     }
 
     override fun onResume() {

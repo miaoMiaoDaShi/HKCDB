@@ -127,14 +127,14 @@ class NearTheSiteDetailActivity : BaseMvpActivity<MvpView, NearTheSitePresenter>
     /**
      * 根據號碼 撥打電話
      */
-    private fun callPhoneByNum(it: String) {
+    private fun callPhoneByNum(phoneNum: String) {
         RxPermissions(this)
                 .request(Manifest.permission.CALL_PHONE)
                 .subscribe {
                     if (it) {
                         val intent = Intent()
                         intent.action = Intent.ACTION_CALL
-                        intent.data = Uri.parse("tel:$it")
+                        intent.data = Uri.parse("tel:$phoneNum")
                         startActivity(intent)
                     }
                 }

@@ -16,17 +16,16 @@ import kotlinx.android.synthetic.main.dialog_warning.*
  */
 
 class WarningDialog : BaseDialogFragment() {
-    private lateinit var blockCancel: () -> Unit
-    private lateinit var blockConfirm: () -> Unit
+    private var blockCancel = {}
+    private var blockConfirm = {}
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mTvContent.text = arguments["content"].toString()
-        mTvCancel.text = arguments["cancelText"].toString()
+        refreshView()
         mTvCancel.onClick({
             blockCancel.invoke()
             dismiss()
         })
-        mTvConfirm.text = arguments["confirmText"].toString()
+
         mTvConfirm.onClick({
             blockConfirm.invoke()
             dismiss()
@@ -43,7 +42,35 @@ class WarningDialog : BaseDialogFragment() {
         blockConfirm = confirmBlock
     }
 
+    fun setData(content: String, cancelText: String, confirmText: String) {
+        val bundle = Bundle()
+        bundle.putString("content", content)
+        bundle.putString("cancelText", cancelText)
+        bundle.putString("confirmText", confirmText)
+        arguments = bundle
+        refreshView()
+    }
+
+    /**
+     * 刷新視圖
+     */
+    private fun refreshView() {
+        mTvContent.text = arguments["content"].toString()
+        mTvCancel.text = arguments["cancelText"].toString()
+        mTvConfirm.text = arguments["confirmText"].toString()
+    }
+
     companion object {
+        fun newInstance(content: String, cancelText: String, confirmText: String): WarningDialog {
+            val bundle = Bundle()
+            bundle.putString("content", content)
+            bundle.putString("cancelText", cancelText)
+            bundle.putString("confirmText", confirmText)
+            val warningDialog = WarningDialog()
+            warningDialog.arguments = bundle
+            return warningDialog
+        }
+
         fun show(content: String, cancelText: String, confirmText: String, manager: FragmentManager): WarningDialog {
             val bundle = Bundle()
             bundle.putString("content", content)

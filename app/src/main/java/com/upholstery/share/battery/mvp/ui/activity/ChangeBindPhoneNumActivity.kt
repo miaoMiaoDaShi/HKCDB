@@ -9,12 +9,11 @@ import cn.zcoder.xxp.base.ext.fromJson
 import cn.zcoder.xxp.base.ext.onClick
 import cn.zcoder.xxp.base.ext.showDialog
 import cn.zcoder.xxp.base.mvp.ui.MvpView
-import cn.zcoder.xxp.base.mvp.ui.activity.BaseActivity
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseMvpActivity
 import com.upholstery.share.battery.R
 import com.upholstery.share.battery.app.Constant
 import com.upholstery.share.battery.mvp.modle.entity.UserResponse
-import com.upholstery.share.battery.mvp.presenter.GetVerCodePresenter
+import com.upholstery.share.battery.mvp.presenter.VerPhonePresenter
 import com.upholstery.share.battery.mvp.presenter.ModPersonalDataPresenter
 import com.upholstery.share.battery.mvp.ui.dialog.LoadingDialog
 import com.upholstery.share.battery.mvp.ui.widgets.ToolBar
@@ -94,7 +93,7 @@ class ChangeBindPhoneNumActivity : BaseMvpActivity<MvpView, ModPersonalDataPrese
     }
 
     private val mGetVerCodePresenter by lazy {
-        GetVerCodePresenter<MvpView>()
+        VerPhonePresenter<MvpView>()
     }
 
     override fun onClick(v: View?) {

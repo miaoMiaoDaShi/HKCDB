@@ -14,6 +14,7 @@ import com.upholstery.share.battery.mvp.ui.dialog.LoadingDialog
 import com.upholstery.share.battery.mvp.ui.widgets.ToolBar
 import kotlinx.android.synthetic.main.activity_bank_card_detail.*
 import org.jetbrains.anko.find
+import org.jetbrains.anko.startActivity
 import java.text.SimpleDateFormat
 
 /**
@@ -38,17 +39,39 @@ class BankDetailActivity : BaseMvpActivity<MvpView, BankCardPresenter>() {
     }
 
     override fun handlerError(type: Int, e: String) {
-        toast(R.string.load_bank_detail_failed)
+        when (type) {
+            0x10 -> {
+                toast(R.string.load_bank_detail_failed)
+                finish()
+            }
+            0x11->{
+                toast(R.string.del_failed)
+            }
+            else -> {
+            }
+        }
     }
 
     //0-银联 1-VISA 2-MASTER
     private val mBankCardTypes = arrayOf("銀聯", "VISA", "MASTER")
 
+    private lateinit var mBankCardDetailResponse: BankCardDetailResponse
     override fun handlerSuccess(type: Int, data: Any) {
-        data as BankCardDetailResponse
-        mToolBar.setTitle(mBankCardTypes[data.data.bankType])
-        mTvBankCardNo.text = data.data.bankNo
-        mTvbankCardTime.text = TimeUtils.millis2String(data.data.bankExpire.toLong(), SimpleDateFormat(" yyyy-MM-dd"))
+        when (type) {
+            0x10 -> {
+                mBankCardDetailResponse = data as BankCardDetailResponse
+                mToolBar.setTitle(mBankCardTypes[data.data.bankType])
+                mTvBankCardNo.text = data.data.bankNo
+                mTvbankCardTime.text = TimeUtils.millis2String(data.data.bankExpire.toLong(),
+                        SimpleDateFormat(" yyyy-MM-dd"))
+            }
+            0x11->{
+                toast(R.string.del_success)
+                finish()
+            }
+            else -> {
+            }
+        }
     }
 
     override fun createPresenter(): BankCardPresenter = BankCardPresenter()
@@ -66,9 +89,22 @@ class BankDetailActivity : BaseMvpActivity<MvpView, BankCardPresenter>() {
 
     }
 
+    override fun start() {
+        super.start()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getPresenter().getBankCardDetail(intent.getStringExtra("id"), 0x10)
+    }
+
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
-        mToolBar.setTitle("hahahah")
-
+        mBankDetailDialog.setOnClickListener({
+            startActivity<EditBankCardActivity>("id" to intent.getStringExtra("id"))
+        }, {
+            getPresenter().delBankCard(intent.getStringExtra("id"),0x11)
+        })
     }
 }

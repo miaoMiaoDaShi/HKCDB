@@ -3,13 +3,11 @@ package com.upholstery.share.battery.mvp.presenter
 import cn.zcoder.xxp.base.app.Preference
 import cn.zcoder.xxp.base.ext.toJson
 import cn.zcoder.xxp.base.mvp.ui.MvpView
-import cn.zcoder.xxp.base.net.BaseResponse
 import cn.zcoder.xxp.base.net.RetrofitClient
 import com.blankj.utilcode.util.RegexUtils
 import com.upholstery.share.battery.app.Constant
 import com.upholstery.share.battery.app.getApi
 import com.upholstery.share.battery.mvp.modle.entity.UserResponse
-import io.reactivex.functions.Consumer
 
 /**
  * Created by Zcoder
@@ -17,7 +15,7 @@ import io.reactivex.functions.Consumer
  * Time :  2018/3/31
  * Description :
  */
-class LoginPresenter : GetVerCodePresenter<MvpView>() {
+class LoginPresenter : VerPhonePresenter<MvpView>() {
     private var mUserInfo by Preference(Constant.KEY_USER_INFO, "")
     /**
      * 手机号验证码登录

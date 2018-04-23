@@ -5,6 +5,7 @@ import cn.zcoder.xxp.base.BaseApplication
 import cn.zcoder.xxp.base.Configurator
 import cn.zcoder.xxp.base.net.RetrofitClient
 import com.blankj.utilcode.util.Utils
+import com.tencent.bugly.crashreport.CrashReport
 import com.upholstery.share.battery.app.AuthInterceptor
 
 
@@ -21,6 +22,7 @@ class App : BaseApplication() {
     override fun onCreate() {
         super.onCreate()
         Utils.init(this)
+        CrashReport.initCrashReport(getApplicationContext(), "5e07f4e6bc", false);
         Configurator.init(this)
                 .withApiHost("http://47.75.92.26/api/")
                 .withOkHttpClient(RetrofitClient.getHttpClientBuilder()

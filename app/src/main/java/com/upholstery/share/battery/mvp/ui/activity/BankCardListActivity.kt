@@ -13,6 +13,7 @@ import cn.zcoder.xxp.base.mvp.ui.activity.BaseMvpActivity
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.upholstery.share.battery.R
+import com.upholstery.share.battery.mvp.modle.entity.BankCardDetailResponse
 import com.upholstery.share.battery.mvp.modle.entity.BankCardResponse
 import com.upholstery.share.battery.mvp.presenter.BankCardPresenter
 import com.upholstery.share.battery.mvp.presenter.BankCardPresenter.Companion.TYPE_LOAD_BANK_CARD
@@ -134,8 +135,8 @@ class BankCardListActivity : BaseMvpActivity<MvpView, BankCardPresenter>(), Swip
     /**
      * 點擊進入銀行卡詳情頁面
      */
-    override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
-
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View?, position: Int) {
+        startActivity<BankDetailActivity>("id" to (adapter.data[position] as BankCardResponse.DataBean).id)
 
     }
 

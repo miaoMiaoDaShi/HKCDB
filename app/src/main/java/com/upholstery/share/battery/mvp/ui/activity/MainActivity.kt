@@ -151,8 +151,12 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
         }
     }
 
+    /**
+     * 餘額不足  提示充值
+     */
     private val mWarningDialog by lazy {
-        WarningDialog()
+        WarningDialog.newInstance(getString(R.string.not_sufficient_funds), getString(R.string.not_do),
+                getString(R.string.to_top_up))
     }
 
     private var mHaveOrder = false
@@ -204,8 +208,8 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
                         return
                     }
                 }
-
-                startActivity<ScanActivity>("type" to 0x10)
+                showDialog(mWarningDialog)
+                //startActivity<ScanActivity>("type" to 0x10)
             }
             0x15 -> {
                 //借还状态：0-初始化 1-使用中 2-待支付  3-已完成  4-报失 5-报损',
@@ -279,6 +283,10 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
         checkPermission(savedInstanceState)
+        //餘額不住 提示,點擊進入充值頁面
+        mWarningDialog.setListener({}, {
+            startActivity<TopUpActivity>()
+        })
 
     }
 

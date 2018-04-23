@@ -195,4 +195,11 @@
     <string name="load_bank_detail_failed">加載銀行卡詳情失敗</string>
     <string name="edit">編輯</string>
     <string name="del">刪除</string>
+    <string name="del_failed">刪除失敗</string>
+    <string name="del_success">刪除成功</string>
+    <string name="not_sufficient_funds">錢包里沒錢時,是不能借的喔</string>
+    <string name="not_do">不用了</string>
+    <string name="to_top_up">去充值</string>
+    <string name="whether_to_start_dialup_validation">是否開始撥號驗證</string>
+    <string name="just_ver">立即驗證</string>
 </resources>

@@ -12,7 +12,7 @@ import com.upholstery.share.battery.app.getApi
  * Time :  2018/4/3
  * Description : 注册
  */
-class RegisterPresenter : GetVerCodePresenter<MvpView>() {
+class RegisterPresenter : VerPhonePresenter<MvpView>() {
     fun register(areaCode: String, phone: String, code: String, surName: String, realname: String,
                  email: String, fatherId: String, type: Int) {
         if (RegexUtils.isMobileSimple(phone)) {

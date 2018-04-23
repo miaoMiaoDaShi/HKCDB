@@ -22,6 +22,11 @@ interface APIService {
                    @Query("used_to") userTo: String): Observable<BaseResponse>
 
     /**
+     * 把手機號給後台
+     */
+    @GET("userController/appVerification")
+    fun verPhone():Observable<BaseResponse>
+    /**
      * 登錄  1：账号，密码  2：uid,token
     3：第三方  4:手机号，证码
 

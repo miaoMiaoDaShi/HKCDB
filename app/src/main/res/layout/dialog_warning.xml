@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="錢包里沒錢時,是不能借的喔"
+            android:text="@string/not_sufficient_funds"
             android:textColor="@android:color/black"
             android:textSize="17sp"/>
 
@@ -47,7 +47,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="不用了"
+                android:text="@string/not_do"
                 android:textColor="@color/gray"
                 android:textSize="17sp"/>
 
@@ -62,7 +62,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="去充值"
+                android:text="@string/to_top_up"
                 android:textColor="@color/blue"
                 android:textSize="17sp"/>
         </LinearLayout>
