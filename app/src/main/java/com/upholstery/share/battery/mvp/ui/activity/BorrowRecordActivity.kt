@@ -164,4 +164,6 @@ class BorrowRecordActivity : BaseMvpActivity<MvpView, BorrowRecordPresenter>(),
         mAdapter.onItemChildClickListener = this
         mAdapter.setOnLoadMoreListener(this, mRvBorrowRecord)
     }
+
+
 }

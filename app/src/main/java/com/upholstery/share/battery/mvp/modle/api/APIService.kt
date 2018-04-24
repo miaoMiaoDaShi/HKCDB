@@ -25,7 +25,8 @@ interface APIService {
      * 把手機號給後台
      */
     @GET("userController/appVerification")
-    fun verPhone():Observable<BaseResponse>
+    fun verPhone( @Query("phone") phone: String,
+                  @Query("use_to") userTo: String):Observable<BaseResponse>
     /**
      * 登錄  1：账号，密码  2：uid,token
     3：第三方  4:手机号，证码
@@ -33,8 +34,7 @@ interface APIService {
      */
     @POST("userController/login")
     @FormUrlEncoded
-    fun login(@Field("areaCode") areaCode: String,
-              @Field("login_type") type: String,
+    fun login(@Field("login_type") type: String,
               @Field("open_type") openType: String?,
               @Field("account") account: String,
               @Field("password") password: String): Observable<UserResponse>

@@ -52,6 +52,9 @@ class BorrowingActivity : BaseMvpActivity<MvpView, UsePresenter>() {
 
     override fun handlerError(type: Int, e: String) {
         when (type) {
+            0x17->{//操作頻繁
+                toast(R.string.operating_frequency)
+            }
             0x10 -> {
                 toast(e)
                 finish()
@@ -159,4 +162,6 @@ class BorrowingActivity : BaseMvpActivity<MvpView, UsePresenter>() {
         getPresenter().borrowOne(mSno, "${System.currentTimeMillis()}".substring(0..5), 0x10)
 
     }
+
+
 }

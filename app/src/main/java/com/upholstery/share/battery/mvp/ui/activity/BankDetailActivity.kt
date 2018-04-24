@@ -107,4 +107,6 @@ class BankDetailActivity : BaseMvpActivity<MvpView, BankCardPresenter>() {
             getPresenter().delBankCard(intent.getStringExtra("id"),0x11)
         })
     }
+
+
 }

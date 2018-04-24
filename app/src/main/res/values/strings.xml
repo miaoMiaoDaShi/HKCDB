@@ -202,4 +202,8 @@
     <string name="to_top_up">去充值</string>
     <string name="whether_to_start_dialup_validation">是否開始撥號驗證</string>
     <string name="just_ver">立即驗證</string>
+    <string name="call">呼叫</string>
+    <string name="Identity_is_overdue">身份過期,請重新登錄</string>
+    <string name="suspend_an_account">賬號被凍結,點擊確定切換賬號</string>
+    <string name="operating_frequency">操作頻繁,請稍後再試</string>
 </resources>

@@ -19,7 +19,6 @@ import com.zhy.autolayout.AutoLayoutActivity
 abstract class BaseActivity : AutoLayoutActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val layoutId = getLayoutId()
         if (layoutId != -1) {
             setContentView(getLayoutId())
@@ -54,5 +53,11 @@ abstract class BaseActivity : AutoLayoutActivity() {
     protected abstract fun getLayoutId(): Int
 
     protected open fun initView(savedInstanceState: Bundle?) {
+    }
+
+
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 }

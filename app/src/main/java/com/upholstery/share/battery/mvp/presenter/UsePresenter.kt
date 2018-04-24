@@ -38,7 +38,11 @@ open class UsePresenter : UploadImageFilePresenter() {
                 .subscribe({
                     if ((it as BaseResponse).isOk) {
                         getView().handlerSuccess(type, it)
-                    } else throw RuntimeException(it.resmsg)
+                    } else if (it.status == 113) {
+                        getView().handlerError(0x17,"")
+                    }else{
+                        throw RuntimeException(it.resmsg)
+                    }
                 }, {
                     getView().handlerError(type, it.message!!)
                 }))
@@ -79,8 +83,8 @@ open class UsePresenter : UploadImageFilePresenter() {
      * 设备报损
      */
     fun breakageDevice(sno: String, desc: String, orderno: String, image: String, type: Int) {
-        if(desc.isEmpty()||image.isEmpty()){
-            getView().handlerError(0x12,"")
+        if (desc.isEmpty() || image.isEmpty()) {
+            getView().handlerError(0x12, "")
             return
         }
         addSubscribe(getApi().breakageDevice(sno, desc, orderno, image)

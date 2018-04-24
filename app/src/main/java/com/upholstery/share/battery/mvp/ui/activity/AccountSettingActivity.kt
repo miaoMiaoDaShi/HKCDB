@@ -95,4 +95,6 @@ class AccountSettingActivity : BaseActivity(), View.OnClickListener {
                 .setOnLeftImageListener { finish() }
 
     }
+
+
 }

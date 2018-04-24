@@ -1,6 +1,7 @@
 package com.upholstery.share.battery.mvp.ui.activity
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -342,4 +343,5 @@ class BorrowRecordDetailActivity : BaseMvpActivity<MvpView, BorrowRecordDetailPr
         val payThread = Thread(payRunnable)
         payThread.start()
     }
+
 }

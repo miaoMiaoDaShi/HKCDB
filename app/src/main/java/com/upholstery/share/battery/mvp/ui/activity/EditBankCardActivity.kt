@@ -61,13 +61,13 @@ class EditBankCardActivity : BaseMvpActivity<MvpView, BankCardPresenter>() {
             0x10 -> {//加載銀行卡詳情
                 toast(R.string.load_bank_detail_failed)
             }
-            0x11->{//必填字段為空
+            0x11 -> {//必填字段為空
                 toast(R.string.card_holder_name_bank_name_no_not_be_null)
             }
-            0x12->{//添加
+            0x12 -> {//添加
                 toast(R.string.save_error)
             }
-            0x13->{//修改
+            0x13 -> {//修改
                 toast(R.string.save_error)
             }
             else -> {
@@ -86,10 +86,11 @@ class EditBankCardActivity : BaseMvpActivity<MvpView, BankCardPresenter>() {
                 mBankCardVerCode.isEnabled = false
             }
 
-            0x12->{//添加
+            0x12 -> {//添加
                 toast(R.string.save_success)
+                finish()
             }
-            0x13->{//修改
+            0x13 -> {//修改
                 toast(R.string.save_success)
             }
             else -> {
@@ -105,7 +106,16 @@ class EditBankCardActivity : BaseMvpActivity<MvpView, BankCardPresenter>() {
 
     override fun start() {
         super.start()
-        getPresenter().getBankCardDetail(mId, 0x10)
+        when (mType) {
+            0 -> {
+
+            }
+            1->{
+                getPresenter().getBankCardDetail(mId, 0x10)
+            }
+            else -> {
+            }
+        }
     }
 
     override fun initView(savedInstanceState: Bundle?) {
@@ -139,12 +149,12 @@ class EditBankCardActivity : BaseMvpActivity<MvpView, BankCardPresenter>() {
     private fun save() {
         when (mType) {
             0 -> {//添加操作
-                getPresenter().addBankCard(  mEtName.text.toString(),mEtBankName.text.toString(),
-                        mEtBankCardNo.toString(),mEtBankCardValidity.toString(),
-                        mBankCardVerCode.text.toString(),mAreaNames[mSpinnerAreaName.selectedItemPosition],0x12)
+                getPresenter().addBankCard(mEtName.text.toString(), mEtBankName.text.toString(),
+                        mEtBankCardNo.text.toString(), mEtBankCardValidity.text.toString(),
+                        mBankCardVerCode.text.toString(), mAreaNames[mSpinnerAreaName.selectedItemPosition], 0x12)
             }
             1 -> {//編輯保存操作
-                getPresenter().editBankCard(mId,mAreaNames[mSpinnerAreaName.selectedItemPosition],0x13)
+                getPresenter().editBankCard(mId, mAreaNames[mSpinnerAreaName.selectedItemPosition], 0x13)
 
             }
             else -> {
@@ -153,4 +163,6 @@ class EditBankCardActivity : BaseMvpActivity<MvpView, BankCardPresenter>() {
 
 
     }
+
+
 }

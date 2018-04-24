@@ -1,11 +1,10 @@
 package cn.zcoder.xxp.base.net
 
-import android.text.TextUtils
-
 
 import java.util.concurrent.TimeUnit
 
 import cn.zcoder.xxp.base.Configurator
+import cn.zcoder.xxp.base.event.ErrorEvent
 import cn.zcoder.xxp.base.mvp.ui.MvpView
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
@@ -69,11 +68,7 @@ object RetrofitClient {
         override fun apply(o: Any): Any {
             val response = o as BaseResponse
             if (!response.isOk) {
-                //如果错误码和错误信息都是null,
-                throw RuntimeException(if (TextUtils.isEmpty(response.status.toString() + "" + response.resmsg))
-                    ""
-                else
-                    response.resmsg)
+                org.greenrobot.eventbus.EventBus.getDefault().post(ErrorEvent(response.status,response.resmsg))
             }
             return o
         }
@@ -140,6 +135,7 @@ object RetrofitClient {
                     .unsubscribeOn(Schedulers.io())
                     .doOnSubscribe { view?.showLoading(type) }
                     .subscribeOn(AndroidSchedulers.mainThread())
+                    .compose(getErrorTransformer)
                     .observeOn(AndroidSchedulers.mainThread())
                     .doFinally { view?.dismissLoading(type) }
 
@@ -150,6 +146,7 @@ object RetrofitClient {
         return ObservableTransformer {
             it.subscribeOn(Schedulers.io())
                     .unsubscribeOn(Schedulers.io())
+                    .compose(getErrorTransformer)
                     .observeOn(AndroidSchedulers.mainThread())
         }
     }

@@ -43,6 +43,10 @@ class BankCardPresenter : RxPresenter<MvpView>() {
      */
     fun addBankCard(name: String, bankName: String, bankNo: String, bankExpire: String,
                     bankCvv: String,area:String, type: Int) {
+        if(name.isEmpty()||bankName.isEmpty()||bankNo.isEmpty()){
+            getView().handlerError(0x11,"")
+            return
+        }
         addSubscribe(getApi().addBankCard(name, bankName, bankNo, bankExpire, bankCvv,area)
                 .compose(RetrofitClient.getDefaultTransformer(getView(), type))
                 .subscribe({
@@ -86,6 +90,7 @@ class BankCardPresenter : RxPresenter<MvpView>() {
      * 修改银行卡  仅支持 修改地区
      */
     fun editBankCard(id: String, area:String, type: Int) {
+
         addSubscribe(getApi().editBankCard(id,area)
                 .compose(RetrofitClient.getDefaultTransformer(getView(), type))
                 .subscribe({

@@ -18,7 +18,6 @@ import com.upholstery.share.battery.mvp.ui.dialog.LoadingDialog
 import com.upholstery.share.battery.mvp.ui.dialog.WarningDialog
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.startActivityForResult
 
 
 /**
@@ -44,15 +43,12 @@ class LoginActivity : BaseMvpActivity<MvpView, LoginPresenter>(),
             0x10 -> {
                 toast(R.string.phone_is_disabled)
             }
-            0x11 -> {
-                mBtnGetVerCode.stop()
-                toast(R.string.ver_code_send_error)
+            0x11 -> { //手机号验证
+                toast(e)
             }
             0x12 -> {
                 toast(e)
             }
-            0x13 -> toast(R.string.ver_code_is_empty)
-            0x15 -> toast(R.string.phone_is_disabled)
             else -> {
             }
         }
@@ -62,8 +58,7 @@ class LoginActivity : BaseMvpActivity<MvpView, LoginPresenter>(),
     override fun handlerSuccess(type: Int, data: Any) {
         when (type) {
             0x11 -> {
-                mBtnGetVerCode.start()
-                toast(R.string.ver_code_send_success)
+                checkPermissionByCall()
             }
             0x12 -> {
                 toast(R.string.login_success)
@@ -75,12 +70,22 @@ class LoginActivity : BaseMvpActivity<MvpView, LoginPresenter>(),
         }
     }
 
-    fun checkPermission() {
+    /**
+     * 检测权限 并打电话
+     */
+    fun checkPermissionByCall() {
         RxPermissions(this)
                 .request(Manifest.permission.CALL_PHONE)
                 .subscribe {
                     if (it) {
-                        callPhone()
+                        //取到運營手機號
+                        val phoneNum = "15228950262"
+                        mWarningDialog.setData("呼叫 $phoneNum?", getString(R.string.cancel), getString(R.string.call))
+                        mWarningDialog.setListener({
+                        }, {
+                            callPhone(phoneNum)
+                        })
+                        showDialog(mWarningDialog)
                     }
                 }
     }
@@ -88,9 +93,7 @@ class LoginActivity : BaseMvpActivity<MvpView, LoginPresenter>(),
     /**
      * 噠電話的操作
      */
-    private fun callPhone() {
-        //取到運營手機號
-        val phoneNum = ""
+    private fun callPhone(phoneNum: String) {
         val intent = Intent()
         intent.action = Intent.ACTION_CALL
         intent.data = Uri.parse("tel:$phoneNum")
@@ -114,10 +117,18 @@ class LoginActivity : BaseMvpActivity<MvpView, LoginPresenter>(),
                 startActivity<RegisterActivity>()
             }
             R.id.mBtnVer -> {//撥號驗證
-               // getPresenter().getVerCode(mTvAreaCode.text.toString(), mEtPhone.text.toString(), "2", 0x11)
+                mWarningDialog.setData(getString(R.string.whether_to_start_dialup_validation),
+                        getString(R.string.cancel), getString(R.string.confirm))
+                mWarningDialog.setListener({
+
+                }, {
+                    getPresenter().getVerCode(mEtPhone.text.toString(), "2", 0x11)
+                })
+                showDialog(mWarningDialog)
+
             }
             R.id.mBtnLogin -> {
-                getPresenter().login(mTvAreaCode.text.toString(), mEtPhone.text.toString(), mEtVerCode.text.toString(), 0x12)
+                getPresenter().login(mEtPhone.text.toString(), 0x12)
             }
             R.id.mIvToFacebookLogin -> {
 

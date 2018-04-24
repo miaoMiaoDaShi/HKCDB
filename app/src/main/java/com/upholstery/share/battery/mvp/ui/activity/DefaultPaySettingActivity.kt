@@ -77,4 +77,6 @@ class DefaultPaySettingActivity : BaseActivity() {
         toast(R.string.setting_success)
         finish()
     }
+
+
 }

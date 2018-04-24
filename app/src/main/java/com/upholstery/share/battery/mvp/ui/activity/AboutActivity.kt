@@ -45,4 +45,5 @@ class AboutActivity : BaseActivity(), View.OnClickListener {
                 .setTitle(R.string.about_us)
                 .setOnLeftImageListener { finish() }
     }
+
 }

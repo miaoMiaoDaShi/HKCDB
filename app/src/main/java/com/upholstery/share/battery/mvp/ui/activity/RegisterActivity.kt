@@ -94,7 +94,7 @@ class RegisterActivity : BaseMvpActivity<MvpView, RegisterPresenter>(), View.OnC
             R.id.mIvBack -> onBackPressed()
             R.id.mTvCodeName -> startActivityForResult(Intent(this,
                     SelectAreaCodeActivity::class.java), REQUEST_CODE)
-            R.id.mBtnGetVerCode -> getPresenter().getVerCode(mTvCodeName.text.toString(),
+            R.id.mBtnGetVerCode -> getPresenter().getVerCode(
                     mTxtPhoneNum.text.toString(), "1", 0x13)
             R.id.mTvToLogin -> onBackPressed()
             R.id.mBtnRegister -> getPresenter().register(mTvCodeName.text.toString(),

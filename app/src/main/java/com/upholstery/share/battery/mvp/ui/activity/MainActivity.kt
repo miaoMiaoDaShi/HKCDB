@@ -185,7 +185,6 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
                 data as UserDetailResponse
                 if (data.data.money > 0) {
                     getPresenter().getUsingRecord(0x14)
-
                 } else {
                     showDialog(mWarningDialog)
                 }
@@ -208,8 +207,8 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
                         return
                     }
                 }
-                showDialog(mWarningDialog)
-                //startActivity<ScanActivity>("type" to 0x10)
+                //showDialog(mWarningDialog)
+                startActivity<ScanActivity>("type" to 0x10)
             }
             0x15 -> {
                 //借还状态：0-初始化 1-使用中 2-待支付  3-已完成  4-报失 5-报损',

@@ -20,6 +20,7 @@ class WarningDialog : BaseDialogFragment() {
     private var blockConfirm = {}
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        isCreated = true
         refreshView()
         mTvCancel.onClick({
             blockCancel.invoke()
@@ -54,10 +55,15 @@ class WarningDialog : BaseDialogFragment() {
     /**
      * 刷新視圖
      */
+    private var isCreated = false
+
     private fun refreshView() {
-        mTvContent.text = arguments["content"].toString()
-        mTvCancel.text = arguments["cancelText"].toString()
-        mTvConfirm.text = arguments["confirmText"].toString()
+        if (isCreated) {
+            mTvContent.text = arguments["content"].toString()
+            mTvCancel.text = arguments["cancelText"].toString()
+            mTvConfirm.text = arguments["confirmText"].toString()
+        }
+
     }
 
     companion object {
@@ -81,5 +87,10 @@ class WarningDialog : BaseDialogFragment() {
             warningDialog.show(manager, "warningDialog")
             return warningDialog
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        isCreated = false
     }
 }

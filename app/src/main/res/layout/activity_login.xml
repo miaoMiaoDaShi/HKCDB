@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:fitsSystemWindows="true"
     android:background="@drawable/bg_login">
 
     <ImageView
@@ -10,8 +13,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15px"
-        android:fitsSystemWindows="true"
         android:padding="26px"
+        android:layout_gravity="left"
         android:src="@drawable/ic_back"
         android:visibility="invisible" />
 
@@ -19,8 +22,6 @@
         android:id="@+id/mCardViewBlock"
         android:layout_width="600px"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/mIvBack"
-        android:layout_centerHorizontal="true"
         android:layout_marginBottom="60px"
         android:layout_marginTop="50px"
         app:cardBackgroundColor="@android:color/transparent">
@@ -47,6 +48,7 @@
                 android:layout_height="100px"
                 android:background="@drawable/select_bg"
                 android:paddingLeft="26px"
+                android:visibility="gone"
                 android:paddingRight="26px">
 
                 <TextView
@@ -72,12 +74,12 @@
                     android:textSize="18sp" />
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="26px"
-                android:layout_marginRight="26px"
-                android:background="@android:color/white" />
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:layout_marginLeft="26px"-->
+                <!--android:layout_marginRight="26px"-->
+                <!--android:background="@android:color/white" />-->
 
             <EditText
                 android:id="@+id/mEtPhone"
@@ -137,7 +139,10 @@
             </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
-
+<View
+    android:layout_weight="1"
+    android:layout_width="match_parent"
+    android:layout_height="0px"/>
     <Button
         android:id="@+id/mBtnVer"
         android:layout_width="600px"
@@ -153,20 +158,19 @@
         android:id="@+id/mBtnLogin"
         android:layout_width="600px"
         android:layout_height="80px"
-        android:layout_below="@id/mBtnVer"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="26px"
         android:background="@drawable/select_btn_yellow"
         android:text="@string/login_in"
         android:textColor="@android:color/black"
         android:textSize="15sp" />
-
+    <View
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0px"/>
     <LinearLayout
         android:id="@+id/mLineBlock"
         android:layout_width="600px"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/mLlLoginTypeBlock"
-        android:layout_centerHorizontal="true"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -221,11 +225,9 @@
         android:id="@+id/mBntRegister"
         android:layout_width="600px"
         android:layout_height="80px"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginBottom="80px"
         android:background="@drawable/bg_btn_yellow_stroke"
         android:text="@string/register_new_account"
         android:textColor="@color/yellow"
         android:textSize="15sp" />
-</RelativeLayout>
+</LinearLayout>

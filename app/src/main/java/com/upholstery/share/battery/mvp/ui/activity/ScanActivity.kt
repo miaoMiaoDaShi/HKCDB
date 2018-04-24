@@ -21,7 +21,7 @@ import org.jetbrains.anko.startActivity
  */
 
 class ScanActivity : BaseActivity(), ZXingScannerView.ResultHandler {
-    private val SCAN_PREFIX = "http://www.xgcdb.global/app/device.html?sno="
+    private val SCAN_PREFIX = "http://wx.gaadme.com/app/device.html?sno="
     override fun handleResult(p0: Result?) {
         p0?.let {
             if (it.text.contains(SCAN_PREFIX)) {

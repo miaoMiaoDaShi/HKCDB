@@ -28,14 +28,19 @@ class ModPersonalDataPresenter : UploadImageFilePresenter() {
                     if ((it as UserDetailResponse).isOk) {
                         getView().handlerSuccess(type, it)
                         mUserDetailJson = toJson(it)
-                    } else throw RuntimeException(it.resmsg)
+                    } else {
+                        if (it.status == 105 || it.status == 106 || it.status == 107) {
+                            return@subscribe
+                        }
+                        throw RuntimeException(it.resmsg)
+                    }
                 }, { getView().handlerError(type, it.message!!) }))
     }
 
     /**
      * 修改用户资料
      */
-    fun modPersonalData(map: Map<String,String>, type: Int) {
+    fun modPersonalData(map: Map<String, String>, type: Int) {
         addSubscribe(getApi().modUserInfo(map)
                 .compose(RetrofitClient.getDefaultTransformer(getView(), type))
                 .subscribe({
@@ -49,7 +54,7 @@ class ModPersonalDataPresenter : UploadImageFilePresenter() {
     /**
      * 修改绑定的手机号码
      */
-    fun modBindPhone( areaCode: String, phone: String, code: String, userId: String,type:Int){
+    fun modBindPhone(areaCode: String, phone: String, code: String, userId: String, type: Int) {
         if (!RegexUtils.isMobileSimple(phone)) {
             getView().handlerError(0x10, "")
             return

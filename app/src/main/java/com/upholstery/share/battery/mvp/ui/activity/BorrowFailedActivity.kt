@@ -33,4 +33,6 @@ class BorrowFailedActivity : BaseActivity() {
             finish()
         }
     }
+
+
 }

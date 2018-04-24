@@ -51,4 +51,5 @@ class ChangeSexActivity : BaseActivity(), View.OnClickListener {
         super.onBackPressed()
 
     }
+
 }

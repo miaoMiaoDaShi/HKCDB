@@ -102,7 +102,7 @@ class ChangeBindPhoneNumActivity : BaseMvpActivity<MvpView, ModPersonalDataPrese
                 startActivityForResult<SelectAreaCodeActivity>(REQUEST_CODE)
             }
             R.id.mBtnGetVerCode -> {
-                mGetVerCodePresenter.getVerCode(mTvAreaCode.text.toString().replace("+", ""),
+                mGetVerCodePresenter.getVerCode(
                         mEtPhone.text.toString(), "4", 0x11)
             }
             R.id.mBtnCommit -> {
@@ -140,5 +140,7 @@ class ChangeBindPhoneNumActivity : BaseMvpActivity<MvpView, ModPersonalDataPrese
         }
 
     }
+
+
 
 }
