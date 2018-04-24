@@ -50,6 +50,7 @@ class BankCardListActivity : BaseMvpActivity<MvpView, BankCardPresenter>(), Swip
     override fun dismissLoading(type: Int) {
         when (type) {
             TYPE_LOAD_BANK_CARD -> {
+                mSwipeRefreshBankList.isRefreshing = false
             }
             else -> {
                 //cn.zcoder.xxp.base.ext.dismissDialog(mLoadingDialog)
@@ -103,10 +104,6 @@ class BankCardListActivity : BaseMvpActivity<MvpView, BankCardPresenter>(), Swip
                 .showRightText(true)
         mSwipeRefreshBankList.setOnRefreshListener(this)
 
-        mSwipeRefreshBankList.post {
-            mSwipeRefreshBankList.isRefreshing = true
-            onRefresh()
-        }
 
         initRecyclerView()
 
@@ -140,6 +137,14 @@ class BankCardListActivity : BaseMvpActivity<MvpView, BankCardPresenter>(), Swip
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        mSwipeRefreshBankList.post {
+            mSwipeRefreshBankList.isRefreshing = true
+            onRefresh()
+        }
+
+    }
     /**
      * 信用卡的添加
      */

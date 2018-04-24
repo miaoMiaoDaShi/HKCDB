@@ -13,6 +13,8 @@
         android:layout_margin="26px"
         android:background="@drawable/bg_btn_white"
         android:hint="@string/card_holder_name"
+        android:inputType="text"
+        android:maxLines="1"
         android:paddingLeft="26px"
         android:paddingRight="26px"
         android:textColorHint="@color/gray"
@@ -26,6 +28,8 @@
         android:layout_marginRight="26px"
         android:background="@drawable/bg_btn_white"
         android:hint="@string/bank_name"
+        android:inputType="text"
+        android:maxLines="1"
         android:paddingLeft="26px"
         android:paddingRight="26px"
         android:textColorHint="@color/gray"
@@ -38,6 +42,8 @@
         android:layout_margin="26px"
         android:background="@drawable/bg_btn_white"
         android:hint="@string/bank_card_num"
+        android:inputType="number"
+        android:maxLines="1"
         android:paddingLeft="26px"
         android:paddingRight="26px"
         android:textColorHint="@color/gray"
@@ -51,6 +57,8 @@
         android:layout_marginRight="26px"
         android:background="@drawable/bg_btn_white"
         android:hint="@string/validity"
+        android:inputType="text"
+        android:maxLines="1"
         android:paddingLeft="26px"
         android:paddingRight="26px"
         android:textColorHint="@color/gray"
@@ -65,6 +73,9 @@
         android:layout_marginTop="26px"
         android:background="@drawable/bg_btn_white"
         android:hint="@string/ver_code"
+        android:inputType="text"
+        android:maxEms="3"
+        android:maxLines="1"
         android:paddingLeft="26px"
         android:paddingRight="26px"
         android:textColorHint="@color/gray"
@@ -86,8 +97,8 @@
         android:layout_height="80px"
         android:layout_marginLeft="26px"
         android:layout_marginRight="26px"
-        android:entries="@array/area_name"
-        android:background="@drawable/bg_btn_white">
+        android:background="@drawable/bg_btn_white"
+        android:entries="@array/area_name">
 
     </Spinner>
 </LinearLayout>

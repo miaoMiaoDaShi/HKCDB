@@ -261,7 +261,7 @@ interface APIService {
     /**
      * 查询银行卡的信息
      */
-    @GET("personController/queryBankDetail")
+    @GET("walletController/queryBankDetail")
     fun getBankCardDetail(@Query("id")id:String): Observable<BankCardDetailResponse>
 
     /**
