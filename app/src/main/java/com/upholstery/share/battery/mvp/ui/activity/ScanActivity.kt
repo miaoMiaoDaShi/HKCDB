@@ -23,9 +23,11 @@ import org.jetbrains.anko.startActivity
 class ScanActivity : BaseActivity(), ZXingScannerView.ResultHandler {
     private val SCAN_PREFIX = "http://wx.gaadme.com/app/device.html?sno="
     override fun handleResult(p0: Result?) {
+        //
         p0?.let {
-            if (it.text.contains(SCAN_PREFIX)) {
-                val sno = it.text.replace(SCAN_PREFIX, "")
+            if (1==1) {
+                //val sno = it.text.replace(SCAN_PREFIX, "")
+                val sno = it.text.split("sno=")[1]
                 when (intent.getIntExtra("type", 0)) {
                 //借用
                     0x10 -> {

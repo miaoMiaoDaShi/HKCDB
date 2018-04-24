@@ -11,7 +11,7 @@ class AuthInterceptor : TokenHeaderInterceptor() {
     private var mUserResponse: UserResponse? = null
 
     override fun getUid() = "${mUserResponse?.data?.uid}"
-    override fun getToken() = mUserResponse?.data?.token+"kk" ?: ""
+    override fun getToken() = mUserResponse?.data?.token ?: ""
 
     override fun initUserInfo() {
         mUserResponse = fromJson<UserResponse>(mUserInfo)
