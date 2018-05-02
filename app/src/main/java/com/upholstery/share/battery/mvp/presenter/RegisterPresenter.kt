@@ -15,12 +15,12 @@ import com.upholstery.share.battery.app.getApi
 class RegisterPresenter : VerPhonePresenter<MvpView>() {
     fun register(areaCode: String, phone: String, code: String, surName: String, realname: String,
                  email: String, fatherId: String, type: Int) {
-        if (RegexUtils.isMobileSimple(phone)) {
-            getView().handlerSuccess(0x10, Unit)
-        } else {
-            getView().handlerError(0x10, "")
-            return
-        }
+//        if (RegexUtils.isMobileSimple(phone)) {
+//            getView().handlerSuccess(0x10, Unit)
+//        } else {
+//            getView().handlerError(0x10, "")
+//            return
+//        }
 
         if (code.isEmpty() || surName.isEmpty() || realname.isEmpty()) {
             getView().handlerError(0x11, "")

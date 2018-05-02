@@ -1,6 +1,7 @@
 package com.upholstery.share.battery.mvp.ui.activity
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -36,6 +37,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_borrow_record_detail.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.startActivityForResult
 import timber.log.Timber
 
 
@@ -52,6 +54,10 @@ import timber.log.Timber
 class BorrowRecordDetailActivity : BaseMvpActivity<MvpView, BorrowRecordDetailPresenter>(),
         View.OnClickListener {
     private val SDK_PAY_FLAG = 0x10
+    /**
+     * 去选择优惠券的界面的请求吗
+     */
+    private val REQUEST_CODE_TO_SELECT_COUPON = 0x10
     private val mHandler = @SuppressLint("HandlerLeak")
     object : Handler() {
         override fun handleMessage(msg: Message?) {
@@ -146,7 +152,7 @@ class BorrowRecordDetailActivity : BaseMvpActivity<MvpView, BorrowRecordDetailPr
             0x11 -> {
                 showSnackBar(R.string.commit_failed)
             }
-            0x12,0x13,0x14,0x15->{
+            0x12, 0x13, 0x14, 0x15 -> {
                 toast(R.string.pay_failed)
             }
             else -> {
@@ -203,7 +209,8 @@ class BorrowRecordDetailActivity : BaseMvpActivity<MvpView, BorrowRecordDetailPr
                         }
 
                     }, {
-
+                        //选择优惠券
+                        startActivityForResult<SelectCouponActivity>(REQUEST_CODE_TO_SELECT_COUPON)
                     })
                     mPayPop.showAtLocation(find(R.id.mBtnToPay),
                             Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL, 0, 0)
@@ -257,6 +264,19 @@ class BorrowRecordDetailActivity : BaseMvpActivity<MvpView, BorrowRecordDetailPr
             }
         }
 
+    }
+
+    /**
+     * 当前选择的优惠券的id
+     */
+    private var mCurrentSelectCouponId = ""
+
+    /**
+     * 从优惠券界面返回
+     */
+    private fun onSelectCouponBack(stringExtra: String?, intExtra: Int) {
+        mPayPop.reduceMoney(intExtra.toLong())
+        mCurrentSelectCouponId = stringExtra ?: ""
     }
 
     override fun initView(savedInstanceState: Bundle?) {
@@ -343,5 +363,16 @@ class BorrowRecordDetailActivity : BaseMvpActivity<MvpView, BorrowRecordDetailPr
         val payThread = Thread(payRunnable)
         payThread.start()
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        //选择优惠券返回
+        if (requestCode == REQUEST_CODE_TO_SELECT_COUPON && resultCode == Activity.RESULT_OK) {
+            data?.let {
+                onSelectCouponBack(it.getStringExtra("id"), it.getIntExtra("money", 0))
+            }
+        }
+    }
+
 
 }

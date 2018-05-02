@@ -51,6 +51,9 @@ class SelectPayTypeToPayPop(var money: Long, val point: Int, context: Context) :
         btnCount.text = String.format(context.getString(R.string.format_pay_btn), newMoney / 100.0)
     }
 
+    /**
+     * 减免金额
+     */
     public fun reduceMoney(newMoney: Long) {
         mCurrentMoney = mCurrentMoney - newMoney
         resetMoney(mCurrentMoney)

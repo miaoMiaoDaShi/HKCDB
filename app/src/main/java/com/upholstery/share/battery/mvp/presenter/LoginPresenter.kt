@@ -21,10 +21,10 @@ class LoginPresenter : VerPhonePresenter<MvpView>() {
      * 手机号验证码登录
      */
     fun login(phone: String,  type: Int) {
-        if (!RegexUtils.isMobileSimple(phone)) {
-            getView().handlerError(0x10, "")
-            return
-        }
+//        if (!RegexUtils.isMobileSimple(phone)) {
+//            getView().handlerError(0x10, "")
+//            return
+//        }
         addSubscribe(getApi().login("4", null, phone,"")
                 .compose(RetrofitClient.getDefaultTransformer(getView(), type))
                 .subscribe({
