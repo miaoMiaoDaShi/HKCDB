@@ -216,6 +216,12 @@
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
+        <!--选择优惠券-->
+        <activity
+            android:name="com.upholstery.share.battery.mvp.ui.activity.SelectCouponActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <!--报损页面-->
         <activity
             android:name="com.upholstery.share.battery.mvp.ui.activity.BreakageActivity"
