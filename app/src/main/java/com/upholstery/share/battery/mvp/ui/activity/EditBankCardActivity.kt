@@ -5,6 +5,7 @@ import cn.zcoder.xxp.base.ext.showDialog
 import cn.zcoder.xxp.base.ext.toast
 import cn.zcoder.xxp.base.mvp.ui.MvpView
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseMvpActivity
+import com.blankj.utilcode.util.TimeUtils
 import com.upholstery.share.battery.R
 import com.upholstery.share.battery.mvp.modle.entity.BankCardDetailResponse
 import com.upholstery.share.battery.mvp.presenter.BankCardPresenter
@@ -12,6 +13,7 @@ import com.upholstery.share.battery.mvp.ui.dialog.LoadingDialog
 import com.upholstery.share.battery.mvp.ui.widgets.ToolBar
 import kotlinx.android.synthetic.main.activity_edit_bank_card.*
 import org.jetbrains.anko.find
+import java.text.SimpleDateFormat
 
 /**
  * Created by Zcoder
@@ -79,11 +81,12 @@ class EditBankCardActivity : BaseMvpActivity<MvpView, BankCardPresenter>() {
         when (type) {
             0x10 -> {//加載銀行卡詳情
                 data as BankCardDetailResponse
-//                mEtName.setText(data.data[0].userName)
-//                mEtBankName.setText(data.data[0].bankName)
-//                mEtBankCardNo.setText(data.data[0].bankNo)
-                mEtBankCardValidity.isEnabled = false
-                mBankCardVerCode.isEnabled = false
+                mEtName.setText(data.data.bankName)
+                mEtBankName.setText(data.data.bankName)
+                mEtBankCardNo.setText(data.data.bankNo)
+                mEtBankCardValidity.setText(TimeUtils.millis2String(data.data.bankExpire.toLong(),
+                        SimpleDateFormat(" yyyy-MM-dd")))
+                mBankCardVerCode.setText(data.data.bankCvv2)
             }
 
             0x12 -> {//添加

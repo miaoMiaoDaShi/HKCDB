@@ -1,7 +1,5 @@
 package com.upholstery.share.battery.mvp.modle.entity;
 
-import java.util.List;
-
 import cn.zcoder.xxp.base.net.BaseResponse;
 
 /**
@@ -12,38 +10,41 @@ import cn.zcoder.xxp.base.net.BaseResponse;
  */
 public class BankCardDetailResponse extends BaseResponse {
 
-    private List<DataBean> data;
 
-    public List<DataBean> getData() {
+    /**
+     * data : {"area":"香港(中國)","bankCvv2":"256","bankExpire":56000,"bankName":"恐龙","bankNo":"256888","bankType":0,"id":8,"is_Default":0}
+     */
+
+    private DataBean data;
+
+    public DataBean getData() {
         return data;
     }
 
-    public void setData(List<DataBean> data) {
+    public void setData(DataBean data) {
         this.data = data;
     }
 
     public static class DataBean {
         /**
          * area : 香港(中國)
-         * bankCvv : 325
-         * bankExpire : 1000
-         * bankName : 哈哈
-         * bankNo : 56666666
+         * bankCvv2 : 256
+         * bankExpire : 56000
+         * bankName : 恐龙
+         * bankNo : 256888
          * bankType : 0
-         * id : 7
-         * isDefault : 0
-         * userName : 喵喵
+         * id : 8
+         * is_Default : 0
          */
 
         private String area;
-        private String bankCvv;
+        private String bankCvv2;
         private int bankExpire;
         private String bankName;
         private String bankNo;
         private int bankType;
         private int id;
-        private int isDefault;
-        private String userName;
+        private int is_Default;
 
         public String getArea() {
             return area;
@@ -53,12 +54,12 @@ public class BankCardDetailResponse extends BaseResponse {
             this.area = area;
         }
 
-        public String getBankCvv() {
-            return bankCvv;
+        public String getBankCvv2() {
+            return bankCvv2;
         }
 
-        public void setBankCvv(String bankCvv) {
-            this.bankCvv = bankCvv;
+        public void setBankCvv2(String bankCvv2) {
+            this.bankCvv2 = bankCvv2;
         }
 
         public int getBankExpire() {
@@ -101,20 +102,12 @@ public class BankCardDetailResponse extends BaseResponse {
             this.id = id;
         }
 
-        public int getIsDefault() {
-            return isDefault;
+        public int getIs_Default() {
+            return is_Default;
         }
 
-        public void setIsDefault(int isDefault) {
-            this.isDefault = isDefault;
-        }
-
-        public String getUserName() {
-            return userName;
-        }
-
-        public void setUserName(String userName) {
-            this.userName = userName;
+        public void setIs_Default(int is_Default) {
+            this.is_Default = is_Default;
         }
     }
 }

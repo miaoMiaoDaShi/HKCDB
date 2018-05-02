@@ -102,8 +102,11 @@ class BankDetailActivity : BaseMvpActivity<MvpView, BankCardPresenter>() {
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
         mBankDetailDialog.setOnClickListener({
-            startActivity<EditBankCardActivity>("id" to intent.getStringExtra("id"))
+            mBankDetailDialog.dismiss()
+            startActivity<EditBankCardActivity>("id" to intent.getStringExtra("id"),
+                    "type" to 1)
         }, {
+            mBankDetailDialog.dismiss()
             getPresenter().delBankCard(intent.getStringExtra("id"),0x11)
         })
     }
