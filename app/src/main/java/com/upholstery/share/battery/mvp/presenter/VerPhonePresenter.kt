@@ -21,10 +21,10 @@ open class VerPhonePresenter<V : MvpView> : RxPresenter<V>() {
      * 把手機號傳給后臺
      */
     open fun getVerCode(phone: String, userTo: String, type: Int) {
-        if (!RegexUtils.isMobileSimple(phone)) {
-            getView().handlerError(0x10, "")
-            return
-        }
+//        if (!RegexUtils.isMobileSimple(phone)) {
+//            getView().handlerError(0x10, "")
+//            return
+//        }
         addSubscribe(getApi().verPhone(phone, userTo)
                 .compose(RetrofitClient.getDefaultTransformer(getView(), type))
                 .subscribe({
