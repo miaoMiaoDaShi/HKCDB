@@ -273,7 +273,7 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
         mIvRefresh.onClick(this)
         mTvBorrow.onClick(this)
         mTvRepay.onClick(this)
-        mTvToWallet.onClick(this)
+        mTvToMy.onClick(this)
         mTvToUseRecord.onClick(this)
         mTvToMsg.onClick(this)
         mTvToCredits.onClick(this)
@@ -408,7 +408,7 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.mIvMine -> {
+            R.id.mTvToMy -> {
                 startActivity<AccountSettingActivity>()
             }
             R.id.mIvProtocol -> {
@@ -441,9 +441,9 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
             R.id.mTvRepay -> {
                 mModPersonalDataPresenter.getUserDetail(0x13)
             }
-            R.id.mTvToWallet -> {
-                startActivity<MyWalletActivity>()
-            }
+//            R.id.mTvToWallet -> {
+//                startActivity<MyWalletActivity>()
+//            }
             R.id.mTvToUseRecord -> {
                 startActivity<BorrowRecordActivity>()
             }

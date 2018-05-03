@@ -51,17 +51,9 @@ class MyWalletActivity : BaseMvpActivity<MvpView, WalletPresenter>(), View.OnCli
             R.id.mBtnTopUp -> {
                 startActivity<TopUpActivity>()
             }
-            R.id.mRlDefaultPay -> {
-                startActivity<DefaultPaySettingActivity>()
-            }
-            R.id.mRlCreditCard -> {
-                startActivity<BankCardListActivity>()
-            }
+
             R.id.mRlOrderDetail -> {
                 startActivity<OrderListActivity>()
-            }
-            R.id.mRlMyCoupon -> {
-                startActivity<MyCouponActivity>()
             }
             else -> {
             }
@@ -73,10 +65,8 @@ class MyWalletActivity : BaseMvpActivity<MvpView, WalletPresenter>(), View.OnCli
         super.bindListener()
         mIvBack.onClick(this)
         mBtnTopUp.onClick(this)
-        mRlDefaultPay.onClick(this)
-        mRlCreditCard.onClick(this)
         mRlOrderDetail.onClick(this)
-        mRlMyCoupon.onClick(this)
+
     }
 
     override fun start() {

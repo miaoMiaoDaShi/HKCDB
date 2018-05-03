@@ -124,10 +124,16 @@ class LoginActivity : BaseMvpActivity<MvpView, LoginPresenter>(),
                 startActivity<RegisterActivity>()
             }
             R.id.mBtnVer -> {//撥號驗證
+                val phoneNum = mEtPhone.text.toString()
+                if (phoneNum.isEmpty()) {
+                    toast(R.string.phone_num_not_be_null)
+                    return
+                }
                 mVerPhoneNum.setListener({
                 }, {
-                    getPresenter().getVerCode(mEtPhone.text.toString(), "2", 0x11)
+                    getPresenter().getVerCode(phoneNum, "2", 0x11)
                 })
+                mVerPhoneNum.setData(phoneNum)
                 showDialog(mVerPhoneNum)
 
             }

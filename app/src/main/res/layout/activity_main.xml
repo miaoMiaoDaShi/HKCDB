@@ -32,6 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
+            android:visibility="gone"
             android:src="@drawable/ic_mine" />
 
         <ImageView
@@ -163,10 +164,10 @@
         android:paddingTop="15px">
 
         <TextView
-            android:id="@+id/mTvToWallet"
+            android:id="@+id/mTvToMy"
             style="@style/homeTabTextView"
             android:drawableTop="@drawable/ic_home_wallet"
-            android:text="@string/wallet" />
+            android:text="@string/information" />
 
         <TextView
             android:id="@+id/mTvToUseRecord"

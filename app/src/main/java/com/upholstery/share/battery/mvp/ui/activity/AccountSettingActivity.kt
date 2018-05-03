@@ -35,8 +35,17 @@ class AccountSettingActivity : BaseActivity(), View.OnClickListener {
                 startActivity<MineActivity>()
 
             }
+            R.id.mRlDefaultPay -> {
+                startActivity<DefaultPaySettingActivity>()
+            }
+            R.id.mRlCreditCard -> {
+                startActivity<BankCardListActivity>()
+            }
             R.id.mRlSwitchLanguage -> {
                 startActivity<SettingLanguageActivity>()
+            }
+            R.id.mRlMyCoupon -> {
+                startActivity<MyCouponActivity>()
             }
             R.id.mRlCheckUpda -> {
                 toast(R.string.check_updateing)
@@ -61,6 +70,9 @@ class AccountSettingActivity : BaseActivity(), View.OnClickListener {
     override fun bindListener() {
         super.bindListener()
         mRlMineData.onClick(this)
+        mRlDefaultPay.onClick(this)
+        mRlCreditCard.onClick(this)
+        mRlMyCoupon.onClick(this)
         mRlSwitchLanguage.onClick(this)
         mRlCheckUpda.onClick(this)
         mBtnLogout.onClick(this)
