@@ -19,13 +19,20 @@ class LoginPresenter : VerPhonePresenter<MvpView>() {
     private var mUserInfo by Preference(Constant.KEY_USER_INFO, "")
     /**
      * 手机号验证码登录
+     * @param surName 姓氏
+     * @param realname 名字
      */
-    fun login(phone: String,  type: Int) {
+    fun login(phone: String, surName: String,
+              realname: String, type: Int) {
 //        if (!RegexUtils.isMobileSimple(phone)) {
 //            getView().handlerError(0x10, "")
 //            return
 //        }
-        addSubscribe(getApi().login("4", null, phone,"")
+        if(surName.isEmpty() || realname.isEmpty()){
+            getView().handlerError(0x13,"")
+            return
+        }
+        addSubscribe(getApi().login("4", null, phone, "", surName, realname)
                 .compose(RetrofitClient.getDefaultTransformer(getView(), type))
                 .subscribe({
                     if ((it as UserResponse).isOk) {

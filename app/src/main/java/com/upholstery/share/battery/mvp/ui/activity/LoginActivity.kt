@@ -15,6 +15,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import com.upholstery.share.battery.R
 import com.upholstery.share.battery.mvp.presenter.LoginPresenter
 import com.upholstery.share.battery.mvp.ui.dialog.LoadingDialog
+import com.upholstery.share.battery.mvp.ui.dialog.VerPhoneNumberDialog
 import com.upholstery.share.battery.mvp.ui.dialog.WarningDialog
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
@@ -34,6 +35,9 @@ class LoginActivity : BaseMvpActivity<MvpView, LoginPresenter>(),
         WarningDialog.newInstance(getString(R.string.whether_to_start_dialup_validation),
                 getString(R.string.cancel), getString(R.string.confirm))
     }
+    private val mVerPhoneNum by lazy {
+        VerPhoneNumberDialog.newInstance()
+    }
     private val mLoadingDialog by lazy {
         LoadingDialog.getInstance(supportFragmentManager)
     }
@@ -48,6 +52,9 @@ class LoginActivity : BaseMvpActivity<MvpView, LoginPresenter>(),
             }
             0x12 -> {
                 toast(e)
+            }
+            0x13 -> {
+                toast(R.string.surname_or_realname_not_be_null)
             }
             else -> {
             }
@@ -113,22 +120,23 @@ class LoginActivity : BaseMvpActivity<MvpView, LoginPresenter>(),
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.mBntRegister -> {
+            R.id.mBtnRegister -> {
                 startActivity<RegisterActivity>()
             }
             R.id.mBtnVer -> {//撥號驗證
-                mWarningDialog.setData(getString(R.string.whether_to_start_dialup_validation),
-                        getString(R.string.cancel), getString(R.string.confirm))
-                mWarningDialog.setListener({
-
+                mVerPhoneNum.setListener({
                 }, {
                     getPresenter().getVerCode(mEtPhone.text.toString(), "2", 0x11)
                 })
-                showDialog(mWarningDialog)
+                showDialog(mVerPhoneNum)
 
             }
             R.id.mBtnLogin -> {
-                getPresenter().login(mEtPhone.text.toString(), 0x12)
+                getPresenter().login(
+                        mEtPhone.text.toString(),
+                        mEtSurname.text.toString(),
+                        mEtRealname.text.toString().trim(),
+                        0x12)
             }
             R.id.mIvToFacebookLogin -> {
 
@@ -138,6 +146,9 @@ class LoginActivity : BaseMvpActivity<MvpView, LoginPresenter>(),
             }
             R.id.mRlSelectArea -> startActivityForResult(Intent(this,
                     SelectAreaCodeActivity::class.java), REQUEST_CODE)
+            R.id.mBtnForgetPwd->{
+                //忘記用戶名
+            }
             else -> {
             }
         }
@@ -149,7 +160,8 @@ class LoginActivity : BaseMvpActivity<MvpView, LoginPresenter>(),
 
     override fun bindListener() {
         super.bindListener()
-        mBntRegister.onClick(this)
+        mBtnRegister.onClick(this)
+        mBtnForgetPwd.onClick(this)
         mBtnVer.onClick(this)
         mBtnLogin.onClick(this)
         mIvToFacebookLogin.onClick(this)

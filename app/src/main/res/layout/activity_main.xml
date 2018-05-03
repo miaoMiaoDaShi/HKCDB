@@ -184,7 +184,12 @@
             android:id="@+id/mTvToCredits"
             style="@style/homeTabTextView"
             android:drawableTop="@drawable/ic_home_credits"
-            android:text="@string/credits" />
+            android:text="@string/creditsOrCurrency" />
+        <TextView
+            android:id="@+id/mTvToShop"
+            style="@style/homeTabTextView"
+            android:drawableTop="@drawable/ic_home_credits"
+            android:text="@string/shop" />
     </LinearLayout>
 
 </LinearLayout>

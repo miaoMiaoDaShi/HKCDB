@@ -206,4 +206,12 @@
     <string name="Identity_is_overdue">身份過期,請重新登錄</string>
     <string name="suspend_an_account">賬號被凍結,點擊確定切換賬號</string>
     <string name="operating_frequency">操作頻繁,請稍後再試</string>
+    <string name="surname_or_realname_not_be_null">姓氏或名字不能為空</string>
+    <string name="please_input_sur_name">請輸入姓氏</string>
+    <string name="please_input_real_name">請輸入名字</string>
+    <string name="forget_user_name">忘記用戶名</string>
+    <string name="please_confirm_your_phone_num">請確認您的電話號碼</string>
+    <string name="creditsOrCurrency">積分/貨幣</string>
+    <string name="shop">商城</string>
+    <string name="input_your_birthday">輸入您的生日</string>
 </resources>

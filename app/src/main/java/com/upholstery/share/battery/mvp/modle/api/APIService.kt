@@ -16,6 +16,7 @@ interface APIService {
     /**
      * 獲取驗證碼 1注册 2登陆 3重置密码 4，更换(绑定)手机号码
      */
+    @Deprecated(message = "验证更改了",level = DeprecationLevel.ERROR)
     @GET("userController/phoneCode")
     fun getVerCode(@Query("areaCode") areaCode: String,
                    @Query("phone") phone: String,
@@ -37,7 +38,9 @@ interface APIService {
     fun login(@Field("login_type") type: String,
               @Field("open_type") openType: String?,
               @Field("account") account: String,
-              @Field("password") password: String): Observable<UserResponse>
+              @Field("password") password: String,
+              @Field("surname") surName: String,
+              @Field("realName") realname: String): Observable<UserResponse>
 
     /**
      * 注册

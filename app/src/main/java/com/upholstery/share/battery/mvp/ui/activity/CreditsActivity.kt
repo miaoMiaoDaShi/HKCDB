@@ -8,7 +8,6 @@ import android.view.View
 import cn.zcoder.xxp.base.app.Preference
 import cn.zcoder.xxp.base.ext.fromJson
 import cn.zcoder.xxp.base.ext.showSnackBar
-import cn.zcoder.xxp.base.ext.toast
 import cn.zcoder.xxp.base.mvp.ui.MvpView
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseMvpActivity
 import com.blankj.utilcode.util.TimeUtils
@@ -17,13 +16,11 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.upholstery.share.battery.R
 import com.upholstery.share.battery.app.Constant
 import com.upholstery.share.battery.mvp.modle.entity.InvitesResponse
-import com.upholstery.share.battery.mvp.modle.entity.MessageResponse
 import com.upholstery.share.battery.mvp.modle.entity.UserResponse
 import com.upholstery.share.battery.mvp.presenter.InvitePresenter
 import com.upholstery.share.battery.mvp.ui.widgets.ToolBar
 import kotlinx.android.synthetic.main.activity_credits.*
 import java.text.SimpleDateFormat
-import java.util.logging.SimpleFormatter
 
 
 /**
@@ -114,7 +111,7 @@ class CreditsActivity : BaseMvpActivity<MvpView, InvitePresenter>(), SwipeRefres
 
     private fun initRecyclerView() {
         mRvInvite.layoutManager = LinearLayoutManager(applicationContext)
-        mAdapter = object : BaseQuickAdapter<InvitesResponse.DataBean, BaseViewHolder>(R.layout.recycler_credits) {
+        mAdapter = object : BaseQuickAdapter<InvitesResponse.DataBean, BaseViewHolder>(R.layout.recycler_credits_and_currency) {
             override fun convert(helper: BaseViewHolder?, item: InvitesResponse.DataBean) {
                 helper?.run {
                     setText(R.id.mTvName, item.name)
