@@ -214,4 +214,6 @@
     <string name="creditsOrCurrency">積分/貨幣</string>
     <string name="shop">商城</string>
     <string name="input_your_birthday">輸入您的生日</string>
+    <string name="day">日</string>
+    <string name="mouth">月</string>
 </resources>
