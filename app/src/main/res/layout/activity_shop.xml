@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include layout="@layout/tool_bar" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_below="@+id/mToolBar"
+        android:id="@+id/mSwipeRefreshShop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/mRvShop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+<LinearLayout
+    android:layout_alignParentBottom="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@android:color/black"
+    android:paddingBottom="15px"
+    android:paddingTop="15px">
+    <TextView
+        android:id="@+id/mTvToShoppingCart"
+        style="@style/homeTabTextView"
+        android:drawableTop="@drawable/ic_home_wallet"
+        android:text="@string/shopping_car" />
+    <TextView
+        android:id="@+id/mTvToShoppingOrder"
+        style="@style/homeTabTextView"
+        android:drawableTop="@drawable/ic_home_wallet"
+        android:text="@string/shopping_order" />
 </LinearLayout>
+</RelativeLayout>

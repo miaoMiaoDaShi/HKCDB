@@ -218,4 +218,6 @@
     <string name="mouth">月</string>
     <string name="information">資料</string>
     <string name="phone_num_not_be_null">電話號碼不能為空</string>
+    <string name="shopping_order">購物訂單</string>
+    <string name="shopping_car">購物車</string>
 </resources>
