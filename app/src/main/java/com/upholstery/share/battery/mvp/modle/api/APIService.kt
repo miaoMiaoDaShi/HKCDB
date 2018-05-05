@@ -40,7 +40,7 @@ interface APIService {
               @Field("account") account: String,
               @Field("password") password: String,
               @Field("surname") surName: String,
-              @Field("realName") realname: String): Observable<UserResponse>
+              @Field("realname") realname: String): Observable<UserResponse>
 
     /**
      * 注册

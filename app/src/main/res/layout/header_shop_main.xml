@@ -5,12 +5,26 @@
     android:background="@color/divisionColor50"
     android:orientation="vertical">
 
-    <com.youth.banner.Banner
-        android:id="@+id/mBanner"
-        android:layout_width="match_parent"
-        android:layout_height="380px">
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="380px">
+       <com.youth.banner.Banner
+           android:id="@+id/mBanner"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
 
-    </com.youth.banner.Banner>
+       </com.youth.banner.Banner>
+       <TextView
+           android:id="@+id/mTvIndicator"
+           android:layout_alignParentBottom="true"
+           android:layout_alignParentRight="true"
+           android:layout_margin="26px"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textColor="@android:color/white"
+           android:text="1/3"
+           android:textSize="15sp"/>
+   </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/mRvShopCategory"
