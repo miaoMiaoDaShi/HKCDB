@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/tool_bar" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divisionColor50"/>
+    <EditText
+        android:id="@+id/mEtContent"
+        android:padding="26px"
+        android:layout_width="match_parent"
+        android:layout_height="510px"
+        android:gravity="top"
+        android:hint="@string/evaluation_of_the_order"
+        android:textSize="15sp"
+        android:background="@android:color/white"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divisionColor50"/>
+    <Button
+        android:id="@+id/mBtnCommit"
+        android:layout_width="550px"
+        android:layout_height="80px"
+        android:layout_marginTop="70px"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/select_btn_yellow_oval"
+        android:text="@string/commit"
+        android:textColor="@android:color/black"
+        android:textSize="15sp"/>
+</LinearLayout>

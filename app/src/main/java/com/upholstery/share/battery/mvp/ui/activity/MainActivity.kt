@@ -451,7 +451,10 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
                 startActivity<MsgActivity>()
             }
             R.id.mTvToCredits -> {
-                startActivity<CreditsActivity>()
+                startActivity<CreditsAndCurrencyActivity>()
+            }
+            R.id.mTvToShop->{
+                startActivity<ShopActivity>()
             }
             else -> {
             }

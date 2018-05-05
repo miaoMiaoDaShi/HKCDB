@@ -3,6 +3,7 @@ package com.upholstery.share.battery.mvp.ui.activity
 import android.os.Bundle
 import cn.zcoder.xxp.base.ext.showDialog
 import cn.zcoder.xxp.base.ext.toast
+import cn.zcoder.xxp.base.ext.visible
 import cn.zcoder.xxp.base.mvp.ui.MvpView
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseMvpActivity
 import com.blankj.utilcode.util.TimeUtils
@@ -81,12 +82,12 @@ class EditBankCardActivity : BaseMvpActivity<MvpView, BankCardPresenter>() {
         when (type) {
             0x10 -> {//加載銀行卡詳情
                 data as BankCardDetailResponse
-                mEtName.setText(data.data.bankName)
-                mEtBankName.setText(data.data.bankName)
-                mEtBankCardNo.setText(data.data.bankNo)
-                mEtBankCardValidity.setText(TimeUtils.millis2String(data.data.bankExpire.toLong(),
-                        SimpleDateFormat(" yyyy-MM-dd")))
-                mBankCardVerCode.setText(data.data.bankCvv2)
+//                mEtName.setText(data.data.bankName)
+//                mEtBankName.setText(data.data.bankName)
+//                mEtBankCardNo.setText(data.data.bankNo)
+//                mEtBankCardValidity.setText(TimeUtils.millis2String(data.data.bankExpire.toLong(),
+//                        SimpleDateFormat(" yyyy-MM-dd")))
+//                mBankCardVerCode.setText(data.data.bankCvv2)
             }
 
             0x12 -> {//添加
@@ -135,11 +136,11 @@ class EditBankCardActivity : BaseMvpActivity<MvpView, BankCardPresenter>() {
             }
             1 -> {//只允许修改地区
                 mToolbar.setTitle(R.string.mod)
-                mEtName.isEnabled = false
-                mEtBankName.isEnabled = false
-                mEtBankCardNo.isEnabled = false
-                mEtBankCardValidity.isEnabled = false
-                mBankCardVerCode.isEnabled = false
+                mEtName.visible(false)
+                mEtBankName.visible(false)
+                mEtBankCardNo.visible(false)
+                mEtBankCardValidity.visible(false)
+                mBankCardVerCode.visible(false)
             }
             else -> {
             }

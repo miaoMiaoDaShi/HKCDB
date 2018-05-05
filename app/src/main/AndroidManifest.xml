@@ -142,11 +142,11 @@
         <activity
             android:name="com.upholstery.share.battery.mvp.ui.activity.MyWalletActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|stateUnchanged" >
+            android:windowSoftInputMode="stateHidden|stateUnchanged">
             <intent-filter>
                 <data
                     android:host="alipay"
-                    android:scheme="upholstery"/>
+                    android:scheme="upholstery" />
             </intent-filter>
         </activity>
         <!--默認支付界面-->
@@ -213,14 +213,14 @@
         <!--掃碼界面-->
         <activity
             android:name="com.upholstery.share.battery.mvp.ui.activity.ScanActivity"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <!--选择优惠券-->
         <activity
             android:name="com.upholstery.share.battery.mvp.ui.activity.SelectCouponActivity"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <!--报损页面-->
         <activity
@@ -252,13 +252,51 @@
             android:name="com.upholstery.share.battery.mvp.ui.activity.EditBankCardActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
-       銀行卡詳情
+        <!--銀行卡詳情-->
         <activity
             android:name="com.upholstery.share.battery.mvp.ui.activity.BankDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
-
-
+        <!--商城主页面-->
+        <activity
+            android:name="com.upholstery.share.battery.mvp.ui.activity.ShopActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
+        <!--信用/货币页面-->
+        <activity
+            android:name="com.upholstery.share.battery.mvp.ui.activity.CreditsAndCurrencyActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
+        <!--积分商品详情页面-->
+        <activity
+            android:name="com.upholstery.share.battery.mvp.ui.activity.ConversionCommodityDetailActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
+        <!--商城分类-->
+        <activity
+            android:name="com.upholstery.share.battery.mvp.ui.activity.ShopCommodityCategoryActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
+        <!--商城商品详情页面-->
+        <activity
+            android:name="com.upholstery.share.battery.mvp.ui.activity.ShopCommodityDetailActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
+        <!--確認訂單-->
+        <activity
+            android:name="com.upholstery.share.battery.mvp.ui.activity.ConfirmAnOrderActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
+        <!--評價訂單-->
+        <activity
+            android:name="com.upholstery.share.battery.mvp.ui.activity.EvaluationOfTheOrderActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
+        <!--商品列表-->
+        <activity
+            android:name="com.upholstery.share.battery.mvp.ui.activity.ShopCommodityListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <!--支付宝 start-->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"

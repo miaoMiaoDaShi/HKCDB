@@ -220,4 +220,7 @@
     <string name="phone_num_not_be_null">電話號碼不能為空</string>
     <string name="shopping_order">購物訂單</string>
     <string name="shopping_car">購物車</string>
+    <string name="evaluation_of_the_order">想說點什麼寫在這裡吧</string>
+    <string name="evaluation_of_the_order_success">評價成功</string>
+    <string name="evaluation">評價</string>
 </resources>
