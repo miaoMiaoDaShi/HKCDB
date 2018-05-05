@@ -223,4 +223,6 @@
     <string name="evaluation_of_the_order">想說點什麼寫在這裡吧</string>
     <string name="evaluation_of_the_order_success">評價成功</string>
     <string name="evaluation">評價</string>
+    <string name="ascending_sort">升序</string>
+    <string name="descending_sort">降序</string>
 </resources>
