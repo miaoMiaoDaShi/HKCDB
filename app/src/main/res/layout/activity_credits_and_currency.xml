@@ -2,12 +2,92 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
-<include layout="@layout/tool_bar"/>
+
+    <include layout="@layout/tool_bar" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/yellow">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="150px"
+    android:paddingRight="26px"
+    android:paddingLeft="26px">
+    <TextView
+        android:id="@+id/mTvMyCredits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="@string/my_credits"
+        android:layout_centerVertical="true"
+        android:textColor="@android:color/black"/>
+    <TextView
+        android:id="@+id/mTvCreditCount"
+        android:layout_toRightOf="@id/mTvMyCredits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:layout_marginLeft="30px"
+        android:layout_centerVertical="true"
+        android:textColor="@android:color/black"
+        tools:text="300"
+        android:textStyle="bold"/>
+    <Button
+        android:id="@+id/mBtnToCreditsRecord"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="260px"
+        android:layout_height="80px"
+        android:text="@string/credits_record"
+        android:textSize="15sp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/bg_btn_black_oval"/>
+</RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150px"
+            android:paddingRight="26px"
+            android:paddingLeft="26px">
+            <TextView
+                android:id="@+id/mTvMyCurrency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="@string/my_currency"
+                android:layout_centerVertical="true"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/mTvCurrencyCount"
+                android:layout_toRightOf="@id/mTvMyCurrency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:layout_marginLeft="30px"
+                android:layout_centerVertical="true"
+                android:textColor="@android:color/black"
+                tools:text="300"
+                android:textStyle="bold"/>
+            <Button
+                android:id="@+id/mBtnToCurrencyRecord"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="260px"
+                android:layout_height="80px"
+                android:text="@string/currency_record"
+                android:textSize="15sp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/bg_btn_black_oval"/>
+        </RelativeLayout>
+    </LinearLayout>
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/mSwipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/mRv"

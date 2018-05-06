@@ -16,7 +16,7 @@ interface APIService {
     /**
      * 獲取驗證碼 1注册 2登陆 3重置密码 4，更换(绑定)手机号码
      */
-    @Deprecated(message = "验证更改了",level = DeprecationLevel.ERROR)
+    @Deprecated(message = "验证更改了", level = DeprecationLevel.ERROR)
     @GET("userController/phoneCode")
     fun getVerCode(@Query("areaCode") areaCode: String,
                    @Query("phone") phone: String,
@@ -26,8 +26,9 @@ interface APIService {
      * 把手機號給後台
      */
     @GET("userController/appVerification")
-    fun verPhone( @Query("phone") phone: String,
-                  @Query("use_to") userTo: String):Observable<BaseResponse>
+    fun verPhone(@Query("phone") phone: String,
+                 @Query("use_to") userTo: String): Observable<BaseResponse>
+
     /**
      * 登錄  1：账号，密码  2：uid,token
     3：第三方  4:手机号，证码
@@ -47,21 +48,26 @@ interface APIService {
      */
     @POST("userController/userRegister")
     @FormUrlEncoded
-    fun register(@Field("areaCode") areaCode: String,
-                 @Field("phone") phone: String,
-                 @Field("code") code: String,
-                 @Field("surname") surName: String,
-                 @Field("realName") realname: String,
+    fun register(
+            @Field("phone") phone: String,
+            @Field("surname") surName: String,
+            @Field("realname") realname: String,
             //  @Field("password") pwd: String,
-                 @Field("email") email: String,
-                 @Field("invitationCode") invitationCode: String): Observable<BaseResponse>
+            @Field("invitationCode") invitationCode: String,
+            @Field("question")question:String = "7878"): Observable<BaseResponse>
 
     /**
      * 獲取邀請用戶列表
      */
     @GET("personController/myInvites")
     fun getInvite(@Query("page") page: Int): Observable<InvitesResponse>
-
+    /**
+     * 忘記用戶名
+     */
+    @POST("userController/forgetUserName")
+    @FormUrlEncoded
+    fun forgetUserName(@Field("phone")phone:String,
+                       @Field("question")question: String):Observable<ForgetUserNameResponse>
 
     /**
      * 意見反饋
@@ -265,7 +271,7 @@ interface APIService {
      * 查询银行卡的信息
      */
     @GET("walletController/queryBankDetail")
-    fun getBankCardDetail(@Query("id")id:String): Observable<BankCardDetailResponse>
+    fun getBankCardDetail(@Query("id") id: String): Observable<BankCardDetailResponse>
 
     /**
      * 充值规则

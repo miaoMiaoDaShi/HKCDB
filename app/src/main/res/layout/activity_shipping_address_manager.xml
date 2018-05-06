@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <include layout="@layout/tool_bar" />
+
+    <View
+        android:id="@+id/mLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/mToolBar"
+        android:background="@color/divisionColor50" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/mSwipeRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/mLine">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/mRv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <Button
+        android:id="@+id/mBtnConfirm"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="26px"
+        android:background="@drawable/select_btn_yellow_oval"
+        android:text="@string/add_shipping_address"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+</RelativeLayout>

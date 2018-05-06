@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:padding="26px">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/mTvReceiveName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/format_receive_name"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/mTvPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="60px"
+            android:layout_toRightOf="@id/mTvReceiveName"
+            android:textColor="@color/gray"
+            android:textSize="14sp"
+            tools:text="213124314" />
+
+        <ImageView
+            android:id="@+id/mIvCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_un_check" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/mTvShippingAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15px"
+        android:layout_marginTop="15px"
+        android:text="@string/format_shipping_address"
+        android:textColor="@color/gray"
+        android:textSize="14sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divisionColor50" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:id="@+id/mCbCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="26px"
+            android:text="設為默認收貨地址"
+            android:textColor="@color/gray"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/mBtnEdit"
+                android:layout_width="150px"
+                android:layout_height="70px"
+                android:background="@drawable/bg_btn_black_oval"
+                android:text="@string/edit"
+                android:textColor="@color/yellow"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/mBtnDel"
+                android:layout_width="150px"
+                android:layout_height="70px"
+                android:layout_marginLeft="26px"
+                android:background="@drawable/bg_btn_red_stroke_oval"
+                android:text="@string/edit"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

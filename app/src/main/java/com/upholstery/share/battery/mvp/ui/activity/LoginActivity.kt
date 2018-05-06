@@ -133,7 +133,7 @@ class LoginActivity : BaseMvpActivity<MvpView, LoginPresenter>(),
                 }, {
                     getPresenter().getVerCode(phoneNum, "2", 0x11)
                 })
-                mVerPhoneNum.setData(phoneNum)
+                mVerPhoneNum.setData("($phoneNum)")
                 showDialog(mVerPhoneNum)
 
             }
@@ -154,6 +154,7 @@ class LoginActivity : BaseMvpActivity<MvpView, LoginPresenter>(),
                     SelectAreaCodeActivity::class.java), REQUEST_CODE)
             R.id.mBtnForgetPwd->{
                 //忘記用戶名
+                startActivity<ForgetUserNameActivity>()
             }
             else -> {
             }

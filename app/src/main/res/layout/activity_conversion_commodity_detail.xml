@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+    <include layout="@layout/tool_bar"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+    </RelativeLayout>
+    <Button
+        android:id="@+id/mTvImmediatelyChange"
+        android:layout_width="300px"
+        android:layout_height="80px"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="80px"
+        android:textSize="15sp"
+        android:textColor="@android:color/black"
+        android:background="@drawable/select_btn_yellow_oval"
+        android:text="@string/Immediately_change"/>
 </RelativeLayout>

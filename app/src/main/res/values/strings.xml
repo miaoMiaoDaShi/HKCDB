@@ -19,7 +19,6 @@
     <string name="get_ver_code">獲取驗證碼</string>
     <string name="contact_us">聯絡我們</string>
     <string name="company_introduction">公司介紹</string>
-    <string name="my_credits">我的積分</string>
     <string name="user_name">用戶名稱</string>
     <string name="time">時間</string>
     <string name="credits">積分</string>
@@ -85,7 +84,7 @@
     <string name="commit">提交</string>
     <string name="feedback_hint">有什麼要跟我們產品說的呢....</string>
     <string name="login">登入</string>
-    <string name="register">註冊賬戶</string>
+    <string name="register">註冊</string>
     <string name="borrowing">借用中</string>
     <string name="forget_pwd">忘記密碼</string>
     <string name="please_input_pwd">請輸入密碼</string>
@@ -144,7 +143,7 @@
     <string name="real_name">名字*</string>
     <string name="please_input_ver_code">請輸入驗證碼</string>
     <string name="please_input_email_not_required">請輸入郵箱 (非填)</string>
-    <string name="please_invite_not_required">請輸入邀請碼 (非填)</string>
+    <string name="please_invite_not_required">請輸入您的邀請碼 (必填)</string>
     <string name="already_have_account_to_login">已有賬號,去登入</string>
     <string name="registration_means_reading_and_agreeing">註冊即表示閱讀并同意</string>
     <string name="please_scan_or_code">請掃描二維碼</string>
@@ -215,7 +214,7 @@
     <string name="shop">商城</string>
     <string name="input_your_birthday">輸入您的生日</string>
     <string name="day">日</string>
-    <string name="mouth">月</string>
+    <string name="month">月</string>
     <string name="information">資料</string>
     <string name="phone_num_not_be_null">電話號碼不能為空</string>
     <string name="shopping_order">購物訂單</string>
@@ -225,4 +224,31 @@
     <string name="evaluation">評價</string>
     <string name="ascending_sort">升序</string>
     <string name="descending_sort">降序</string>
+    <string name="setting_pwd_question">設置密保問題</string>
+    <string name="and">和</string>
+    <string name="pwd_question">密保問題</string>
+    <string name="my_credits">我的積分</string>
+    <string name="my_currency">虛擬貨幣</string>
+    <string name="currency_record">貨幣記錄</string>
+    <string name="credits_record">信用記錄</string>
+    <string name="credits_and_currency">信用貨幣</string>
+    <string name="format_consignee">收貨人: </string>
+    <string name="format_shpuhuo_addrs">收貨地址:</string>
+    <string name="select_distribution_time">選擇配送時間</string>
+    <string name="credits_count">信用分</string>
+    <string name="commodity_standard">商品规格: %s</string>
+    <string name="format_commodity">共%s件商品 合計:</string>
+    <string name="commit_order">提交訂單</string>
+    <string name="commodity_des">商品簡介</string>
+    <string name="Immediately_change">立即兌換</string>
+    <string name="please_input_standard_input">請規範輸入</string>
+    <string name="format_your_username">您的有戶名是: %s</string>
+    <string name="save_and_use">保存并使用</string>
+    <string name="detail_address">詳細地址</string>
+    <string name="email_code">郵編</string>
+    <string name="address">地址</string>
+    <string name="shipping_receive_name">收貨人姓名</string>
+    <string name="add_shipping_address">新增收貨地址</string>
+    <string name="format_receive_name">收貨人: %s</string>
+    <string name="format_shipping_address">收貨地址: %s</string>
 </resources>

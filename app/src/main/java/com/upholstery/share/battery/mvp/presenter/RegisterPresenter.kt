@@ -13,8 +13,8 @@ import com.upholstery.share.battery.app.getApi
  * Description : 注册
  */
 class RegisterPresenter : VerPhonePresenter<MvpView>() {
-    fun register(areaCode: String, phone: String, code: String, surName: String, realname: String,
-                 email: String, fatherId: String, type: Int) {
+    fun register( phone: String,  surName: String, realname: String,
+                 fatherId: String,question:String, type: Int) {
 //        if (RegexUtils.isMobileSimple(phone)) {
 //            getView().handlerSuccess(0x10, Unit)
 //        } else {
@@ -22,12 +22,13 @@ class RegisterPresenter : VerPhonePresenter<MvpView>() {
 //            return
 //        }
 
-        if (code.isEmpty() || surName.isEmpty() || realname.isEmpty()) {
+        if (phone.isEmpty()||surName.isEmpty() || realname.isEmpty()||fatherId.isEmpty()||question.isEmpty()) {
             getView().handlerError(0x11, "")
             return
         }
 
-        addSubscribe(getApi().register(areaCode.replace("+", ""), phone, code, surName, realname,email, fatherId)               .compose(RetrofitClient.getDefaultTransformer(getView(), type))
+        addSubscribe(getApi().register( phone,  surName, realname, fatherId,question)
+                .compose(RetrofitClient.getDefaultTransformer(getView(), type))
                 .subscribe({
                     if ((it as BaseResponse).isOk) {
                         getView().handlerSuccess(type, it)

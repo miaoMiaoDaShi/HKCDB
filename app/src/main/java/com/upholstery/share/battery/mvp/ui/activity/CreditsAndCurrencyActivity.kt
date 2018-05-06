@@ -1,11 +1,14 @@
 package com.upholstery.share.battery.mvp.ui.activity
 
+import android.os.Bundle
 import cn.zcoder.xxp.base.ext.showDialog
 import cn.zcoder.xxp.base.mvp.ui.MvpView
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseMvpActivity
 import com.upholstery.share.battery.R
 import com.upholstery.share.battery.mvp.presenter.CreditsAndCurrencyPresenter
 import com.upholstery.share.battery.mvp.ui.dialog.LoadingDialog
+import com.upholstery.share.battery.mvp.ui.widgets.ToolBar
+import org.jetbrains.anko.find
 
 /**
  * Author : zhongwenpeng
@@ -33,12 +36,17 @@ class CreditsAndCurrencyActivity :BaseMvpActivity<MvpView,CreditsAndCurrencyPres
     }
 
     override fun handlerError(type: Int, e: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun handlerSuccess(type: Int, data: Any) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun initView(savedInstanceState: Bundle?) {
+        super.initView(savedInstanceState)
+        find<ToolBar>(R.id.mToolBar)
+                .setTitle(R.string.credits_and_currency)
+                .setOnRightImageListener { finish() }
+    }
     override fun createPresenter(): CreditsAndCurrencyPresenter  = CreditsAndCurrencyPresenter()
 }
