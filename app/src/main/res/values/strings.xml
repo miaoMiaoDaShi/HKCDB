@@ -251,4 +251,6 @@
     <string name="add_shipping_address">新增收貨地址</string>
     <string name="format_receive_name">收貨人: %s</string>
     <string name="format_shipping_address">收貨地址: %s</string>
+    <string name="all_select">全選</string>
+    <string name="sum_by_car">合計:</string>
 </resources>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:background="@android:color/white"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="26px"
+        android:layout_marginLeft="26px"
+        android:src="@drawable/ic_shopping_car_un_checked" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="196px"
+        android:background="@android:color/white"
+        android:padding="26px">
+
+        <ImageView
+            android:id="@+id/mIvCommodityImage"
+            android:layout_width="140px"
+            android:layout_height="140px"
+            android:layout_centerVertical="true"
+            tools:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/mTvCommodityName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="26px"
+            android:layout_toRightOf="@id/mIvCommodityImage"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            tools:text="某某大手大脚" />
+
+        <TextView
+            android:id="@+id/mTvCommodityCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/mTvCommodityCost"
+            android:layout_marginLeft="26px"
+            android:layout_toRightOf="@id/mIvCommodityImage"
+            android:text="x %s"
+            android:textColor="@color/gray"
+
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/mTvCommodityCost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="26px"
+            android:layout_toRightOf="@id/mIvCommodityImage"
+            android:textColor="@color/orange"
+            android:textSize="15sp"
+            tools:text="$ 50" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="50px"
+                android:layout_height="50px"
+                android:background="@color/divisionColor50"
+                android:padding="10px"
+                android:src="@drawable/ic_add_count" />
+
+            <TextView
+                android:layout_width="50px"
+                android:layout_height="50px"
+                android:layout_marginLeft="5px"
+                android:layout_marginRight="5px"
+                android:background="@color/divisionColor50"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@color/gray"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="50px"
+                android:layout_height="50px"
+                android:background="@color/divisionColor50"
+                android:padding="10px"
+                android:src="@drawable/ic_reduce_count" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>
