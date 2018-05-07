@@ -276,6 +276,7 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
         mTvToMy.onClick(this)
         mTvToUseRecord.onClick(this)
         mTvToMsg.onClick(this)
+        mTvToShop.onClick(this)
         mTvToCredits.onClick(this)
     }
 

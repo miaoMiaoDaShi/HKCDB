@@ -7,6 +7,7 @@
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/mSwipeRefreshShop"
+        android:layout_above="@+id/mLlBottom"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/mToolBar">
@@ -20,6 +21,7 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <LinearLayout
+        android:id="@+id/mLlBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

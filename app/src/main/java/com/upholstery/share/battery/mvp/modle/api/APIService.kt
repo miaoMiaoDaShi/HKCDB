@@ -54,20 +54,21 @@ interface APIService {
             @Field("realname") realname: String,
             //  @Field("password") pwd: String,
             @Field("invitationCode") invitationCode: String,
-            @Field("question")question:String = "7878"): Observable<BaseResponse>
+            @Field("question") question: String = "7878"): Observable<BaseResponse>
 
     /**
      * 獲取邀請用戶列表
      */
     @GET("personController/myInvites")
     fun getInvite(@Query("page") page: Int): Observable<InvitesResponse>
+
     /**
      * 忘記用戶名
      */
     @POST("userController/forgetUserName")
     @FormUrlEncoded
-    fun forgetUserName(@Field("phone")phone:String,
-                       @Field("question")question: String):Observable<ForgetUserNameResponse>
+    fun forgetUserName(@Field("phone") phone: String,
+                       @Field("question") question: String): Observable<ForgetUserNameResponse>
 
     /**
      * 意見反饋
@@ -343,4 +344,80 @@ interface APIService {
                       @Field("backToken") backToken: String,
                       @Field("currency") currency: String
     ): Observable<PayByBankCard>
+
+    /**
+     * 获取信用积分和虚拟货币
+     */
+    @GET("trustPointController/getUserPointAndTrustPoint")
+    fun getCreditsAndCurrency(): Observable<CreditAndCurrencyResponse>
+
+    /**
+     * 获取信用积分列表记录
+     */
+    @GET("trustPointController/getUserTrustPointRecord")
+    fun getCreditRecordList(@Query("page") page: Int): Observable<CreditRecordListResponse>
+
+    /**
+     * 获取虚拟货币列表记录
+     */
+    @GET("trustPointController/getUserPointRecord")
+    fun getCurrencyRecordList(@Query("page") page: Int): Observable<CurrencyRecordListResponse>
+
+    /**
+     * 获取信用积分兑换商品列表
+     */
+    @GET("trustPointController/getproductCreditList")
+    fun getCreditsCommodity(@Query("page") page: Int): Observable<CreditCommodityResponse>
+
+    /**
+     * 获取信用积分兑换商品详情
+     */
+    @GET("trustPointController/getproductCreditDetail")
+    fun getCreditsCommodityDetail(@Query("productId") productId: String): Observable<CreditCommodityDetailResponse>
+
+
+    /**
+     * 获取收货地址列表
+     */
+    @GET("trustPointController/getUserAddress")
+    fun getShippingAddressList(): Observable<ShippingAddressListResponse>
+
+    /**
+     * 新增收货地址
+     */
+    @POST("trustPointController/addUserAddress")
+    @FormUrlEncoded
+    fun addShippingAddress(
+            @Field("linkman") linkman: String,
+            @Field("phone") phone: String,
+            @Field("province") province: String,
+            @Field("city") city: String,
+            @Field("area") area: String,
+            @Field("address") address: String,
+            @Field("postCode") postCode: String
+    ): Observable<BaseResponse>
+
+    /**
+     * 编辑收货地址
+     */
+    @POST("trustPointController/editUserAddress")
+    @FormUrlEncoded
+    fun editShippingAddress(
+            @Field("id") id: String,
+            @Field("linkman") linkman: String,
+            @Field("phone") phone: String,
+            @Field("province") province: String,
+            @Field("city") city: String,
+            @Field("area") area: String,
+            @Field("address") address: String,
+            @Field("postCode") postCode: String
+    ): Observable<BaseResponse>
+
+    /**
+     * 设为默认的收货地址
+     */
+    @POST("trustPointController/udateDefaultAddress")
+    @FormUrlEncoded
+    fun setDefaultShippingAddress(@Field("id") id: String,
+                                  @Field("isDefault") isDefault: Int): Observable<BaseResponse>
 }

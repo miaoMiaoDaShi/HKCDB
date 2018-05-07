@@ -2,6 +2,7 @@ package com.upholstery.share.battery.mvp.ui.activity
 
 import cn.zcoder.xxp.base.mvp.ui.MvpView
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseMvpActivity
+import com.upholstery.share.battery.R
 import com.upholstery.share.battery.mvp.presenter.ShopingOrderPresenter
 
 /**
@@ -11,10 +12,7 @@ import com.upholstery.share.battery.mvp.presenter.ShopingOrderPresenter
  * Description : 購物訂單頁面
  */
 class ShoppingOrderActivity:BaseMvpActivity<MvpView,ShopingOrderPresenter>() {
-    override fun getLayoutId(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
+    override fun getLayoutId(): Int  = R.layout.activity_shopping_order
     override fun showLoading(type: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -31,7 +29,5 @@ class ShoppingOrderActivity:BaseMvpActivity<MvpView,ShopingOrderPresenter>() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun createPresenter(): ShopingOrderPresenter {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun createPresenter(): ShopingOrderPresenter  = ShopingOrderPresenter()
 }

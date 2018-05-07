@@ -35,19 +35,23 @@
        android:layout_marginRight="26px"
         android:layout_marginLeft="26px"
         android:layout_marginBottom="26px">
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@android:color/holo_red_dark"
-            android:text="$ 666"/>
-        <TextView
-            android:layout_alignParentRight="true"
+            android:id="@+id/mTvCreditsTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:textColor="@android:color/black"
-            android:text="銷量 666"/>
+            android:text="信用分"/>
+        <TextView
+            android:id="@+id/mTvCreditCount"
+            android:layout_marginLeft="26px"
+            android:layout_toRightOf="@id/mTvCreditsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@android:color/holo_red_dark"
+            android:text="666"/>
     </RelativeLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>
