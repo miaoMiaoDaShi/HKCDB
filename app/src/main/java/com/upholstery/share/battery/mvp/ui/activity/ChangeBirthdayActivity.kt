@@ -35,7 +35,9 @@ class ChangeBirthdayActivity : BaseActivity() {
         findViewById<ToolBar>(R.id.mToolBar)
                 .setTitle(R.string.birthday)
                 .setOnLeftImageListener { finish() }
+                .showRightText(true)
                 .setRightText(getString(R.string.save))
+                .setOnRightImageListener { save() }
 
 
         initTiemPickView()

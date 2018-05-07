@@ -255,4 +255,7 @@
     <string name="sum_by_car">合計:</string>
     <string name="add_success">新增成功</string>
     <string name="shipping_address">收貨地址</string>
+    <string name="province">省</string>
+    <string name="city">市</string>
+    <string name="district">區</string>
 </resources>
