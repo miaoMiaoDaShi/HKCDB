@@ -50,8 +50,8 @@ class ChangeCityActivity : BaseActivity() {
                     .setSubmitText(getString(R.string.confirm))
                     .setLabels(getString(R.string.province), getString(R.string.city), getString(R.string.district))
                     .build<Any>()
-                    .setPicker(options1Items, options2Items, options3Items)
-                    .show()
+                    .setPicker(options1Items as List<Any>?, options2Items as List<MutableList<Any>>?, options3Items as List<MutableList<MutableList<Any>>>?)
+
         }
     }
 
