@@ -28,6 +28,7 @@ import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
 import com.zhihu.matisse.internal.entity.CaptureStrategy
 import kotlinx.android.synthetic.main.activity_mine.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import timber.log.Timber
 import java.text.SimpleDateFormat
@@ -52,7 +53,7 @@ import java.text.SimpleDateFormat
 class MineActivity : BaseMvpActivity<MvpView, ModPersonalDataPresenter>(), View.OnClickListener {
     override fun showLoading(type: Int) {
         if (type != 9) return
-            showDialog(mLoadingDialog)
+        showDialog(mLoadingDialog)
 
 
     }
@@ -122,7 +123,7 @@ class MineActivity : BaseMvpActivity<MvpView, ModPersonalDataPresenter>(), View.
 
             }
             0x10 -> {
-                getPresenter().modPersonalData(mapOf("head" to  (data as UploadImageResponse).data.img), 0x11)
+                getPresenter().modPersonalData(mapOf("head" to (data as UploadImageResponse).data.img), 0x11)
             }
             0x11, 0x12, 0x13, 0x14, 0x15, 0x16 -> {
                 getPresenter().getUserDetail(9)
@@ -178,6 +179,7 @@ class MineActivity : BaseMvpActivity<MvpView, ModPersonalDataPresenter>(), View.
         mRlSex.onClick(this)
         mRlBirthday.onClick(this)
         mRlCity.onClick(this)
+        mRlShippingAddress.onClick(this)
     }
 
     override fun onClick(v: View?) {
@@ -229,7 +231,10 @@ class MineActivity : BaseMvpActivity<MvpView, ModPersonalDataPresenter>(), View.
                         mTvBirthday.text.toString())
             }
             R.id.mRlCity -> {
-                //startActivity<ChangeCityActivity>()
+                startActivity<ChangeCityActivity>()
+            }
+            R.id.mRlShippingAddress -> {
+                startActivity<ShoppingAddressManageActivity>()
             }
             else -> {
             }

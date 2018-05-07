@@ -6,16 +6,14 @@
 
     <include layout="@layout/tool_bar"/>
 
-    <EditText
-        android:id="@+id/mTxtCity"
+    <TextView
+        android:id="@+id/mTvCity"
         android:layout_width="match_parent"
         android:layout_height="80px"
         android:layout_margin="26px"
         android:background="@drawable/bg_btn_white"
-        android:hint=" "
         android:paddingLeft="26px"
         android:paddingRight="26px"
-        android:textColorHint="#494949"
         android:textSize="15sp"
         />
 </LinearLayout>

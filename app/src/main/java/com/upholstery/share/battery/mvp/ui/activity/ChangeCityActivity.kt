@@ -1,5 +1,6 @@
 package com.upholstery.share.battery.mvp.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseActivity
 import com.upholstery.share.battery.R
@@ -26,6 +27,7 @@ class ChangeCityActivity:BaseActivity() {
     }
 
     private fun save(){
-
+        val intent = Intent()
+        //intent.putExtra()
     }
 }

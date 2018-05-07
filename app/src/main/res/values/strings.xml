@@ -254,4 +254,5 @@
     <string name="all_select">全選</string>
     <string name="sum_by_car">合計:</string>
     <string name="add_success">新增成功</string>
+    <string name="shipping_address">收貨地址</string>
 </resources>
