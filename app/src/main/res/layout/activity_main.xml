@@ -166,7 +166,7 @@
         <TextView
             android:id="@+id/mTvToMy"
             style="@style/homeTabTextView"
-            android:drawableTop="@drawable/ic_home_wallet"
+            android:drawableTop="@drawable/ic_home_mine"
             android:text="@string/information" />
 
         <TextView
@@ -189,7 +189,7 @@
         <TextView
             android:id="@+id/mTvToShop"
             style="@style/homeTabTextView"
-            android:drawableTop="@drawable/ic_home_credits"
+            android:drawableTop="@drawable/ic_home_shop"
             android:text="@string/shop" />
     </LinearLayout>
 

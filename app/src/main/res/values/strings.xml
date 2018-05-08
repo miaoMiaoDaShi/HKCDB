@@ -266,4 +266,5 @@
     <string name="currency">貨幣</string>
     <string name="merchant_detail">商家詳情</string>
     <string name="confirm_order">確認訂單</string>
+    <string name="default_address">( 默認地址 )</string>
 </resources>

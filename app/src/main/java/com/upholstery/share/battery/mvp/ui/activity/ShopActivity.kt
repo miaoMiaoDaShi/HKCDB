@@ -128,6 +128,9 @@ class ShopActivity : BaseMvpActivity<MvpView, ShopPresenter>(),
         mBannerCount = images.size
         val headerContentView = layoutInflater.inflate(R.layout.header_shop_main, null)
         val banner = headerContentView.find<Banner>(R.id.mBanner)
+        val categoryRv = headerContentView.find<RecyclerView>(R.id.mRvShopCategory)
+        categoryRv.layoutManager = LinearLayoutManager(applicationContext,LinearLayoutManager.HORIZONTAL,false)
+        //categoryRv.adapter = object:BaseQuickAdapter<>
         mTvIndicator = headerContentView.find(R.id.mTvIndicator)
         banner.setImageLoader(ImageLoader())
         banner.setOnPageChangeListener(this)

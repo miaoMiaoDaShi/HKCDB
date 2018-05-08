@@ -1,9 +1,11 @@
 package com.upholstery.share.battery.mvp.ui.activity
 
+import cn.zcoder.xxp.base.ext.showDialog
 import cn.zcoder.xxp.base.mvp.ui.MvpView
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseMvpActivity
 import com.upholstery.share.battery.R
 import com.upholstery.share.battery.mvp.presenter.ShippingAddressPresenter
+import com.upholstery.share.battery.mvp.ui.dialog.LoadingDialog
 
 /**
  * Author : zhongwenpeng
@@ -14,12 +16,15 @@ import com.upholstery.share.battery.mvp.presenter.ShippingAddressPresenter
 class SelectShippingAddressActivity :BaseMvpActivity<MvpView,ShippingAddressPresenter>(){
     override fun getLayoutId(): Int  = R.layout.activity_select_shipping_address
 
+    private val mLoadingDialog by lazy {
+        LoadingDialog.getInstance(supportFragmentManager)
+    }
     override fun showLoading(type: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        showDialog(mLoadingDialog)
     }
 
     override fun dismissLoading(type: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        cn.zcoder.xxp.base.ext.dismissDialog(mLoadingDialog)
     }
 
     override fun handlerError(type: Int, e: String) {
@@ -30,7 +35,5 @@ class SelectShippingAddressActivity :BaseMvpActivity<MvpView,ShippingAddressPres
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun createPresenter(): ShippingAddressPresenter {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun createPresenter(): ShippingAddressPresenter = ShippingAddressPresenter()
 }
