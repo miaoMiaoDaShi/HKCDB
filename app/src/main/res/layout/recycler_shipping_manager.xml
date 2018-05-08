@@ -32,6 +32,7 @@
 
         <ImageView
             android:id="@+id/mIvCheck"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -89,7 +90,7 @@
                 android:layout_height="70px"
                 android:layout_marginLeft="26px"
                 android:background="@drawable/bg_btn_red_stroke_oval"
-                android:text="@string/edit"
+                android:text="@string/del"
                 android:textColor="@android:color/holo_red_dark"
                 android:textSize="15sp" />
         </LinearLayout>

@@ -40,3 +40,15 @@ fun Uri.getRealFilePath(context: Context): String? {
     }
     return data
 }
+
+fun String.format(string: String): String {
+    return String.format(string, this)
+}
+
+fun isEmptyOrNull(vararg string: String): Boolean {
+    string.forEach {
+        if (it.isNullOrEmpty()) return true
+    }
+    return false
+}
+

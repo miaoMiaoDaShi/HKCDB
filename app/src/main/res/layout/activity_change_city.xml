@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    android:orientation="vertical">
 
-    <include layout="@layout/tool_bar"/>
+    <include layout="@layout/tool_bar" />
 
     <TextView
         android:id="@+id/mTvCity"
@@ -14,6 +15,5 @@
         android:background="@drawable/bg_btn_white"
         android:paddingLeft="26px"
         android:paddingRight="26px"
-        android:textSize="15sp"
-        />
+        android:textSize="15sp" />
 </LinearLayout>

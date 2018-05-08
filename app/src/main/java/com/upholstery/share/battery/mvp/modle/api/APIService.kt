@@ -398,9 +398,15 @@ interface APIService {
     ): Observable<BaseResponse>
 
     /**
+     * 刪除收貨地址
+     */
+    @POST("trustPointController/deleteUserAddress")
+    @FormUrlEncoded
+    fun delShippingAddress(  @Field("id") id: String):Observable<BaseResponse>
+    /**
      * 编辑收货地址
      */
-    @POST("trustPointController/editUserAddress")
+    @POST("trustPointController/updateUserAddress")
     @FormUrlEncoded
     fun editShippingAddress(
             @Field("id") id: String,

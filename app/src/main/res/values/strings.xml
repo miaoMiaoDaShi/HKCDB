@@ -258,4 +258,8 @@
     <string name="province">省</string>
     <string name="city">市</string>
     <string name="district">區</string>
+    <string name="manage_shipping_address">管理收貨地址</string>
+    <string name="confirm_del">確認刪除?</string>
+    <string name="edit_shipping_address">編輯收貨地址</string>
+    <string name="please_select_address">請選擇收貨地址</string>
 </resources>

@@ -60,8 +60,8 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/divisionColor50"/>
-    <TextView
-        android:id="@+id/mTvEmail"
+    <EditText
+        android:id="@+id/mEtEmail"
         android:layout_width="match_parent"
         android:layout_height="100px"
         android:drawableRight="@drawable/ic_right_line"
@@ -70,8 +70,9 @@
         android:textColor="@color/itemColor"
         android:textSize="15sp"
         android:gravity="center_vertical"
-        android:text="@string/email_code"
-        android:inputType="text"
+        android:hint="@string/email_code"
+        android:textColorHint="@color/itemColor"
+        android:inputType="number"
         android:background="@android:color/white"
         android:lines="1"/>
     <View
@@ -81,7 +82,7 @@
     <EditText
         android:id="@+id/mEtDetailAddress"
         android:layout_width="match_parent"
-        android:layout_height="100px"
+        android:layout_height="200px"
         android:gravity="top"
         android:padding="26px"
         android:textColor="@color/itemColor"
@@ -90,7 +91,7 @@
         android:textColorHint="@color/itemColor"
         android:background="@android:color/white"
         android:hint="@string/detail_address"
-        android:lines="1"/>
+        android:lines="3"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

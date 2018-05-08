@@ -2,6 +2,7 @@ package com.upholstery.share.battery.mvp.modle.entity;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 import cn.zcoder.xxp.base.net.BaseResponse;
@@ -23,7 +24,7 @@ public class ShippingAddressListResponse extends BaseResponse {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * address : 长虹科技大厦
          * area : 高新区
