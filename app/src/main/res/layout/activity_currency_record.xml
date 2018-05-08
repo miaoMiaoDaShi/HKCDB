@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/tool_bar" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <TextView
+            android:layout_weight="2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:text="@string/time"/>
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:text="@string/way"/>
+        <TextView
+            android:id="@+id/mTvType"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:text="@string/currency"/>
+    </LinearLayout>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/mSwipeRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/mRv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>

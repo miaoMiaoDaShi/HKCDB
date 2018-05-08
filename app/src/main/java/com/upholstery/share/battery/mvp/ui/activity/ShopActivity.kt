@@ -56,11 +56,9 @@ class ShopActivity : BaseMvpActivity<MvpView, ShopPresenter>(),
     }
 
     override fun handlerError(type: Int, e: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun handlerSuccess(type: Int, data: Any) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun initView(savedInstanceState: Bundle?) {

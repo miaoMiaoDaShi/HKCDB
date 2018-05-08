@@ -2,6 +2,8 @@ package com.upholstery.share.battery.mvp.modle.entity;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 import cn.zcoder.xxp.base.net.BaseResponse;
 
 /**
@@ -25,7 +27,7 @@ public class CreditCommodityDetailResponse extends BaseResponse {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * brief : 爱仕达多撒
          * createTime : 1525489263000

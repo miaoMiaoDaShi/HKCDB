@@ -77,4 +77,9 @@
             <item>越南+84</item>
             <item>智利+56</item>
         </string-array>
+
+    <string-array name="currency_types">
+        <item>贈送</item>
+        <item>消費</item>
+    </string-array>
     </resources>

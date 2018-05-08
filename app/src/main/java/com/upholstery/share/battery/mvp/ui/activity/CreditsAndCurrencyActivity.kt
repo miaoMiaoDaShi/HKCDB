@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 import cn.zcoder.xxp.base.ext.load
+import cn.zcoder.xxp.base.ext.onClick
 import cn.zcoder.xxp.base.ext.showDialog
 import cn.zcoder.xxp.base.ext.toast
 import cn.zcoder.xxp.base.mvp.ui.MvpView
@@ -32,7 +33,6 @@ import org.jetbrains.anko.startActivity
  * Description : 信用/货币页面
  */
 class CreditsAndCurrencyActivity : BaseMvpActivity<MvpView, CreditsAndCurrencyPresenter>(), BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
-
 
 
     /**
@@ -132,9 +132,13 @@ class CreditsAndCurrencyActivity : BaseMvpActivity<MvpView, CreditsAndCurrencyPr
 
         }
         mAdapter.setOnItemClickListener { adapter, view, position ->
-            {
+            run {
                 //去商品详情页面  避免head页面被单击
                 val data = adapter.data[position] as CreditCommodityResponse.DataBean
+                if (data.id == 0) {
+                    toast("非法ID值")
+                    return@run
+                }
                 startActivity<ConversionCommodityDetailActivity>("id" to data.id)
             }
         }
@@ -161,12 +165,25 @@ class CreditsAndCurrencyActivity : BaseMvpActivity<MvpView, CreditsAndCurrencyPr
 
     }
 
+    override fun bindListener() {
+        super.bindListener()
+        mBtnToCreditsRecord.onClick {
+            startActivity<CreditsRecordActivity>()
+        }
+        mBtnToCurrencyRecord.onClick {
+            startActivity<CurrencyRecordActivity>()
+        }
+
+    }
+
     override fun onLoadMoreRequested() {
         getPresenter().getCreditsCommodity(0x12)
     }
+
     override fun onRefresh() {
         getPresenter().getCreditsCommodity(0x11)
     }
+
     override fun onResume() {
         super.onResume()
         getPresenter().getCreditAndCurrency(0x10)
