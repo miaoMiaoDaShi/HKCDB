@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/tool_bar" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="100px"
+                android:background="@android:color/white"
+                android:paddingLeft="26px"
+                android:paddingRight="26px">
+
+                <TextView
+                    android:id="@+id/mTvShippingReceiveName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/format_consignee"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/mTvPhoneNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/gray"
+                    android:textSize="15sp"
+                    tools:text="31233213124" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <RelativeLayout
+                android:id="@+id/mRLToSelectShippingAddress"
+                android:layout_width="match_parent"
+                android:layout_height="120px"
+                android:background="@color/white"
+                android:paddingBottom="26px"
+                android:paddingLeft="26px"
+                android:paddingRight="26px"
+                android:paddingTop="26px">
+
+                <TextView
+                    android:id="@+id/mTvAddrs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:text="@string/format_shpuhuo_addrs"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/mTvShippingAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="26px"
+                    android:layout_toRightOf="@id/mTvAddrs"
+                    android:lines="2"
+                    android:textColor="@color/gray"
+                    android:textSize="15sp"
+                    tools:text="的馮紹峰就收到貨" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="100px"
+                    android:paddingLeft="26px"
+                    android:paddingRight="26px"
+                    android:gravity="center_vertical"
+                    android:text="配送時間: %"
+                    android:textColor="@color/itemColor"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divisionColor50" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="100px"
+                    android:paddingLeft="26px"
+                    android:paddingRight="26px"
+                    android:gravity="center_vertical"
+                    android:text="配送方式: %"
+                    android:textColor="@color/itemColor"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="26px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="100px"
+                    android:paddingLeft="26px"
+                    android:paddingRight="26px"
+                    android:gravity="center_vertical"
+                    android:text="訂單編號: %"
+                    android:textColor="@color/itemColor"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divisionColor50" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="100px"
+                    android:paddingLeft="26px"
+                    android:paddingRight="26px"
+                    android:gravity="center_vertical"
+                    android:text="下單時間: %"
+                    android:textColor="@color/itemColor"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divisionColor50" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="100px"
+                    android:paddingLeft="26px"
+                    android:paddingRight="26px"
+                    android:gravity="center_vertical"
+                    android:text="收貨時間: %"
+                    android:textColor="@color/itemColor"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="100px"
+                android:layout_alignParentBottom="true"
+                android:background="@android:color/white"
+                android:paddingLeft="26px"
+                android:paddingRight="26px">
+
+                <Button
+                    android:layout_width="200px"
+                    android:layout_height="60px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/bg_btn_black_oval"
+                    android:text="@string/evaluation"
+                    android:textColor="@color/yellow"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+</LinearLayout>

@@ -3,6 +3,9 @@ package com.upholstery.share.battery.mvp.ui.activity
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.support.v4.view.ViewPager
+import android.widget.CompoundButton
+import cn.zcoder.xxp.base.ext.onClick
 import cn.zcoder.xxp.base.mvp.ui.MvpView
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseActivity
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseMvpActivity
@@ -14,7 +17,7 @@ import com.upholstery.share.battery.mvp.ui.fragment.CouponFragment
 import com.upholstery.share.battery.mvp.ui.fragment.ShoppingOrderFragment
 import com.upholstery.share.battery.mvp.ui.widgets.ClipPagerTitleView
 import com.upholstery.share.battery.mvp.ui.widgets.ToolBar
-import kotlinx.android.synthetic.main.activity_my_coupon.*
+import kotlinx.android.synthetic.main.activity_shopping_order.*
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.UIUtil
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
@@ -29,7 +32,9 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.Li
  * Time :  2018/5/6
  * Description : 購物訂單頁面
  */
-class ShoppingOrderActivity : BaseActivity() {
+class ShoppingOrderActivity : BaseActivity(), CompoundButton.OnCheckedChangeListener, ViewPager.OnPageChangeListener {
+
+
     override fun getLayoutId(): Int = R.layout.activity_shopping_order
 
     override fun initView(savedInstanceState: Bundle?) {
@@ -38,39 +43,59 @@ class ShoppingOrderActivity : BaseActivity() {
                 .setTitle(getString(R.string.shopping_order))
                 .setOnLeftImageListener { finish() }
 
-        val types = listOf<String>(getString(R.string.receiving), getString(R.string.waiting_for_the_evaluation))
-        val commonNavigator = CommonNavigator(this)
-        commonNavigator.adapter = object : CommonNavigatorAdapter() {
-            override fun getCount(): Int {
-                return types.size
-            }
 
-            override fun getTitleView(context: Context, index: Int): IPagerTitleView {
-                val clipPagerTitleView = ClipPagerTitleView(context)
-                clipPagerTitleView.text = "${types[index]}"
-                clipPagerTitleView.textColor = Color.BLACK
-                clipPagerTitleView.clipColor = resources.getColor(R.color.yellow)
-                clipPagerTitleView.setOnClickListener { mVp.currentItem = index }
-                return clipPagerTitleView
-            }
-
-            override fun getIndicator(context: Context): IPagerIndicator {
-                val indicator = LinePagerIndicator(context)
-                val navigatorHeight = context.resources.getDimension(R.dimen.common_navigator_height)
-                val borderWidth = UIUtil.dip2px(context, 1.0).toFloat()
-                val lineHeight = navigatorHeight - 2 * borderWidth
-                indicator.lineHeight = lineHeight
-                indicator.roundRadius = lineHeight / 2
-                //indicator.xOffset = context.resources.getDimension(R.dimen.common_navigator_x_offset)
-                //indicator.yOffset = borderWidth
-                indicator.setColors(resources.getColor(R.color.black))
-                return indicator
-            }
-        }
-        mIndicator.navigator = commonNavigator
-        ViewPagerHelper.bind(mIndicator, mVp)
+        mVp.addOnPageChangeListener(this)
         mVp.adapter = FragmentPageAdapter(listOf(
                 ShoppingOrderFragment.newInstance(0),
                 ShoppingOrderFragment.newInstance(1)), supportFragmentManager)
+    }
+
+    override fun bindListener() {
+        super.bindListener()
+        mCbReceiving.isChecked = true
+        mCbReceiving.setOnCheckedChangeListener(this)
+        mCbWaitEvaluation.setOnCheckedChangeListener(this)
+    }
+
+    override fun onPageScrollStateChanged(state: Int) {
+    }
+
+    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+    }
+
+    override fun onPageSelected(position: Int) {
+        when (position) {
+            0 -> {
+                mCbReceiving.isChecked = true
+                mCbWaitEvaluation.isChecked = false
+            }
+            1 -> {
+                mCbReceiving.isChecked = false
+                mCbWaitEvaluation.isChecked = true
+            }
+            else -> {
+            }
+        }
+    }
+
+    override fun onCheckedChanged(buttonView: CompoundButton, isChecked: Boolean) {
+        if (isChecked) {
+            when (buttonView.id) {
+                R.id.mCbReceiving -> {
+                    mCbReceiving.isChecked = true
+                    mCbWaitEvaluation.isChecked = false
+                    mVp.setCurrentItem(0, true)
+                }
+                R.id.mCbWaitEvaluation -> {
+                    mCbReceiving.isChecked = false
+                    mCbWaitEvaluation.isChecked = true
+                    mVp.setCurrentItem(1, true)
+                }
+                else -> {
+                }
+            }
+        }
+
+
     }
 }
