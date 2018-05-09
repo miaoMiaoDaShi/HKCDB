@@ -267,4 +267,9 @@
     <string name="merchant_detail">商家詳情</string>
     <string name="confirm_order">確認訂單</string>
     <string name="default_address">( 默認地址 )</string>
+    <string name="load_shipping_address_failed">加載收貨地址列表失敗</string>
+    <string name="select_shipping_address">選擇收貨地址</string>
+    <string name="manage">管理</string>
+    <string name="operation_failed">操作失敗</string>
+    <string name="operation_success">操作成功</string>
 </resources>

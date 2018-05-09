@@ -106,4 +106,19 @@ open class ShippingAddressPresenter : RxPresenter<MvpView>() {
                 }))
 
     }
+    /**
+     * 默認收货地址
+     */
+    fun setDefaultAddress(id: Int, type: Int) {
+        addSubscribe(getApi().setDefaultShippingAddress(id.toString(),1)
+                .compose(RetrofitClient.getDefaultTransformer(getView(), type))
+                .subscribe({
+                    if ((it as BaseResponse).isOk) {
+                        getView().handlerSuccess(type, it)
+                    } else throw RuntimeException(it.resmsg)
+                }, {
+                    getView().handlerError(type, it.message!!)
+                }))
+
+    }
 }

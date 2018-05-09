@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Button
+import android.widget.CompoundButton
 import cn.zcoder.xxp.base.ext.onClick
 import cn.zcoder.xxp.base.ext.showDialog
 import cn.zcoder.xxp.base.mvp.ui.MvpView
@@ -31,7 +32,6 @@ import org.jetbrains.anko.toast
 class ShoppingAddressManageActivity : BaseMvpActivity<MvpView, ShippingAddressPresenter>(), BaseQuickAdapter.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.OnItemChildClickListener {
 
 
-
     override fun getLayoutId(): Int = R.layout.activity_shipping_address_manager
 
     override fun showLoading(type: Int) {
@@ -49,6 +49,9 @@ class ShoppingAddressManageActivity : BaseMvpActivity<MvpView, ShippingAddressPr
             0x11 -> {
                 toast(R.string.del_failed)
             }
+            0x12 -> {
+                toast(R.string.operation_failed)
+            }
             else -> {
             }
         }
@@ -63,6 +66,11 @@ class ShoppingAddressManageActivity : BaseMvpActivity<MvpView, ShippingAddressPr
             0x11 -> {
                 toast(R.string.del_success)
                 mAdapter.notifyDataSetChanged()
+            }
+            0x12 -> {
+                //修改默認地址成功  刷新列表
+                toast(R.string.operation_success)
+                onRefresh()
             }
             else -> {
             }
@@ -110,6 +118,8 @@ class ShoppingAddressManageActivity : BaseMvpActivity<MvpView, ShippingAddressPr
         mRv.layoutManager = LinearLayoutManager(applicationContext)
         mAdapter = object : BaseQuickAdapter<ShippingAddressListResponse.DataBean, BaseViewHolder>
         (R.layout.recycler_shipping_manager) {
+
+
             override fun convert(helper: BaseViewHolder, item: ShippingAddressListResponse.DataBean) {
                 helper
                         .setText(R.id.mTvReceiveName, item.linkman.format(getString(R.string.format_receive_name)))
@@ -118,6 +128,18 @@ class ShoppingAddressManageActivity : BaseMvpActivity<MvpView, ShippingAddressPr
                         .setText(R.id.mTvReceiveName, item.linkman)
                         .addOnClickListener(R.id.mBtnEdit)
                         .addOnClickListener(R.id.mBtnDel)
+                        .setChecked(R.id.mCbCheck, item.isDefault == 1)
+                        .setOnCheckedChangeListener(R.id.mCbCheck) { buttonView, isChecked ->
+                            run {
+                                if (isChecked) {
+//                                    data.forEach {
+//                                        it.isDefault = 0
+//                                    }
+//                                    data[helper.adapterPosition].isDefault = 1
+                                    getPresenter().setDefaultAddress(data[helper.adapterPosition].id, 0x12)
+                                }
+                            }
+                        }
 
                 helper.getView<Button>(R.id.mBtnEdit).setTag(item)
                 helper.getView<Button>(R.id.mBtnDel).setTag(item)
@@ -150,6 +172,7 @@ class ShoppingAddressManageActivity : BaseMvpActivity<MvpView, ShippingAddressPr
             }
         }
     }
+
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View, position: Int) {
 
 
@@ -159,7 +182,7 @@ class ShoppingAddressManageActivity : BaseMvpActivity<MvpView, ShippingAddressPr
      * 編輯地址
      */
     private fun editAddress(bean: ShippingAddressListResponse.DataBean) {
-        startActivity<EditShippingAddressActivity>("type" to 0x11 ,"data" to bean)
+        startActivity<EditShippingAddressActivity>("type" to 0x11, "data" to bean)
 
     }
 

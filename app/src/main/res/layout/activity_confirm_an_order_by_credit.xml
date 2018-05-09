@@ -53,6 +53,7 @@
                 android:layout_height="1dp" />
 
             <RelativeLayout
+                android:id="@+id/mRLToSelectShippingAddress"
                 android:layout_width="match_parent"
                 android:layout_height="120px"
                 android:background="@color/white"

@@ -400,9 +400,9 @@ interface APIService {
     /**
      * 刪除收貨地址
      */
-    @POST("trustPointController/deleteUserAddress")
-    @FormUrlEncoded
-    fun delShippingAddress(  @Field("id") id: String):Observable<BaseResponse>
+    @GET("trustPointController/deleteUserAddress")
+    fun delShippingAddress(@Query("id") id: String): Observable<BaseResponse>
+
     /**
      * 编辑收货地址
      */
@@ -422,8 +422,58 @@ interface APIService {
     /**
      * 设为默认的收货地址
      */
-    @POST("trustPointController/udateDefaultAddress")
+    @GET("trustPointController/udateDefaultAddress")
+    fun setDefaultShippingAddress(@Query("id") id: String,
+                                  @Query("isDefault") isDefault: Int): Observable<BaseResponse>
+
+
+    /**
+     * 購買商品
+     */
+    @POST("trustPointController/pointConvertOrder")
     @FormUrlEncoded
-    fun setDefaultShippingAddress(@Field("id") id: String,
-                                  @Field("isDefault") isDefault: Int): Observable<BaseResponse>
+    fun payCommodity(
+            @Field("consignee") consignee: String,//收貨人姓名
+            @Field("phone") phone: String,//電話號碼
+            @Field("province") province: String,//省
+            @Field("city") city: String,//市
+            @Field("area") area: String,//區
+            @Field("address") address: String,//詳細地址
+            @Field("time") time: String,
+            @Field("number") number: Int,
+            @Field("productId") productId: String,
+            @Field("type") type: Int,
+            @Field("payWay") payWay: Int
+    ): Observable<BorrowOneResponse>
+
+    /**
+     * 確認收貨
+     */
+    @POST("trustPointController/sureUserOrder")
+    @FormUrlEncoded
+    fun confirmReceipt(@Field("orderNo") orderNo: String): Observable<BaseResponse>
+
+    /**
+     * 獲取商品訂單
+     */
+    @POST("trustPointController/getUserOrder")
+    @FormUrlEncoded
+    fun getCommodityOrder(@Field("orderType") orderType: Int, @Field("type") type: Int): Observable<CommodityOrderListResponse>
+
+
+    /**
+     * 獲取相關的頁面
+     * key:about—关于我们
+    key: agreement—用户协议
+    key: help—帮助中心
+    key: usage—使用说明
+    key: manual—使用手册
+    key: rechargeandrefun—充值与退款
+    key: termsandconditio-条款与细则
+    key: privacypolicy-隐私政策
+
+
+     */
+    @GET("systemController/getAppContent")
+    fun getAppHtml(@Query("key") key: String):Observable<HtmlContentResponse>
 }

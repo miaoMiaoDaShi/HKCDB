@@ -317,6 +317,11 @@
             android:name="com.upholstery.share.battery.mvp.ui.activity.CurrencyRecordActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
+        <!--网页页面-->
+        <activity
+            android:name="com.upholstery.share.battery.mvp.ui.activity.WebActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <!--確認訂單 積分頁面-->
         <activity
             android:name="com.upholstery.share.battery.mvp.ui.activity.ConfirmAnOrderByCreditActivity"
