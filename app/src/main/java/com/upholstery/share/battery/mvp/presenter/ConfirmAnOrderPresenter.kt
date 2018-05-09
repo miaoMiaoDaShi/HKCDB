@@ -13,7 +13,7 @@ import com.upholstery.share.battery.mvp.modle.entity.ShippingAddressListResponse
  * Time :  2018/5/5
  * Description : 確認訂單等....後續操作
  */
-class ConfirmAnOrderPresenter :RxPresenter<MvpView>(){
+class ConfirmAnOrderPresenter : RxPresenter<MvpView>() {
     /**
      * 獲取默認地址  第一次
      */
@@ -24,7 +24,7 @@ class ConfirmAnOrderPresenter :RxPresenter<MvpView>(){
                     if ((it as BaseResponse).isOk) {
                         it as ShippingAddressListResponse
                         it.data.forEach {
-                            if (it.isDefault==1){
+                            if (it.isDefault == 1) {
                                 getView().handlerSuccess(type, it)
                             }
                         }
@@ -34,7 +34,31 @@ class ConfirmAnOrderPresenter :RxPresenter<MvpView>(){
                     getView().handlerError(type, it.message!!)
                 }))
     }
+
     /**
      * 確認訂單
      */
+
+    fun payCommodity(consignee: String,//收貨人姓名
+                     phone: String,//電話號碼
+                     province: String,//省
+                     city: String,//市
+                     area: String,//區
+                     address: String,//詳細地址
+                     time: String,
+                     number: Int,
+                     productId: String,
+                     type: Int,
+                     payWay: Int, typex: Int) {
+        addSubscribe(getApi().payCommodity(consignee, phone, province, city, area, address, time, number, productId, type, payWay)
+                .compose(RetrofitClient.getDefaultTransformer(getView(), typex))
+                .subscribe({
+                    if ((it as BaseResponse).isOk) {
+                        getView().handlerSuccess(typex, it)
+
+                    } else throw RuntimeException(it.resmsg)
+                }, {
+                    getView().handlerError(typex, it.message!!)
+                }))
+    }
 }

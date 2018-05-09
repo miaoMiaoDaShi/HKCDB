@@ -129,7 +129,11 @@ class CurrencyRecordActivity : BaseMvpActivity<MvpView, CreditsAndCurrencyPresen
 
     override fun start() {
         super.start()
-        getPresenter().getCurrencyRecordList(0x10)
+        mSwipeRefresh.post {
+            mSwipeRefresh.isRefreshing = true
+            getPresenter().getCurrencyRecordList(0x10)
+        }
+
     }
 
     override fun createPresenter(): CreditsAndCurrencyPresenter = CreditsAndCurrencyPresenter()

@@ -5,7 +5,6 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Button
-import android.widget.CompoundButton
 import cn.zcoder.xxp.base.ext.onClick
 import cn.zcoder.xxp.base.ext.showDialog
 import cn.zcoder.xxp.base.mvp.ui.MvpView
@@ -13,7 +12,7 @@ import cn.zcoder.xxp.base.mvp.ui.activity.BaseMvpActivity
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.upholstery.share.battery.R
-import com.upholstery.share.battery.app.format
+import com.upholstery.share.battery.app.formatx
 import com.upholstery.share.battery.mvp.modle.entity.ShippingAddressListResponse
 import com.upholstery.share.battery.mvp.presenter.ShippingAddressPresenter
 import com.upholstery.share.battery.mvp.ui.dialog.WarningDialog
@@ -122,9 +121,9 @@ class ShoppingAddressManageActivity : BaseMvpActivity<MvpView, ShippingAddressPr
 
             override fun convert(helper: BaseViewHolder, item: ShippingAddressListResponse.DataBean) {
                 helper
-                        .setText(R.id.mTvReceiveName, item.linkman.format(getString(R.string.format_receive_name)))
+                        .setText(R.id.mTvReceiveName, item.linkman.formatx(getString(R.string.format_receive_name)))
                         .setText(R.id.mTvPhone, item.phone)
-                        .setText(R.id.mTvShippingAddress, item.address.format(getString(R.string.format_shipping_address)))
+                        .setText(R.id.mTvShippingAddress, item.address.formatx(getString(R.string.format_shipping_address)))
                         .setText(R.id.mTvReceiveName, item.linkman)
                         .addOnClickListener(R.id.mBtnEdit)
                         .addOnClickListener(R.id.mBtnDel)

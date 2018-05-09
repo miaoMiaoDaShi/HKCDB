@@ -41,7 +41,7 @@ fun Uri.getRealFilePath(context: Context): String? {
     return data
 }
 
-fun String.format(string: String): String {
+fun String.formatx(string: String): String {
     return String.format(string, this)
 }
 

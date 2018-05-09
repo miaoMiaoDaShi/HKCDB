@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/tool_bar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="26px"
+        android:layout_marginTop="26px"
+        android:text="@string/good_receiving_time"
+        android:textColor="@color/gray"
+        android:textSize="15sp" />
+    <RelativeLayout
+        android:id="@+id/mRlGoodReceivingTime"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:layout_marginRight="26px"
+        android:paddingLeft="26px"
+        android:paddingRight="26px"
+        android:layout_marginLeft="26px"
+        android:layout_marginTop="26px"
+        android:background="@drawable/bg_btn_gray_stroke">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="100px"
+            android:gravity="center_vertical"
+            android:text="@string/select_time"
+            android:textColor="@color/itemColor"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/mTvGoodReceivingTime"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="100px"
+            android:drawablePadding="26px"
+            android:gravity="center_vertical"
+            android:textColor="@color/itemColor"
+            android:drawableRight="@drawable/ic_right_line"
+            android:textSize="15sp" />
+    </RelativeLayout>
+</LinearLayout>

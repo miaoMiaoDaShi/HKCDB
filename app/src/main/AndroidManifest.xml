@@ -312,6 +312,11 @@
             android:name="com.upholstery.share.battery.mvp.ui.activity.SelectShippingAddressActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
+        <!--選擇配送時間-->
+        <activity
+            android:name="com.upholstery.share.battery.mvp.ui.activity.ReceivingTimeSettingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <!--貨幣記錄-->
         <activity
             android:name="com.upholstery.share.battery.mvp.ui.activity.CurrencyRecordActivity"

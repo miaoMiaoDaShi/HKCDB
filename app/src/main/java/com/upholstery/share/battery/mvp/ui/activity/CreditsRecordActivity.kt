@@ -112,7 +112,7 @@ class CreditsRecordActivity : BaseMvpActivity<MvpView, CreditsAndCurrencyPresent
                 helper.setText(R.id.mTvTime,
                         TimeUtils.millis2String(item.createTime, SimpleDateFormat(" yyyy-MM-dd")))
                         .setText(R.id.mTvType, item.usedTo)//0-赠送 1-消费',
-                        .setText(R.id.mTvCount,"${item.point}" )
+                        .setText(R.id.mTvCount, "${item.point}")
 
             }
 
@@ -130,7 +130,11 @@ class CreditsRecordActivity : BaseMvpActivity<MvpView, CreditsAndCurrencyPresent
 
     override fun start() {
         super.start()
-        getPresenter().getCurrencyRecordList(0x10)
+        mSwipeRefresh.post {
+            mSwipeRefresh.isRefreshing = true
+            getPresenter().getCurrencyRecordList(0x10)
+        }
+
     }
 
     override fun createPresenter(): CreditsAndCurrencyPresenter = CreditsAndCurrencyPresenter()
