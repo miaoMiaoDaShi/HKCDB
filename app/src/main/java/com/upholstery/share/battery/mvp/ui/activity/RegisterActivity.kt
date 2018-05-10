@@ -156,7 +156,7 @@ class RegisterActivity : BaseMvpActivity<MvpView, RegisterPresenter>(), View.OnC
                 .subscribe {
                     if (it) {
                         //取到運營手機號
-                        val phoneNum = "15228950262"
+                        val phoneNum = "852-31189148"
                         mWarningDialog.setData("呼叫 $phoneNum?", getString(R.string.cancel), getString(R.string.call))
                         mWarningDialog.setListener({
                         }, {

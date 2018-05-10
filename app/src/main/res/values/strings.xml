@@ -279,4 +279,13 @@
     <string name="waiting_for_the_evaluation">待評價</string>
     <string name="confirm_receiving">確認收貨</string>
     <string name="evaluation_order">去評價</string>
+    <string name="shopping_order_detail">訂單詳細</string>
+    <string name="confirm_receiving_success">確認收貨成功</string>
+    <string name="commodity_sum_cost">商品總價</string>
+    <string name="format_good_receiving_time">配送時間: %s</string>
+    <string name="format_shipments_type">配送方式: %s</string>
+    <string name="format_shopping_order_no">訂單編號: %s</string>
+    <string name="format_pay_time">下單時間: %s</string>
+    <string name="format_receiving_time">收貨時間: %s</string>
+    <string name="to_see_order">去查看訂單</string>
 </resources>

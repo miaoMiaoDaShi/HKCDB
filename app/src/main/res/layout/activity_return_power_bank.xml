@@ -44,6 +44,7 @@
 
             <Button
                 android:id="@+id/mBtnConfirm"
+                android:visibility="gone"
                 android:layout_width="550px"
                 android:layout_height="80px"
                 android:layout_marginTop="90px"

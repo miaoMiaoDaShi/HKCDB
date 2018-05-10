@@ -224,7 +224,7 @@ class BorrowRecordDetailActivity : BaseMvpActivity<MvpView, BorrowRecordDetailPr
                     mTvReportTheLoss.visible(true)
                 }
                 if (data.data[0].statusX == 2) {
-                    mBtnToPay.visible(true)
+                    //mBtnToPay.visible(true)
                 }
                 val borrowRecordDetail = data.data[0]
 
@@ -326,6 +326,8 @@ class BorrowRecordDetailActivity : BaseMvpActivity<MvpView, BorrowRecordDetailPr
                 it.onNext(source)
             } catch (e: Exception) {
                 it.onError(e)
+            } finally {
+                it.onComplete()
             }
         })
 

@@ -3,7 +3,9 @@ package com.upholstery.share.battery.mvp.ui.fragment
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import cn.zcoder.xxp.base.ext.dismissDialog
 import cn.zcoder.xxp.base.ext.load
@@ -15,11 +17,15 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.upholstery.share.battery.R
 import com.upholstery.share.battery.app.formatx
+import com.upholstery.share.battery.event.ShoppingOrderRefreshEvent
 import com.upholstery.share.battery.mvp.modle.entity.CommodityOrderListResponse
 import com.upholstery.share.battery.mvp.presenter.ShopingOrderPresenter
 import com.upholstery.share.battery.mvp.ui.activity.EvaluationOfTheOrderActivity
 import com.upholstery.share.battery.mvp.ui.dialog.LoadingDialog
 import kotlinx.android.synthetic.main.fragment_shipping_order.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.support.v4.startActivity
 
 /**
@@ -43,6 +49,11 @@ class ShoppingOrderFragment : BaseMvpFragment<MvpView, ShopingOrderPresenter>()
             fragment.arguments = bundle
             return fragment
         }
+    }
+
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        EventBus.getDefault().register(this)
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     private val mLoadingDialog by lazy {
@@ -78,7 +89,16 @@ class ShoppingOrderFragment : BaseMvpFragment<MvpView, ShopingOrderPresenter>()
     }
 
     override fun handlerSuccess(type: Int, data: Any) {
+        when (type) {
+            0 -> {//獲取數據
 
+            }
+            0x10 -> {//確認收貨
+                toRefresh(ShoppingOrderRefreshEvent())
+            }
+            else -> {
+            }
+        }
     }
 
     override fun createPresenter(): ShopingOrderPresenter = ShopingOrderPresenter()
@@ -150,7 +170,23 @@ class ShoppingOrderFragment : BaseMvpFragment<MvpView, ShopingOrderPresenter>()
 
     }
 
+    /**
+     * 刷新數據
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun toRefresh(event: ShoppingOrderRefreshEvent) {
+        mSwipeRefreshShippingOrder.post {
+            mSwipeRefreshShippingOrder.isRefreshing = true
+            onRefresh()
+        }
+    }
+
     override fun onRefresh() {
         getPresenter().getShoppingOrder(mType, 1)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        EventBus.getDefault().unregister(this)
     }
 }

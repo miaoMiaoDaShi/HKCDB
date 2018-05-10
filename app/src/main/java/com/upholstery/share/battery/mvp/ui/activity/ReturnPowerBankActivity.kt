@@ -104,7 +104,7 @@ class ReturnPowerBankActivity : BaseMvpActivity<MvpView, UsePresenter>() {
                 mStatus = 0
                 mIvStatus.drawable.level = 2
                 mTvHint.text = getString(R.string.please_insert_the_charger_into_the_open_position)
-                mBtnConfirm.text = getText(R.string.to_pay_order)
+                mBtnConfirm.text = getText(R.string.to_see_order)
 
 
             }

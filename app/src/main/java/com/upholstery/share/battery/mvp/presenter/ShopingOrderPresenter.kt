@@ -27,9 +27,8 @@ class ShopingOrderPresenter : RxPresenter<MvpView>() {
                     getView().handlerError(type, it.message!!)
                 }))
     }
-    /**
-     * 根据id获取订单信息
-     */
+
+
     /**
      * 确认收货
      */
@@ -43,8 +42,9 @@ class ShopingOrderPresenter : RxPresenter<MvpView>() {
                 }, {
                     getView().handlerError(type, it.message!!)
                 }))
-        /**
-         * 评价订单
-         */
+
     }
+    /**
+     * 评价订单
+     */
 }

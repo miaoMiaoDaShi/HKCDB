@@ -17,6 +17,7 @@
             android:layout_height="match_parent">
 
             <RelativeLayout
+                android:id="@+id/mRlReceivingName"
                 android:layout_width="match_parent"
                 android:layout_height="100px"
                 android:background="@android:color/white"
@@ -41,14 +42,19 @@
                     android:textColor="@color/gray"
                     android:textSize="15sp"
                     tools:text="31233213124" />
+                <View
+                    android:layout_alignParentBottom="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divisionColor50"/>
+
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp" />
+
 
             <RelativeLayout
-                android:id="@+id/mRLToSelectShippingAddress"
+                android:layout_below="@id/mRlReceivingName"
+                android:id="@+id/mRLShippingAddress"
                 android:layout_width="match_parent"
                 android:layout_height="120px"
                 android:background="@color/white"
@@ -82,17 +88,119 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:id="@+id/mRvCommodity"
+                android:layout_below="@id/mRLShippingAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="196px"
+                    android:background="@android:color/white"
+                    android:padding="26px">
+
+                    <ImageView
+                        android:id="@+id/mIvCommodityImage"
+                        android:layout_width="140px"
+                        android:layout_height="140px"
+                        android:layout_centerVertical="true"
+                        tools:src="@mipmap/ic_launcher" />
+
+                    <TextView
+                        android:id="@+id/mTvCommodityName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="26px"
+                        android:layout_toRightOf="@id/mIvCommodityImage"
+                        android:textColor="@android:color/black"
+                        android:textSize="15sp"
+                        tools:text="某某大手大脚" />
+
+                    <TextView
+                        android:id="@+id/mTvCommodityCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/mTvCommodityStandard"
+                        android:layout_marginLeft="26px"
+                        android:layout_toRightOf="@id/mIvCommodityImage"
+                        android:text="X %s"
+                        android:textColor="@color/gray"
+
+                        android:textSize="13sp" />
+                    <TextView
+                        android:id="@+id/mTvCommodityStandard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/mTvCommodityCost"
+                        android:layout_marginLeft="26px"
+                        android:layout_toRightOf="@id/mIvCommodityImage"
+                        android:text="@string/commodity_standard"
+                        android:textColor="@color/gray"
+
+                        android:textSize="13sp" />
+                    <TextView
+                        android:id="@+id/mTvCommodityCost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="26px"
+                        android:layout_toRightOf="@id/mIvCommodityImage"
+                        android:textColor="@color/orange"
+                        android:textSize="15sp"
+                        tools:text="$ 50" />
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divisionColor50"/>
+                <RelativeLayout
+                    android:paddingLeft="26px"
+                    android:paddingRight="26px"
+                    android:layout_width="match_parent"
+                    android:layout_height="100px">
+                    <TextView
+                        android:id="@+id/mTvCommodityCountSum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/gray"
+                        android:layout_toLeftOf="@+id/mTvCommodityCostSum"
+                        android:layout_centerVertical="true"
+                        android:textSize="15sp"
+                        android:text="@string/commodity_sum_cost"/>
+                    <TextView
+                        android:id="@+id/mTvCommodityCostSum"
+                        android:layout_marginLeft="26px"
+                        android:layout_width="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_height="wrap_content"
+                        android:textSize="25sp"
+                        android:textColor="@color/orange"
+                        android:text="$ %s"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/divisionColor50"/>
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/mLlOtherInfo"
+                android:layout_below="@id/mRvCommodity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/mTvGoodReceivingTime"
                     android:layout_width="wrap_content"
                     android:layout_height="100px"
+                    android:gravity="center_vertical"
                     android:paddingLeft="26px"
                     android:paddingRight="26px"
-                    android:gravity="center_vertical"
-                    android:text="配送時間: %"
+                    android:text="@string/format_good_receiving_time"
                     android:textColor="@color/itemColor"
                     android:textSize="15sp" />
 
@@ -102,26 +210,29 @@
                     android:background="@color/divisionColor50" />
 
                 <TextView
+                    android:id="@+id/mTvShipmentsType"
                     android:layout_width="wrap_content"
                     android:layout_height="100px"
+                    android:gravity="center_vertical"
                     android:paddingLeft="26px"
                     android:paddingRight="26px"
-                    android:gravity="center_vertical"
-                    android:text="配送方式: %"
+                    android:text="@string/format_shipments_type"
                     android:textColor="@color/itemColor"
                     android:textSize="15sp" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="26px" />
+                    android:layout_height="26px"
+                    android:background="@color/divisionColor50" />
 
                 <TextView
+                    android:id="@+id/mTvToShoppingOrderNo"
                     android:layout_width="wrap_content"
                     android:layout_height="100px"
+                    android:gravity="center_vertical"
                     android:paddingLeft="26px"
                     android:paddingRight="26px"
-                    android:gravity="center_vertical"
-                    android:text="訂單編號: %"
+                    android:text="@string/format_shopping_order_no"
                     android:textColor="@color/itemColor"
                     android:textSize="15sp" />
 
@@ -131,12 +242,13 @@
                     android:background="@color/divisionColor50" />
 
                 <TextView
+                    android:id="@+id/mTvPayTime"
                     android:layout_width="wrap_content"
                     android:layout_height="100px"
+                    android:gravity="center_vertical"
                     android:paddingLeft="26px"
                     android:paddingRight="26px"
-                    android:gravity="center_vertical"
-                    android:text="下單時間: %"
+                    android:text="@string/format_pay_time"
                     android:textColor="@color/itemColor"
                     android:textSize="15sp" />
 
@@ -146,12 +258,13 @@
                     android:background="@color/divisionColor50" />
 
                 <TextView
+                    android:id="@+id/mTvReceivingTime"
                     android:layout_width="wrap_content"
                     android:layout_height="100px"
+                    android:gravity="center_vertical"
                     android:paddingLeft="26px"
                     android:paddingRight="26px"
-                    android:gravity="center_vertical"
-                    android:text="收貨時間: %"
+                    android:text="@string/format_receiving_time"
                     android:textColor="@color/itemColor"
                     android:textSize="15sp" />
             </LinearLayout>
@@ -165,6 +278,7 @@
                 android:paddingRight="26px">
 
                 <Button
+                    android:id="@+id/mBtnConfirm"
                     android:layout_width="200px"
                     android:layout_height="60px"
                     android:layout_alignParentRight="true"

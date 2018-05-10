@@ -82,4 +82,7 @@
         <item>贈送</item>
         <item>消費</item>
     </string-array>
+    <string-array name="delivery_type">
+        <item>免費配送</item>
+    </string-array>
     </resources>

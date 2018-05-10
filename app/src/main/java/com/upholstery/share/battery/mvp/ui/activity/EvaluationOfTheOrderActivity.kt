@@ -8,10 +8,12 @@ import cn.zcoder.xxp.base.ext.toast
 import cn.zcoder.xxp.base.mvp.ui.MvpView
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseMvpActivity
 import com.upholstery.share.battery.R
+import com.upholstery.share.battery.event.ShoppingOrderRefreshEvent
 import com.upholstery.share.battery.mvp.presenter.EvaluationOfTheOrderPresenter
 import com.upholstery.share.battery.mvp.ui.dialog.LoadingDialog
 import com.upholstery.share.battery.mvp.ui.widgets.ToolBar
 import kotlinx.android.synthetic.main.activity_evaluation_of_the_order.*
+import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.find
 
 /**
@@ -47,6 +49,7 @@ class EvaluationOfTheOrderActivity : BaseMvpActivity<MvpView, EvaluationOfTheOrd
 
     override fun handlerSuccess(type: Int, data: Any) {
         toast(getString(R.string.evaluation_of_the_order_success))
+        EventBus.getDefault().post(ShoppingOrderRefreshEvent())
         finish()
     }
 
@@ -63,6 +66,12 @@ class EvaluationOfTheOrderActivity : BaseMvpActivity<MvpView, EvaluationOfTheOrd
         }
     }
 
+    /**
+     * 订单号
+     */
+    private val mOrderNo by lazy {
+        intent.getStringExtra("orderNo")
+    }
     override fun bindListener() {
         super.bindListener()
         mBtnCommit.onClick(this)

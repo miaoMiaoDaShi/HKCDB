@@ -7,6 +7,8 @@ import cn.zcoder.xxp.base.mvp.ui.MvpView
 import cn.zcoder.xxp.base.net.BaseResponse
 import cn.zcoder.xxp.base.net.RetrofitClient
 import com.blankj.utilcode.util.RegexUtils
+import com.blankj.utilcode.util.ToastUtils
+import com.upholstery.share.battery.R
 import com.upholstery.share.battery.app.getApi
 import com.upholstery.share.battery.mvp.modle.api.APIService
 
@@ -25,6 +27,10 @@ open class VerPhonePresenter<V : MvpView> : RxPresenter<V>() {
 //            getView().handlerError(0x10, "")
 //            return
 //        }
+        if(phone.isEmpty()){
+            ToastUtils.showShort(R.string.the_required_field_cannot_be_empty)
+            return
+        }
         addSubscribe(getApi().verPhone(phone, userTo)
                 .compose(RetrofitClient.getDefaultTransformer(getView(), type))
                 .subscribe({

@@ -431,19 +431,18 @@ interface APIService {
      * 購買商品
      */
     @POST("trustPointController/pointConvertOrder")
-    @FormUrlEncoded
     fun payCommodity(
-            @Field("consignee") consignee: String,//收貨人姓名
-            @Field("phone") phone: String,//電話號碼
-            @Field("province") province: String,//省
-            @Field("city") city: String,//市
-            @Field("area") area: String,//區
-            @Field("address") address: String,//詳細地址
-            @Field("time") time: String,
-            @Field("number") number: Int,
-            @Field("productId") productId: String,
-            @Field("type") type: Int,
-            @Field("payWay") payWay: Int
+            @Query("consignee") consignee: String,//收貨人姓名
+            @Query("phone") phone: String,//電話號碼
+            @Query("province") province: String,//省
+            @Query("city") city: String,//市
+            @Query("area") area: String,//區
+            @Query("address") address: String,//詳細地址
+            @Query("time") time: String,
+            @Query("number") number: Int,
+            @Query("productId") productId: String,
+            @Query("type") type: Int,
+            @Query("payWay") payWay: Int
     ): Observable<BorrowOneResponse>
 
     /**
@@ -456,9 +455,8 @@ interface APIService {
     /**
      * 獲取商品訂單
      */
-    @POST("trustPointController/getUserOrder")
-    @FormUrlEncoded
-    fun getCommodityOrder(@Field("orderType") orderType: Int, @Field("type") type: Int): Observable<CommodityOrderListResponse>
+    @GET("trustPointController/getUserOrder")
+    fun getCommodityOrder(@Query("orderType") orderType: Int, @Query("type") type: Int): Observable<CommodityOrderListResponse>
 
 
     /**
