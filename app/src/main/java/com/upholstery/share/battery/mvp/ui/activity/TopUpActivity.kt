@@ -231,6 +231,7 @@ class TopUpActivity : BaseMvpActivity<MvpView, PayPresenter>(), View.OnClickList
                 val source = Stripe(applicationContext)
                         .createSourceSynchronous(sourceParams, Constant.STRIPE_PUBLISHABLE_KEY)
                 it.onNext(source)
+                it.onComplete()
             } catch (e: Exception) {
                 it.onError(e)
             }
