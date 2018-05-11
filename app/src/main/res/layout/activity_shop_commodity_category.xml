@@ -11,10 +11,11 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/mRv"
+            android:id="@+id/mRvCategoryTitles"
             android:layout_weight="1.5"
             android:layout_width="0dp"
-            android:layout_height="wrap_content">
+            android:background="@android:color/white"
+            android:layout_height="match_parent">
 
         </android.support.v7.widget.RecyclerView>
         <FrameLayout

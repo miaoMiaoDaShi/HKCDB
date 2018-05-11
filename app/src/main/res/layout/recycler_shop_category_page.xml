@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:orientation="vertical">
+
+    <RadioButton
+        android:id="@+id/mRbCategoryTitle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_category_list_item"
+        android:button="@null"
+        android:gravity="center"
+        android:textColor="@drawable/color_category_list_item"
+        android:textSize="15sp"
+        tools:text="xxx分类" />
+</LinearLayout>

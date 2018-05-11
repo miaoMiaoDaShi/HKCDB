@@ -12,6 +12,7 @@ import android.widget.TextView
 import cn.zcoder.xxp.base.ext.load
 import cn.zcoder.xxp.base.ext.onClick
 import cn.zcoder.xxp.base.ext.showDialog
+import cn.zcoder.xxp.base.ext.toast
 import cn.zcoder.xxp.base.mvp.ui.MvpView
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseMvpActivity
 import com.blankj.utilcode.util.SizeUtils
@@ -45,6 +46,56 @@ class ShopActivity : BaseMvpActivity<MvpView, ShopPresenter>(),
         LoadingDialog.getInstance(supportFragmentManager)
     }
 
+    /**
+     * 头布局
+     */
+    private val mHeaderView by lazy {
+        setupHeaderView()
+    }
+
+    /**
+     * bannerView
+     */
+    private val mBanner by lazy {
+        mHeaderView.find<Banner>(R.id.mBanner).apply {
+            setImageLoader(ImageLoader())
+        }
+    }
+
+    /**
+     * headerView中的分类recyclerView
+     */
+    private val mCategoryView by lazy {
+        mHeaderView.find<RecyclerView>(R.id.mRvShopCategory).apply {
+            val categoryIcon = arrayOf(
+                    R.drawable.ic_shop_category_a,
+                    R.drawable.ic_shop_category_b,
+                    R.drawable.ic_shop_category_c,
+                    R.drawable.ic_shop_category_d,
+                    R.drawable.ic_shop_category_e
+            )
+            layoutManager = GridLayoutManager(applicationContext, 5)
+            val adapter_ = object : BaseQuickAdapter<String, BaseViewHolder>(R.layout.recycler_shop_main_category) {
+                override fun convert(helper: BaseViewHolder, item: String) {
+                    val mTvCategoryTitle = helper.getView<TextView>(R.id.mTvCategoryTitle)
+                    mTvCategoryTitle
+                            .setCompoundDrawablesWithIntrinsicBounds(0, categoryIcon[helper.adapterPosition],
+                                    0, 0)
+                    mTvCategoryTitle.text = item
+                }
+            }
+            adapter = adapter_
+
+        }
+    }
+    /**
+     * 指示器文字
+     */
+    private val mTvIndicator by lazy {
+        mHeaderView.find<TextView>(R.id.mTvIndicator)
+    }
+    private var mBannerCount = 0
+
     override fun getLayoutId(): Int = R.layout.activity_shop
 
     override fun showLoading(type: Int) {
@@ -59,6 +110,59 @@ class ShopActivity : BaseMvpActivity<MvpView, ShopPresenter>(),
     }
 
     override fun handlerSuccess(type: Int, data: Any) {
+        //banner图片地址
+        val images = listOf<String>(
+                "http://d.hiphotos.baidu.com/image/pic/item/9345d688d43f8794f7940c9ede1b0ef41bd53a12.jpg",
+                "http://d.hiphotos.baidu.com/image/pic/item/9345d688d43f8794f7940c9ede1b0ef41bd53a12.jpg",
+                "http://d.hiphotos.baidu.com/image/pic/item/9345d688d43f8794f7940c9ede1b0ef41bd53a12.jpg",
+                "http://d.hiphotos.baidu.com/image/pic/item/9345d688d43f8794f7940c9ede1b0ef41bd53a12.jpg",
+                "http://d.hiphotos.baidu.com/image/pic/item/9345d688d43f8794f7940c9ede1b0ef41bd53a12.jpg"
+        )
+        //点击链接
+        val clickLink = listOf<String>(
+                "哈哈哈",
+                "哈哈哈",
+                "哈哈哈",
+                "哈哈哈",
+                "哈哈哈"
+        )
+        //分类名字  id
+        val categoryTitle = listOf(
+                "分类A",
+                "分类B",
+                "分类C",
+                "分类D",
+                "分类E"
+        )
+        //id值
+        val categoryIds = listOf("45454", "45454", "44", "4444", "444")
+        refreshHeader(images, categoryTitle, clickLink, categoryIds)
+    }
+
+    /**
+     * 刷新banner的数据
+     */
+    private fun refreshHeader(images: List<String>, categoryTitle: List<String>
+                              , clickLink: List<String>, categoryIds: List<String>) {
+        mBannerCount = images.size
+        mBanner.update(images)
+        (mCategoryView.adapter as BaseQuickAdapter<String, BaseViewHolder>).run {
+            replaceData(categoryTitle)
+            setOnItemClickListener { adapter, view, position ->
+                kotlin.run {
+                    when (position) {
+                        4 -> {//更多分类
+                            startActivity<ShopCommodityCategoryActivity>()
+                        }
+                        else -> {
+                        }
+                    }
+                }
+            }
+
+        }
+
+
     }
 
     override fun initView(savedInstanceState: Bundle?) {
@@ -68,6 +172,7 @@ class ShopActivity : BaseMvpActivity<MvpView, ShopPresenter>(),
                 .setOnLeftImageListener { finish() }
 
         initRecyclerView()
+        handlerSuccess(0,1)
 
     }
 
@@ -82,18 +187,11 @@ class ShopActivity : BaseMvpActivity<MvpView, ShopPresenter>(),
             }
 
         }
-        mAdapter.addHeaderView(
-                setupHeaderView(mutableListOf(
-                        "https://camo.githubusercontent.com/72e7034bb9f3ed5e4d28c25a94adb22bb9e7cb98/687474703a2f2f6f63656835316b6b752e626b742e636c6f7564646e2e636f6d2f62616e6e65725f6578616d706c65312e706e67",
-                        "https://camo.githubusercontent.com/72e7034bb9f3ed5e4d28c25a94adb22bb9e7cb98/687474703a2f2f6f63656835316b6b752e626b742e636c6f7564646e2e636f6d2f62616e6e65725f6578616d706c65312e706e67",
-                        "https://camo.githubusercontent.com/72e7034bb9f3ed5e4d28c25a94adb22bb9e7cb98/687474703a2f2f6f63656835316b6b752e626b742e636c6f7564646e2e636f6d2f62616e6e65725f6578616d706c65312e706e67"))
-        )
+        mAdapter.addHeaderView(mHeaderView)
         mAdapter.setOnItemClickListener { adapter, view, position ->
-            {
-                //去商品详情页面  避免head页面被单击
-                if (position != 0) {
-                    startActivity<ShopCommodityDetailActivity>()
-                }
+            run {
+                //去商品详情页面
+                startActivity<ShopCommodityDetailActivity>()
             }
         }
 
@@ -122,20 +220,8 @@ class ShopActivity : BaseMvpActivity<MvpView, ShopPresenter>(),
     /**
      * 頭佈局裝載
      */
-    private lateinit var mTvIndicator: TextView
-    private var mBannerCount = 0
-    private fun setupHeaderView(images: List<String>): View {
-        mBannerCount = images.size
+    private fun setupHeaderView(): View {
         val headerContentView = layoutInflater.inflate(R.layout.header_shop_main, null)
-        val banner = headerContentView.find<Banner>(R.id.mBanner)
-        val categoryRv = headerContentView.find<RecyclerView>(R.id.mRvShopCategory)
-        categoryRv.layoutManager = LinearLayoutManager(applicationContext,LinearLayoutManager.HORIZONTAL,false)
-        //categoryRv.adapter = object:BaseQuickAdapter<>
-        mTvIndicator = headerContentView.find(R.id.mTvIndicator)
-        banner.setImageLoader(ImageLoader())
-        banner.setOnPageChangeListener(this)
-        banner.setImages(images)
-        banner.start()
         return headerContentView
 
     }
@@ -171,6 +257,6 @@ class ShopActivity : BaseMvpActivity<MvpView, ShopPresenter>(),
     }
 
     override fun onPageSelected(position: Int) {
-        mTvIndicator.text = "${position + 1}/$mBannerCount"
+        // mTvIndicator.text = "${position + 1}/$mBannerCount"
     }
 }

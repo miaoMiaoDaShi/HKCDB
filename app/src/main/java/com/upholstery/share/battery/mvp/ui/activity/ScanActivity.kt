@@ -4,6 +4,7 @@ import android.os.Bundle
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseActivity
 import com.upholstery.share.battery.R
 import com.google.zxing.Result
+import com.upholstery.share.battery.mvp.ui.dialog.TipDialog
 import com.upholstery.share.battery.mvp.ui.widgets.ToolBar
 import kotlinx.android.synthetic.main.activity_scan.*
 import me.dm7.barcodescanner.zxing.ZXingScannerView
@@ -27,7 +28,14 @@ class ScanActivity : BaseActivity(), ZXingScannerView.ResultHandler {
         p0?.let {
             if (1==1) {
                 //val sno = it.text.replace(SCAN_PREFIX, "")
-                val sno = it.text.split("sno=")[1]
+                val urlBlocks = it.text.split("sno")
+                if(urlBlocks.size!=2){
+                    TipDialog.show(it.text,supportFragmentManager)
+                    return
+                }
+                val sno = urlBlocks[1]
+
+
                 when (intent.getIntExtra("type", 0)) {
                 //借用
                     0x10 -> {

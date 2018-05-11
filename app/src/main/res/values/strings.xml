@@ -288,4 +288,5 @@
     <string name="format_pay_time">下單時間: %s</string>
     <string name="format_receiving_time">收貨時間: %s</string>
     <string name="to_see_order">去查看訂單</string>
+    <string name="category">分類</string>
 </resources>
