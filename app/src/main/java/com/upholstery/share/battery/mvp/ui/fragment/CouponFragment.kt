@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat
  * Author : zhongwenpeng
  * Email : 1340751953@qq.com
  * Time :  2018/3/5
- * Description :
+ * Description :优惠券页面
  */
 
 class CouponFragment : BaseMvpFragment<MvpView, CouponPresenter>(), SwipeRefreshLayout.OnRefreshListener {

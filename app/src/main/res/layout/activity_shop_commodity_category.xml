@@ -18,12 +18,12 @@
             android:layout_height="match_parent">
 
         </android.support.v7.widget.RecyclerView>
-        <FrameLayout
-            android:id="@+id/mFLContent"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/mRvCategoryChild"
             android:layout_weight="3"
             android:layout_width="0dp"
             android:layout_height="match_parent">
 
-        </FrameLayout>
+        </android.support.v7.widget.RecyclerView>
     </LinearLayout>
 </LinearLayout>

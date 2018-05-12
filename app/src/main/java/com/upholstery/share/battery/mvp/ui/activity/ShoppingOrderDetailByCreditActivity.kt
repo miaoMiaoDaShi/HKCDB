@@ -1,5 +1,6 @@
 package com.upholstery.share.battery.mvp.ui.activity
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import cn.zcoder.xxp.base.ext.load
 import cn.zcoder.xxp.base.ext.onClick
@@ -50,6 +51,7 @@ class ShoppingOrderDetailByCreditActivity : BaseMvpActivity<MvpView, ShopingOrde
         intent.getSerializableExtra("data") as CommodityOrderListResponse.DataBean
     }
 
+    @SuppressLint("SetTextI18n")
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
         find<ToolBar>(R.id.mToolBar)
