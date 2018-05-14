@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.activity_scan.*
 import me.dm7.barcodescanner.zxing.ZXingScannerView
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
+import timber.log.Timber
 
 
 /**
@@ -24,11 +25,13 @@ import org.jetbrains.anko.startActivity
 class ScanActivity : BaseActivity(), ZXingScannerView.ResultHandler {
     private val SCAN_PREFIX = "http://wx.gaadme.com/app/device.html?sno="
     override fun handleResult(p0: Result?) {
+
         //
         p0?.let {
+            Timber.e(it.text)
             if (1==1) {
                 //val sno = it.text.replace(SCAN_PREFIX, "")
-                val urlBlocks = it.text.split("sno")
+                val urlBlocks = it.text.split("sno=")
                 if(urlBlocks.size!=2){
                     TipDialog.show(it.text,supportFragmentManager)
                     return

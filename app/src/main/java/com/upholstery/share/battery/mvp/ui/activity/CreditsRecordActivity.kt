@@ -3,6 +3,7 @@ package com.upholstery.share.battery.mvp.ui.activity
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
+import cn.zcoder.xxp.base.ext.showSnackBar
 import cn.zcoder.xxp.base.mvp.ui.MvpView
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseMvpActivity
 import com.blankj.utilcode.util.TimeUtils
@@ -76,12 +77,14 @@ class CreditsRecordActivity : BaseMvpActivity<MvpView, CreditsAndCurrencyPresent
                 data as CreditRecordListResponse
                 mAdapter.replaceData(data.data)
                 if (data.data.isEmpty()) {
+                    showSnackBar(R.string.no_data)
                     mAdapter.loadMoreEnd()
                 }
             }
             0x11 -> {//加載更多
                 data as CreditRecordListResponse
                 if (data.data.isEmpty()) {
+                    showSnackBar(R.string.no_more_data)
                     mAdapter.loadMoreEnd()
                     return
                 }
@@ -124,7 +127,7 @@ class CreditsRecordActivity : BaseMvpActivity<MvpView, CreditsAndCurrencyPresent
     }
 
     override fun onLoadMoreRequested() {
-        getPresenter().getCurrencyRecordList(0x11)
+        getPresenter().getCreditRecordList(0x11)
 
     }
 
@@ -132,7 +135,7 @@ class CreditsRecordActivity : BaseMvpActivity<MvpView, CreditsAndCurrencyPresent
         super.start()
         mSwipeRefresh.post {
             mSwipeRefresh.isRefreshing = true
-            getPresenter().getCurrencyRecordList(0x10)
+            getPresenter().getCreditRecordList(0x10)
         }
 
     }

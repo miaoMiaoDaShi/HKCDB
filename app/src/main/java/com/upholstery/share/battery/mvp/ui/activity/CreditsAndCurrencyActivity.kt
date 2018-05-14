@@ -114,7 +114,7 @@ class CreditsAndCurrencyActivity : BaseMvpActivity<MvpView, CreditsAndCurrencyPr
         super.initView(savedInstanceState)
         find<ToolBar>(R.id.mToolBar)
                 .setTitle(R.string.credits_and_currency)
-                .setOnRightImageListener { finish() }
+                .setOnLeftImageListener { finish() }
         mSwipeRefresh.setOnRefreshListener(this)
         initRecyclerView()
     }

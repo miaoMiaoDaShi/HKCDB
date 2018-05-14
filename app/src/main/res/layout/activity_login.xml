@@ -122,7 +122,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100px"
                 android:background="@android:color/transparent"
-                android:drawableLeft="@drawable/ic_account"
+                android:drawableLeft="@drawable/ic_phone_full"
                 android:drawablePadding="20px"
                 android:hint="@string/please_input_phone_num"
                 android:inputType="number"
