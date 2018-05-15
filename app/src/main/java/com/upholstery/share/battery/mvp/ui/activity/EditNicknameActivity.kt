@@ -20,14 +20,7 @@ import kotlinx.android.synthetic.main.activity_edit_nickname.*
  */
 
 class EditNicknameActivity : BaseActivity() {
-    /**
-     * 原始的姓氏
-     */
-    private var mOriginalLastName = ""
-    /**
-     * 原始的名字
-     */
-    private var mOriginalFirstName = ""
+
 
     override fun getLayoutId(): Int {
         return R.layout.activity_edit_nickname
@@ -40,43 +33,42 @@ class EditNicknameActivity : BaseActivity() {
 
         mToobar = findViewById<ToolBar>(R.id.mToolBar)
                 .setTitle(getString(R.string.edit_nickname))
+                .showRightText(true)
                 .setOnLeftImageListener { finish() }
                 .setOnRightTextListener(getString(R.string.save), { save() })
     }
 
     override fun initData() {
         super.initData()
-        mOriginalLastName = intent.getStringExtra("lastName")
-        mOriginalFirstName = intent.getStringExtra("firstName")
 
-        mTxtLastName.setText(mOriginalLastName)
-        mTxtFirstName.setText(mOriginalFirstName)
+        mTxtLastName.setText(intent.getStringExtra("lastName"))
+        mTxtFirstName.setText(intent.getStringExtra("firstName"))
 
-        mTxtLastName.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                s?.let { mToobar.showRightText(it.toString() != mOriginalLastName) }
+//        mTxtLastName.addTextChangedListener(object : TextWatcher {
+//            override fun afterTextChanged(s: Editable?) {
+//                s?.let { mToobar.showRightText(it.toString() != mOriginalLastName) }
+//
+//            }
+//
+//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+//            }
+//
+//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//            }
+//        })
 
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-        })
-
-        mTxtFirstName.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                s?.let { mToobar.showRightText(it.toString() != mOriginalFirstName) }
-
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-        })
+//        mTxtFirstName.addTextChangedListener(object : TextWatcher {
+//            override fun afterTextChanged(s: Editable?) {
+//                s?.let { mToobar.showRightText(it.toString() != mOriginalFirstName) }
+//
+//            }
+//
+//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+//            }
+//
+//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//            }
+//        })
     }
 
     private fun save() {

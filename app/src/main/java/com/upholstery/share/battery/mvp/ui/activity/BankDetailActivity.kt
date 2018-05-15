@@ -62,7 +62,7 @@ class BankDetailActivity : BaseMvpActivity<MvpView, BankCardPresenter>() {
                 mBankCardDetailResponse = data as BankCardDetailResponse
                 mToolBar.setTitle(mBankCardTypes[data.data.bankType])
                 mTvBankCardNo.text = data.data.bankNo
-                mTvbankCardTime.text = TimeUtils.millis2String(data.data.bankExpire.toLong(),
+                mTvbankCardTime.text = TimeUtils.millis2String(data.data.bankExpire,
                         SimpleDateFormat(" yyyy-MM-dd"))
             }
             0x11->{

@@ -38,6 +38,7 @@ import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import android.location.LocationManager
+import com.upholstery.share.battery.mvp.ui.dialog.TipDialog
 
 
 /**
@@ -455,7 +456,8 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
                 startActivity<CreditsAndCurrencyActivity>()
             }
             R.id.mTvToShop->{
-                startActivity<ShopActivity>()
+                TipDialog.show("商城即將開放,敬請期待吧",supportFragmentManager)
+                //startActivity<ShopActivity>()
             }
             else -> {
             }

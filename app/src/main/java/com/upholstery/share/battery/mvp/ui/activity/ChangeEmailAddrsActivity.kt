@@ -17,22 +17,10 @@ import kotlinx.android.synthetic.main.activity_email_addrs.*
  * Description :
  */
 
-class ChangeEmailAddrsActivity : BaseActivity(), TextWatcher {
-    override fun afterTextChanged(s: Editable?) {
-        s?.let {
-            findViewById<ToolBar>(R.id.mToolBar).showRightText(it.toString() != mOriginalEmail)
-        }
+class ChangeEmailAddrsActivity : BaseActivity() {
 
 
-    }
 
-    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-    }
-
-    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-    }
-
-    private var mOriginalEmail = ""
     override fun getLayoutId(): Int {
         return R.layout.activity_email_addrs
     }
@@ -41,15 +29,14 @@ class ChangeEmailAddrsActivity : BaseActivity(), TextWatcher {
         super.initView(savedInstanceState)
         findViewById<ToolBar>(R.id.mToolBar)
                 .setTitle(R.string.email_addrs)
+                .showRightText(true)
                 .setOnRightTextListener(getString(R.string.done), { save() })
-        mTxtEmailAddrs.addTextChangedListener(this)
 
     }
 
     override fun initData() {
         super.initData()
-        mOriginalEmail = intent.getStringExtra("email")
-        mTxtEmailAddrs.setText(mOriginalEmail)
+        mTxtEmailAddrs.setText(intent.getStringExtra("email"))
     }
 
     private fun save() {

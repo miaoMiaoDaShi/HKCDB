@@ -39,7 +39,7 @@ public class BankCardDetailResponse extends BaseResponse {
 
         private String area;
         private String bankCvv2;
-        private int bankExpire;
+        private long bankExpire;
         private String bankName;
         private String bankNo;
         private int bankType;
@@ -62,7 +62,7 @@ public class BankCardDetailResponse extends BaseResponse {
             this.bankCvv2 = bankCvv2;
         }
 
-        public int getBankExpire() {
+        public long getBankExpire() {
             return bankExpire;
         }
 

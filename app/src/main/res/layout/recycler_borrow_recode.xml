@@ -50,7 +50,7 @@
             <TextView
                 android:id="@+id/tvOperation"
                 style="@style/useRecordItemStyle"
-                android:text="转借" />
+                android:text="@string/detail_xq" />
 
         </LinearLayout>
 

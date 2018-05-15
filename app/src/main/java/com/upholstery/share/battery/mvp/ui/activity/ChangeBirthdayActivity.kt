@@ -21,10 +21,7 @@ import java.text.SimpleDateFormat
  */
 
 class ChangeBirthdayActivity : BaseActivity() {
-    /**
-     * 原始的传入的生日字段
-     */
-    private var mOriginalBirthday = ""
+
 
     override fun getLayoutId(): Int {
         return R.layout.activity_birthday
@@ -36,8 +33,7 @@ class ChangeBirthdayActivity : BaseActivity() {
                 .setTitle(R.string.birthday)
                 .setOnLeftImageListener { finish() }
                 .showRightText(true)
-                .setRightText(getString(R.string.save))
-                .setOnRightImageListener { save() }
+                .setOnRightTextListener (getString(R.string.save)){ save() }
 
 
         initTiemPickView()
@@ -52,7 +48,7 @@ class ChangeBirthdayActivity : BaseActivity() {
     private lateinit var mPickerView: TimePickerView
     private fun initTiemPickView() {
         mPickerView = TimePickerBuilder(this, { data, view ->
-            findViewById<ToolBar>(R.id.mToolBar).showRightText(mTvBirthday.text != mOriginalBirthday)
+
             mTvBirthday.text = TimeUtils.millis2String(data.time, SimpleDateFormat(" yyyy-MM-dd"))
         })
                 .setCancelText(getString(R.string.cancel))
@@ -65,8 +61,7 @@ class ChangeBirthdayActivity : BaseActivity() {
 
     override fun initData() {
         super.initData()
-        mOriginalBirthday = intent.getStringExtra("birthday")
-        mTvBirthday.text = mOriginalBirthday
+        mTvBirthday.text = intent.getStringExtra("birthday")
     }
 
     override fun bindListener() {

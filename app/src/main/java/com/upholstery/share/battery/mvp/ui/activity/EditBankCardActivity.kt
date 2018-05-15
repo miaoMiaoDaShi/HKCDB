@@ -1,11 +1,16 @@
 package com.upholstery.share.battery.mvp.ui.activity
 
+import android.content.Context
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
+import cn.zcoder.xxp.base.ext.onClick
 import cn.zcoder.xxp.base.ext.showDialog
 import cn.zcoder.xxp.base.ext.toast
 import cn.zcoder.xxp.base.ext.visible
 import cn.zcoder.xxp.base.mvp.ui.MvpView
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseMvpActivity
+import com.bigkoo.pickerview.builder.TimePickerBuilder
+import com.bigkoo.pickerview.view.TimePickerView
 import com.blankj.utilcode.util.TimeUtils
 import com.upholstery.share.battery.R
 import com.upholstery.share.battery.mvp.modle.entity.BankCardDetailResponse
@@ -78,6 +83,32 @@ class EditBankCardActivity : BaseMvpActivity<MvpView, BankCardPresenter>() {
         }
     }
 
+    override fun bindListener() {
+        super.bindListener()
+        mEtBankCardValidity.onClick {
+            closeKeyboard()
+            mPickerView.show()
+        }
+    }
+    private fun closeKeyboard() {
+        val view = window.peekDecorView()
+        if (view != null) {
+            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+        }
+    }
+    private val  mPickerView by lazy {
+        TimePickerBuilder(this, { data, view ->
+            mCurrentMillisecond = "${data.time}"
+            mEtBankCardValidity.setText(TimeUtils.millis2String(data.time, SimpleDateFormat(" yyyy-MM-dd")))
+        })
+                .setCancelText(getString(R.string.cancel))
+                .setSubmitText(getString(R.string.confirm))
+                .setTitleText("")
+                .setType(booleanArrayOf(true, true, true, false, false, false))
+                .build()
+    }
+    private var mCurrentMillisecond = ""
     override fun handlerSuccess(type: Int, data: Any) {
         when (type) {
             0x10 -> {//加載銀行卡詳情
@@ -154,7 +185,7 @@ class EditBankCardActivity : BaseMvpActivity<MvpView, BankCardPresenter>() {
         when (mType) {
             0 -> {//添加操作
                 getPresenter().addBankCard(mEtName.text.toString(), mEtBankName.text.toString(),
-                        mEtBankCardNo.text.toString(), mEtBankCardValidity.text.toString(),
+                        mEtBankCardNo.text.toString(), mCurrentMillisecond,
                         mBankCardVerCode.text.toString(), mAreaNames[mSpinnerAreaName.selectedItemPosition], 0x12)
             }
             1 -> {//編輯保存操作

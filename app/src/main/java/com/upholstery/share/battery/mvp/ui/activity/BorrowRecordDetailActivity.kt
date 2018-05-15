@@ -162,8 +162,8 @@ class BorrowRecordDetailActivity : BaseMvpActivity<MvpView, BorrowRecordDetailPr
     }
 
     //订单状态订单状态1-使用中 2-待支付  3-已完成  4-报失 5-报损',
-    private val types = arrayOf("使用中", "待支付", "已完成", "报失", "报损")
-    private val typeColors = arrayOf(R.color.yellow, R.color.yellow, R.color.yellow, R.color.black,
+    private val types = resources.getStringArray(R.array.borrow_status)
+    private val typeColors = arrayOf(R.color.yellow,  R.color.yellow, R.color.black,
             R.color.black, R.color.black)
 
     private var mBorrowRecordDetailResponse: BorrowRecordDetailResponse? = null
@@ -218,6 +218,7 @@ class BorrowRecordDetailActivity : BaseMvpActivity<MvpView, BorrowRecordDetailPr
             }
 
             0x10 -> {
+                //订单状态订单状态1-使用中   3-已完成  4-报失 5-报损',
                 mBorrowRecordDetailResponse = data as BorrowRecordDetailResponse
                 if (data.data[0].statusX == 1) {
                     mTvBreakage.visible(true)

@@ -3,6 +3,7 @@ package com.upholstery.share.battery.mvp.ui.activity
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Html
 import android.view.View
 import android.widget.Adapter
 import android.widget.ImageView
@@ -70,41 +71,22 @@ class ConversionCommodityDetailActivity : BaseMvpActivity<MvpView, CreditsAndCur
         data as CreditCommodityDetailResponse
         mCreditCommodityDetailResponse = data
         val images = data.data.image.split(";")
-        mAdapter.addHeaderView(setupHeaderView(images.toList()))
         mTvCreditCount.text = "${data.data.point}"
         mTvCommodityName.text = data.data.name
-        mAdapter.replaceData(images.toList())
+        mTvCommodityDes.text = Html.fromHtml(data.data.details)
+
+        mBannerCount = images.size
+        mBanner.setImageLoader(ImageLoader())
+        mBanner.setOnPageChangeListener(this)
+        mBanner.setImages(images)
+        mBanner.start()
 
     }
 
-    /**
-     * 頭佈局裝載
-     */
-    private lateinit var mTvIndicator: TextView
-    /**
-     * 商品的名字
-     */
-    private lateinit var mTvCommodityName: TextView
     /**
      * 信用分
      */
-    private lateinit var mTvCreditCount: TextView
     private var mBannerCount = 0
-    private fun setupHeaderView(images: List<String>): View {
-        mBannerCount = images.size
-        val headerContentView = layoutInflater.inflate(R.layout.header_conversion_commodity_detail, null)
-        val banner = headerContentView.find<Banner>(R.id.mBanner)
-        mTvIndicator = headerContentView.find(R.id.mTvIndicator)
-        mTvCommodityName = headerContentView.find(R.id.mTvCommodityName)
-        mTvCreditCount = headerContentView.find(R.id.mTvCreditCount)
-        banner.setImageLoader(ImageLoader())
-        banner.setOnPageChangeListener(this)
-        banner.setImages(images)
-        banner.start()
-        return headerContentView
-
-    }
-
     override fun createPresenter(): CreditsAndCurrencyPresenter = CreditsAndCurrencyPresenter()
 
     override fun start() {
@@ -118,20 +100,20 @@ class ConversionCommodityDetailActivity : BaseMvpActivity<MvpView, CreditsAndCur
         find<ToolBar>(R.id.mToolBar)
                 .setTitle(getString(R.string.merchant_detail))
                 .setOnLeftImageListener { finish() }
-        initRecyclerViwe()
+        //initRecyclerViwe()
     }
-
-    private lateinit var mAdapter: BaseQuickAdapter<String, BaseViewHolder>
-    private fun initRecyclerViwe() {
-        mRv.layoutManager = LinearLayoutManager(applicationContext)
-        mAdapter = object : BaseQuickAdapter<String, BaseViewHolder>(R.layout.recycler_commodity_detail) {
-            override fun convert(helper: BaseViewHolder, item: String) {
-                helper.getView<ImageView>(R.id.mIvCommodityImage).load(item)
-            }
-
-        }
-        mRv.adapter = mAdapter
-    }
+//
+//    private lateinit var mAdapter: BaseQuickAdapter<String, BaseViewHolder>
+//    private fun initRecyclerViwe() {
+//        mRv.layoutManager = LinearLayoutManager(applicationContext)
+//        mAdapter = object : BaseQuickAdapter<String, BaseViewHolder>(R.layout.recycler_commodity_detail) {
+//            override fun convert(helper: BaseViewHolder, item: String) {
+//                helper.getView<ImageView>(R.id.mIvCommodityImage).load(item)
+//            }
+//
+//        }
+//        mRv.adapter = mAdapter
+//    }
 
     override fun bindListener() {
         super.bindListener()
