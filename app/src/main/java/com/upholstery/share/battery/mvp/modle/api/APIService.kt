@@ -217,14 +217,13 @@ interface APIService {
     fun lostDevice(@Field("orderno") orderno: String): Observable<BaseResponse>
 
     /**
-     * 报损
+     * 报损+
      */
     @POST("deviceController/errorDevice")
-    @FormUrlEncoded
-    fun breakageDevice(@Field("sno") sno: String,
-                       @Field("desc") desc: String,
-                       @Field("orderno") orderno: String,
-                       @Field("image") image: String
+    fun breakageDevice(@Query("sno") sno: String,
+                       @Query("desc") desc: String,
+                       @Query("orderno") orderno: String,
+                       @Query("image") image: String
     ): Observable<BaseResponse>
 
     /**

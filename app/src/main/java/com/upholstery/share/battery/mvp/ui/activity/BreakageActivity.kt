@@ -17,6 +17,7 @@ import cn.zcoder.xxp.base.mvp.ui.activity.BaseMvpActivity
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.upholstery.share.battery.R
 import com.upholstery.share.battery.app.getRealFilePath
+import com.upholstery.share.battery.mvp.modle.entity.BreakageRequest
 import com.upholstery.share.battery.mvp.modle.entity.UploadImageResponse
 import com.upholstery.share.battery.mvp.presenter.UsePresenter
 import com.upholstery.share.battery.mvp.ui.dialog.LoadingDialog
@@ -26,6 +27,8 @@ import com.zhihu.matisse.MimeType
 import com.zhihu.matisse.internal.entity.CaptureStrategy
 import kotlinx.android.synthetic.main.activity_breakage.*
 import org.jetbrains.anko.find
+import org.jetbrains.anko.longToast
+import org.jetbrains.anko.startActivity
 import timber.log.Timber
 
 /**
@@ -50,6 +53,7 @@ class BreakageActivity : BaseMvpActivity<MvpView, UsePresenter>(), View.OnClickL
                 .setTitle(R.string.breakage)
                 .setOnLeftImageListener { finish() }
     }
+
     override fun getLayoutId(): Int = R.layout.activity_breakage
 
     override fun showLoading(type: Int) {
@@ -86,7 +90,8 @@ class BreakageActivity : BaseMvpActivity<MvpView, UsePresenter>(), View.OnClickL
                 mIvImageContent.load(mImageUrl)
             }
             0x11 -> {
-                toast(R.string.commit_success)
+                startActivity<ScanActivity>( "type" to 0x11)
+                longToast("請掃碼打開倉位,并插入損壞的充電寶")
                 finish()
             }
             else -> {
@@ -119,6 +124,11 @@ class BreakageActivity : BaseMvpActivity<MvpView, UsePresenter>(), View.OnClickL
                         })
             }
             R.id.mBtnCommit -> {
+//                if(mEtContent.text.toString().trim().isEmpty()||mImageUrl.isEmpty()){
+//                    return
+//                }
+                //val breakageRequest = BreakageRequest(mSno, mEtContent.text.toString().trim(), mOrderNo, mImageUrl)
+
                 getPresenter().breakageDevice(mSno, mEtContent.text.toString().trim(), mOrderNo, mImageUrl, 0x11)
             }
             else -> {

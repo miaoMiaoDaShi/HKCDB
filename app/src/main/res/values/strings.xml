@@ -196,7 +196,7 @@
     <string name="del">刪除</string>
     <string name="del_failed">刪除失敗</string>
     <string name="del_success">刪除成功</string>
-    <string name="not_sufficient_funds">錢包里沒錢時,是不能借的喔</string>
+    <string name="not_sufficient_funds">積分不足50時,是不能借的喔</string>
     <string name="not_do">不用了</string>
     <string name="to_top_up">去充值</string>
     <string name="whether_to_start_dialup_validation">是否開始撥號驗證</string>
@@ -290,4 +290,5 @@
     <string name="to_see_order">去查看訂單</string>
     <string name="category">分類</string>
     <string name="detail_xq">詳情</string>
+    <string name="i_know">我知道了</string>
 </resources>

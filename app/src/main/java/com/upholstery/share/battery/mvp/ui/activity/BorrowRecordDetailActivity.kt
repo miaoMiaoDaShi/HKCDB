@@ -162,9 +162,11 @@ class BorrowRecordDetailActivity : BaseMvpActivity<MvpView, BorrowRecordDetailPr
     }
 
     //订单状态订单状态1-使用中 2-待支付  3-已完成  4-报失 5-报损',
-    private val types = resources.getStringArray(R.array.borrow_status)
-    private val typeColors = arrayOf(R.color.yellow,  R.color.yellow, R.color.black,
-            R.color.black, R.color.black)
+    private val types by lazy {
+        resources.getStringArray(R.array.borrow_status)
+    }
+    private val typeColors  by lazy { arrayOf(R.color.yellow,R.color.yellow, R.color.black,
+            R.color.black, R.color.black)}
 
     private var mBorrowRecordDetailResponse: BorrowRecordDetailResponse? = null
     /**

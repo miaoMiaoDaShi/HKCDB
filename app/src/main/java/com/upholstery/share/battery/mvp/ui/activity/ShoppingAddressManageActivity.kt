@@ -1,5 +1,6 @@
 package com.upholstery.share.battery.mvp.ui.activity
 
+import android.app.Activity
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
@@ -15,6 +16,7 @@ import com.upholstery.share.battery.R
 import com.upholstery.share.battery.app.formatx
 import com.upholstery.share.battery.mvp.modle.entity.ShippingAddressListResponse
 import com.upholstery.share.battery.mvp.presenter.ShippingAddressPresenter
+import com.upholstery.share.battery.mvp.ui.dialog.LoadingDialog
 import com.upholstery.share.battery.mvp.ui.dialog.WarningDialog
 import com.upholstery.share.battery.mvp.ui.widgets.ToolBar
 import kotlinx.android.synthetic.main.activity_shipping_address_manager.*
@@ -32,13 +34,30 @@ class ShoppingAddressManageActivity : BaseMvpActivity<MvpView, ShippingAddressPr
 
 
     override fun getLayoutId(): Int = R.layout.activity_shipping_address_manager
+    private val mLoadingDialog by lazy {
+        LoadingDialog.getInstance(supportFragmentManager)
+    }
 
     override fun showLoading(type: Int) {
-
+        when (type) {
+            0x10, 0x11, 0x12 -> {
+                showDialog(mLoadingDialog)
+            }
+            else -> {
+            }
+        }
     }
 
     override fun dismissLoading(type: Int) {
-        mSwipeRefresh.isRefreshing = false
+        when (type) {
+            0x10, 0x11, 0x12 -> {
+                cn.zcoder.xxp.base.ext.dismissDialog(mLoadingDialog)
+            }
+            else -> {
+                mSwipeRefresh.isRefreshing = false
+            }
+        }
+
     }
 
     override fun handlerError(type: Int, e: String) {
@@ -58,7 +77,7 @@ class ShoppingAddressManageActivity : BaseMvpActivity<MvpView, ShippingAddressPr
 
     override fun handlerSuccess(type: Int, data: Any) {
         when (type) {
-            0x10 -> {
+            0x10, 0x13 -> {
                 data as ShippingAddressListResponse
                 mAdapter.replaceData(data.data)
             }
@@ -81,7 +100,7 @@ class ShoppingAddressManageActivity : BaseMvpActivity<MvpView, ShippingAddressPr
         super.initView(savedInstanceState)
         find<ToolBar>(R.id.mToolBar)
                 .setTitle(R.string.manage_shipping_address)
-                .setOnLeftImageListener { finish() }
+                .setOnLeftImageListener { onBackPressed() }
         mSwipeRefresh.setOnRefreshListener(this)
         initRecyclerView()
 
@@ -104,12 +123,12 @@ class ShoppingAddressManageActivity : BaseMvpActivity<MvpView, ShippingAddressPr
 
     override fun onResume() {
         super.onResume()
-        onRefresh()
+        getPresenter().getShippingAddressList(0x10)
     }
 
     override fun onRefresh() {
 
-        getPresenter().getShippingAddressList(0x10)
+        getPresenter().getShippingAddressList(0x13)
     }
 
     private lateinit var mAdapter: BaseQuickAdapter<ShippingAddressListResponse.DataBean, BaseViewHolder>
@@ -193,4 +212,10 @@ class ShoppingAddressManageActivity : BaseMvpActivity<MvpView, ShippingAddressPr
     }
 
     override fun createPresenter(): ShippingAddressPresenter = ShippingAddressPresenter()
+
+    override fun onBackPressed() {
+        setResult(Activity.RESULT_OK)
+        super.onBackPressed()
+
+    }
 }

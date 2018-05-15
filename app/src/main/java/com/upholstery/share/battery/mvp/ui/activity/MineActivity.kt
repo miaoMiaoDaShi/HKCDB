@@ -19,8 +19,10 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import com.upholstery.share.battery.R
 import com.upholstery.share.battery.app.Constant
 import com.upholstery.share.battery.app.getRealFilePath
+import com.upholstery.share.battery.mvp.modle.entity.ShippingAddressListResponse
 import com.upholstery.share.battery.mvp.modle.entity.UploadImageResponse
 import com.upholstery.share.battery.mvp.modle.entity.UserDetailResponse
+import com.upholstery.share.battery.mvp.presenter.ConfirmAnOrderPresenter
 import com.upholstery.share.battery.mvp.presenter.ModPersonalDataPresenter
 import com.upholstery.share.battery.mvp.ui.dialog.LoadingDialog
 import com.upholstery.share.battery.mvp.ui.widgets.ToolBar
@@ -125,8 +127,10 @@ class MineActivity : BaseMvpActivity<MvpView, ModPersonalDataPresenter>(), View.
             0x10 -> {
                 getPresenter().modPersonalData(mapOf("head" to (data as UploadImageResponse).data.img), 0x11)
             }
-            0x11, 0x12, 0x13, 0x14, 0x15, 0x16 -> {
+            0x11, 0x12, 0x13, 0x14, 0x15, 0x16 ,0x18-> {
                 getPresenter().getUserDetail(9)
+                mAddressPresenter.getDefaultShippingAddress(0x17)
+
             }
 //            0x11 -> {
 //
@@ -149,6 +153,11 @@ class MineActivity : BaseMvpActivity<MvpView, ModPersonalDataPresenter>(), View.
 //            0x17 -> {
 //
 //            }
+
+            0x17 -> {
+                data as ShippingAddressListResponse.DataBean
+                mTvShippingAddress.text = data.province + data.city + data.area + data.address
+            }
             else -> {
                 toast(R.string.mod_success)
             }
@@ -156,6 +165,12 @@ class MineActivity : BaseMvpActivity<MvpView, ModPersonalDataPresenter>(), View.
     }
 
     override fun createPresenter(): ModPersonalDataPresenter = ModPersonalDataPresenter()
+
+    private val mAddressPresenter by lazy {
+        ConfirmAnOrderPresenter().apply {
+            attachView(this@MineActivity)
+        }
+    }
 
     /**
      * 上传成功后图片的路径
@@ -231,10 +246,10 @@ class MineActivity : BaseMvpActivity<MvpView, ModPersonalDataPresenter>(), View.
                         mTvBirthday.text.toString())
             }
             R.id.mRlCity -> {
-                startActivity<ChangeCityActivity>()
+                startActivityForResult<ChangeCityActivity>(0x18)
             }
             R.id.mRlShippingAddress -> {
-                startActivity<ShoppingAddressManageActivity>()
+                startActivityForResult<ShoppingAddressManageActivity>(0x17)
             }
             else -> {
             }
@@ -250,6 +265,7 @@ class MineActivity : BaseMvpActivity<MvpView, ModPersonalDataPresenter>(), View.
     override fun initData() {
         super.initData()
         getPresenter().getUserDetail(9)
+        mAddressPresenter.getDefaultShippingAddress(0x17)
     }
 
 
@@ -284,10 +300,18 @@ class MineActivity : BaseMvpActivity<MvpView, ModPersonalDataPresenter>(), View.
             data?.let { getPresenter().modPersonalData(mapOf("sex" to it.getStringExtra("sex")), 0x15) }
         } else if (requestCode == 0x16 && resultCode == Activity.RESULT_OK) {
             data?.let { getPresenter().modPersonalData(mapOf("birth" to it.getStringExtra("birthday")), 0x16) }
+        } else if (requestCode == 0x17 && resultCode == Activity.RESULT_OK) {
+            mAddressPresenter.getDefaultShippingAddress(0x17)
+        }else if (requestCode == 0x18 && resultCode == Activity.RESULT_OK) {
+            data?.let { getPresenter().modPersonalData(mapOf("city" to it.getStringExtra("city")), 0x18) }
         }
 //        else if (requestCode == 0x17 && resultCode == Activity.RESULT_OK) {
 //            data?.let { getPresenter().modPersonalData("", it.getStringExtra("value"), 0x17) }
 //        }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mAddressPresenter.detachView()
+    }
 }

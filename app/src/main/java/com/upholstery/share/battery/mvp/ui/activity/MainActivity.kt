@@ -39,6 +39,7 @@ import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import android.location.LocationManager
 import com.upholstery.share.battery.mvp.ui.dialog.TipDialog
+import com.upholstery.share.battery.mvp.ui.dialog.WarningTipsDialog
 
 
 /**
@@ -156,8 +157,7 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
      * 餘額不足  提示充值
      */
     private val mWarningDialog by lazy {
-        WarningDialog.newInstance(getString(R.string.not_sufficient_funds), getString(R.string.not_do),
-                getString(R.string.to_top_up))
+        WarningTipsDialog.newInstance(getString(R.string.not_sufficient_funds), getString(R.string.i_know))
     }
 
     private var mHaveOrder = false
@@ -184,7 +184,7 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
             }
             0x12 -> {
                 data as UserDetailResponse
-                if (data.data.money > 0) {
+                if (data.data.point >= 50) {
                     getPresenter().getUsingRecord(0x14)
                 } else {
                     showDialog(mWarningDialog)
@@ -192,7 +192,7 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
             }
             0x13 -> {
                 data as UserDetailResponse
-                if (data.data.money > 0) {
+                if (data.data.point >= 50) {
                     getPresenter().getUsingRecord(0x15)
                 } else {
                     showDialog(mWarningDialog)
@@ -285,10 +285,6 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
         super.initView(savedInstanceState)
         checkPermission(savedInstanceState)
         //餘額不住 提示,點擊進入充值頁面
-        mWarningDialog.setListener({}, {
-            startActivity<TopUpActivity>()
-        })
-
     }
 
     fun checkPermission(savedInstanceState: Bundle?) {
@@ -455,8 +451,8 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
             R.id.mTvToCredits -> {
                 startActivity<CreditsAndCurrencyActivity>()
             }
-            R.id.mTvToShop->{
-                TipDialog.show("商城即將開放,敬請期待吧",supportFragmentManager)
+            R.id.mTvToShop -> {
+                TipDialog.show("商城即將開放,敬請期待吧", supportFragmentManager)
                 //startActivity<ShopActivity>()
             }
             else -> {
