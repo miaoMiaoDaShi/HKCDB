@@ -52,6 +52,7 @@ public class UserDetailResponse extends BaseResponse {
         private String surname = "";
         private int type;
         private int uid;
+        private String city = "";
         private String email= "";
 
         public String getEmail() {
@@ -108,6 +109,14 @@ public class UserDetailResponse extends BaseResponse {
 
         public void setPhone(long phone) {
             this.phone = phone;
+        }
+
+        public String getCity() {
+            return city;
+        }
+
+        public void setCity(String city) {
+            this.city = city;
         }
 
         public int getPoint() {

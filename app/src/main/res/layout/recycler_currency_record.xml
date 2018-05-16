@@ -11,11 +11,12 @@
         android:gravity="center_vertical">
         <TextView
             android:id="@+id/mTvTime"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/gray"
-            android:textSize="15sp"
+            android:singleLine="true"
+            android:textSize="13sp"
             android:gravity="center"
             tools:text="2015-05-65"/>
         <TextView
@@ -24,7 +25,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/gray"
-            android:textSize="15sp"
+            android:textSize="13sp"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
             android:gravity="center"
             tools:text="購物"/>
         <TextView
@@ -33,7 +37,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/gray"
-            android:textSize="15sp"
+            android:textSize="13sp"
+            android:singleLine="true"
             android:gravity="center"
             tools:text="+400"/>
     </LinearLayout>

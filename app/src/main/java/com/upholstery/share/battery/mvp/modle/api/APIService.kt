@@ -190,10 +190,11 @@ interface APIService {
      */
     @POST("userController/bindPhone")
     @FormUrlEncoded
-    fun modPhone(@Field("areaCode") areaCode: String,
+    fun modPhone(
+            //@Field("areaCode") areaCode: String,
                  @Field("phone") phone: String,
-                 @Field("code") code: String,
-                 @Field("userId") userId: String): Observable<BaseResponse>
+                 @Field("userId") userId: String,
+                 @Field("code") code: String = "1111"): Observable<BaseResponse>
 
     /**
      * 获取用户的详细信息

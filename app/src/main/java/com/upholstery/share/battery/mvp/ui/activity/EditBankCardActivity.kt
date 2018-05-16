@@ -20,6 +20,7 @@ import com.upholstery.share.battery.mvp.ui.widgets.ToolBar
 import kotlinx.android.synthetic.main.activity_edit_bank_card.*
 import org.jetbrains.anko.find
 import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created by Zcoder
@@ -73,7 +74,7 @@ class EditBankCardActivity : BaseMvpActivity<MvpView, BankCardPresenter>() {
                 toast(R.string.card_holder_name_bank_name_no_not_be_null)
             }
             0x12 -> {//添加
-                toast(R.string.save_error)
+                toast(e)
             }
             0x13 -> {//修改
                 toast(R.string.save_error)
@@ -90,6 +91,7 @@ class EditBankCardActivity : BaseMvpActivity<MvpView, BankCardPresenter>() {
             mPickerView.show()
         }
     }
+
     private fun closeKeyboard() {
         val view = window.peekDecorView()
         if (view != null) {
@@ -97,15 +99,22 @@ class EditBankCardActivity : BaseMvpActivity<MvpView, BankCardPresenter>() {
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
-    private val  mPickerView by lazy {
+
+    private var mCardExpYear = 0
+    private var mCardExpMonth = 0
+    private val mPickerView by lazy {
         TimePickerBuilder(this, { data, view ->
             mCurrentMillisecond = "${data.time}"
-            mEtBankCardValidity.setText(TimeUtils.millis2String(data.time, SimpleDateFormat(" yyyy-MM-dd")))
+            val calendar = Calendar.getInstance()
+            calendar.time = data
+            mCardExpYear = calendar.get(Calendar.YEAR)
+            mCardExpMonth = calendar.get(Calendar.MONTH + 1)
+            mEtBankCardValidity.setText(TimeUtils.millis2String(data.time, SimpleDateFormat(" yyyy-MM")))
         })
                 .setCancelText(getString(R.string.cancel))
                 .setSubmitText(getString(R.string.confirm))
                 .setTitleText("")
-                .setType(booleanArrayOf(true, true, true, false, false, false))
+                .setType(booleanArrayOf(true, true, false, false, false, false))
                 .build()
     }
     private var mCurrentMillisecond = ""
@@ -145,7 +154,7 @@ class EditBankCardActivity : BaseMvpActivity<MvpView, BankCardPresenter>() {
             0 -> {
 
             }
-            1->{
+            1 -> {
                 getPresenter().getBankCardDetail(mId, 0x10)
             }
             else -> {
@@ -185,7 +194,7 @@ class EditBankCardActivity : BaseMvpActivity<MvpView, BankCardPresenter>() {
         when (mType) {
             0 -> {//添加操作
                 getPresenter().addBankCard(mEtName.text.toString(), mEtBankName.text.toString(),
-                        mEtBankCardNo.text.toString(), mCurrentMillisecond,
+                        mEtBankCardNo.text.toString(), mCardExpMonth, mCardExpYear, mCurrentMillisecond,
                         mBankCardVerCode.text.toString(), mAreaNames[mSpinnerAreaName.selectedItemPosition], 0x12)
             }
             1 -> {//編輯保存操作

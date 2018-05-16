@@ -3,6 +3,7 @@ package com.upholstery.share.battery.mvp.ui.activity
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
+import android.widget.TextView
 import cn.zcoder.xxp.base.ext.showSnackBar
 import cn.zcoder.xxp.base.mvp.ui.MvpView
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseMvpActivity
@@ -114,9 +115,9 @@ class CreditsRecordActivity : BaseMvpActivity<MvpView, CreditsAndCurrencyPresent
             override fun convert(helper: BaseViewHolder, item: CreditRecordListResponse.DataBean) {
                 helper.setText(R.id.mTvTime,
                         TimeUtils.millis2String(item.createTime, SimpleDateFormat(" yyyy-MM-dd")))
-                        .setText(R.id.mTvType, item.usedTo)//0-赠送 1-消费',
+                        .setText(R.id.mTvType, item.usedTo)
                         .setText(R.id.mTvCount, "${item.point}")
-
+                        .getView<TextView>(R.id.mTvType).isSelected = true
             }
 
         }

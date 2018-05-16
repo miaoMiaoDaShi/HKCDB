@@ -3,6 +3,7 @@ package com.upholstery.share.battery.mvp.ui.activity
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
+import android.widget.TextView
 import cn.zcoder.xxp.base.ext.showSnackBar
 import cn.zcoder.xxp.base.mvp.ui.MvpView
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseMvpActivity
@@ -115,7 +116,7 @@ class CurrencyRecordActivity : BaseMvpActivity<MvpView, CreditsAndCurrencyPresen
                         TimeUtils.millis2String(item.createTime, SimpleDateFormat(" yyyy-MM-dd")))
                         .setText(R.id.mTvType, types[item.type])//0-赠送 1-消费',
                         .setText(R.id.mTvCount, if (item.type == 0) "+${item.money / 100}" else "-${item.money / 100}")
-
+                        .getView<TextView>(R.id.mTvType).isSelected = true
             }
 
         }

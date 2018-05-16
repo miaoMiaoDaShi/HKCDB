@@ -4,7 +4,12 @@ import cn.zcoder.xxp.base.mvp.presenter.RxPresenter
 import cn.zcoder.xxp.base.mvp.ui.MvpView
 import cn.zcoder.xxp.base.net.BaseResponse
 import cn.zcoder.xxp.base.net.RetrofitClient
+import com.stripe.android.model.Card
 import com.upholstery.share.battery.app.getApi
+import io.reactivex.Observable
+import io.reactivex.ObservableSource
+import io.reactivex.functions.Function
+import timber.log.Timber
 
 
 /**
@@ -23,6 +28,7 @@ class BankCardPresenter : RxPresenter<MvpView>() {
         //删除银行卡
         const val TYPE_DEL_BANK_CARD = 0x10
     }
+
     /**
      * 获取银行卡列表
      */
@@ -41,13 +47,27 @@ class BankCardPresenter : RxPresenter<MvpView>() {
     /**
      * 添加银行卡
      */
-    fun addBankCard(name: String, bankName: String, bankNo: String, bankExpire: String,
-                    bankCvv: String,area:String, type: Int) {
-        if(name.isEmpty()||bankName.isEmpty()||bankNo.isEmpty()){
-            getView().handlerError(0x11,"")
+    fun addBankCard(name: String, bankName: String, bankNo: String, cardExpMonth: Int, cardExpYear: Int, bankExpire: String,
+                    bankCvv: String, area: String, type: Int) {
+        if (name.isEmpty() || bankName.isEmpty() || bankNo.isEmpty()) {
+            getView().handlerError(0x11, "")
             return
         }
-        addSubscribe(getApi().addBankCard(name, bankName, bankNo, bankExpire, bankCvv,area)
+        addSubscribe(Observable.create<Boolean> {
+            val card = Card(bankNo, cardExpMonth, cardExpYear, bankCvv)
+            if (card.validateCard()) {
+                it.onNext(true)
+                it.onComplete()
+            } else {
+                throw RuntimeException("无效信用卡")
+            }
+        }
+                .flatMap(object : Function<Boolean, ObservableSource<*>> {
+                    override fun apply(t: Boolean): ObservableSource<*> {
+                        return getApi().addBankCard(name, bankName, bankNo, bankExpire, bankCvv, area)
+                    }
+
+                })
                 .compose(RetrofitClient.getDefaultTransformer(getView(), type))
                 .subscribe({
                     if ((it as BaseResponse).isOk) {
@@ -72,6 +92,7 @@ class BankCardPresenter : RxPresenter<MvpView>() {
                     getView().handlerError(type, it.message!!)
                 }))
     }
+
     /**
      * 获取银行卡详情
      */
@@ -86,12 +107,13 @@ class BankCardPresenter : RxPresenter<MvpView>() {
                     getView().handlerError(type, it.message!!)
                 }))
     }
+
     /**
      * 修改银行卡  仅支持 修改地区
      */
-    fun editBankCard(id: String, area:String, type: Int) {
+    fun editBankCard(id: String, area: String, type: Int) {
 
-        addSubscribe(getApi().editBankCard(id,area)
+        addSubscribe(getApi().editBankCard(id, area)
                 .compose(RetrofitClient.getDefaultTransformer(getView(), type))
                 .subscribe({
                     if ((it as BaseResponse).isOk) {

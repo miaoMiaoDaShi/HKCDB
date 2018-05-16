@@ -43,6 +43,8 @@ class ChangeCityActivity : BaseActivity() {
                 .showRightText(true)
                 .setOnLeftImageListener { finish() }
                 .setOnRightTextListener(getString(R.string.save), { save() })
+
+        mTvCity.text = intent.getStringExtra("city")
     }
 
     override fun start() {
@@ -84,9 +86,9 @@ class ChangeCityActivity : BaseActivity() {
         val cityPickerView = OptionsPickerBuilder(this,
                 OnOptionsSelectListener { options1, options2, options3, v ->
                     run {
-                        toast(options1Items[options1].pickerViewText +
+                        mTvCity.text = options1Items[options1].pickerViewText +
                                 options2Items[options1][options2] +
-                                options3Items[options1][options2][options3])
+                                options3Items[options1][options2][options3]
                     }
                 })
                 .setCancelText(getString(R.string.cancel))

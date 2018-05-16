@@ -55,16 +55,16 @@ class ModPersonalDataPresenter : UploadImageFilePresenter() {
      * 修改绑定的手机号码
      */
     fun modBindPhone(areaCode: String, phone: String, code: String, userId: String, type: Int) {
-        if (!RegexUtils.isMobileSimple(phone)) {
+        if (phone.isEmpty()) {
             getView().handlerError(0x10, "")
             return
         }
-        if (code.isNullOrEmpty()) {
-            getView().handlerError(0x13, "")
-            return
-        }
+//        if (code.isNullOrEmpty()) {
+//            getView().handlerError(0x13, "")
+//            return
+//        }
 
-        addSubscribe(getApi().modPhone(areaCode, phone, code, userId)
+        addSubscribe(getApi().modPhone(phone, userId)
                 .compose(RetrofitClient.getDefaultTransformer(getView(), type))
                 .subscribe({
                     if ((it as BaseResponse).isOk) {

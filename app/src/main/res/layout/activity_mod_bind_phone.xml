@@ -26,9 +26,9 @@
             android:drawableLeft="@drawable/ic_phone"
             android:drawablePadding="26px"
             android:gravity="center"
+            android:visibility="gone"
             android:paddingLeft="26px"
             android:paddingRight="26px"
-            android:text="+86"
             android:textColor="@android:color/black"
             android:textSize="13sp" />
 
@@ -36,6 +36,12 @@
             android:id="@+id/mEtPhone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:drawableLeft="@drawable/ic_phone"
+            android:drawablePadding="26px"
+            android:paddingLeft="26px"
+            android:lines="1"
+            android:paddingRight="26px"
+            android:inputType="number"
             android:background="@android:color/transparent"
             android:hint="@string/please_new_phone_num"
             android:textColor="@android:color/black"
@@ -53,6 +59,7 @@
         android:layout_height="100px"
         android:background="@drawable/bg_btn_white"
         android:gravity="center_vertical"
+        android:visibility="gone"
         android:orientation="horizontal">
 
         <EditText
@@ -92,14 +99,25 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/divisionColor50" />
-
+    <Button
+        android:id="@+id/mBtnVerPhone"
+        android:layout_width="match_parent"
+        android:layout_height="80px"
+        android:layout_marginLeft="26px"
+        android:layout_marginRight="26px"
+        android:layout_marginTop="150px"
+        android:background="@drawable/bg_btn_black_stroke_oval"
+        android:text="@string/just_ver"
+        android:textColor="@android:color/black"
+        android:textSize="15sp"
+        android:textStyle="bold" />
     <Button
         android:id="@+id/mBtnCommit"
         android:layout_width="match_parent"
         android:layout_height="80px"
         android:layout_marginLeft="26px"
         android:layout_marginRight="26px"
-        android:layout_marginTop="200px"
+        android:layout_marginTop="26px"
         android:background="@drawable/select_btn_yellow_oval"
         android:text="@string/confirm"
         android:textColor="@android:color/black"

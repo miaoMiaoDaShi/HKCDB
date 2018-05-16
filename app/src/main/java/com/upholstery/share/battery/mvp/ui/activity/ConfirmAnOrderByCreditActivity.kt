@@ -77,8 +77,7 @@ class ConfirmAnOrderByCreditActivity : BaseMvpActivity<MvpView, ConfirmAnOrderPr
                         .delay(2, TimeUnit.SECONDS)
                         .subscribe {
                             //区订单页面
-                            //startActivity<ShoppingOrderActivity>()
-                            finish()
+                            startActivity<CreditsAndCurrencyActivity>()
                         }
             }
             else -> {

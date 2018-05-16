@@ -266,6 +266,7 @@
         <activity
             android:name="com.upholstery.share.battery.mvp.ui.activity.CreditsAndCurrencyActivity"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <!--积分商品详情页面-->
         <activity

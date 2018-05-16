@@ -118,7 +118,7 @@ class MineActivity : BaseMvpActivity<MvpView, ModPersonalDataPresenter>(), View.
                     mTvEmail.text = this.email
                     mTvSex.text = if (this.sex == 0) "男" else "女"
                     mTvBirthday.text = TimeUtils.millis2String(this.birth, SimpleDateFormat(" yyyy-MM-dd"))
-                    //mTvCity.text = this.deposit
+                    mTvCity.text = this.city
 
                     mUserDetailInfo = toJson(this)
                 }
@@ -127,7 +127,7 @@ class MineActivity : BaseMvpActivity<MvpView, ModPersonalDataPresenter>(), View.
             0x10 -> {
                 getPresenter().modPersonalData(mapOf("head" to (data as UploadImageResponse).data.img), 0x11)
             }
-            0x11, 0x12, 0x13, 0x14, 0x15, 0x16 ,0x18-> {
+            0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x18 -> {
                 getPresenter().getUserDetail(9)
                 mAddressPresenter.getDefaultShippingAddress(0x17)
 
@@ -246,7 +246,7 @@ class MineActivity : BaseMvpActivity<MvpView, ModPersonalDataPresenter>(), View.
                         mTvBirthday.text.toString())
             }
             R.id.mRlCity -> {
-                startActivityForResult<ChangeCityActivity>(0x18)
+                startActivityForResult<ChangeCityActivity>(0x18, "city" to mTvCity.text.toString())
             }
             R.id.mRlShippingAddress -> {
                 startActivityForResult<ShoppingAddressManageActivity>(0x17)
@@ -302,7 +302,7 @@ class MineActivity : BaseMvpActivity<MvpView, ModPersonalDataPresenter>(), View.
             data?.let { getPresenter().modPersonalData(mapOf("birth" to it.getStringExtra("birthday")), 0x16) }
         } else if (requestCode == 0x17 && resultCode == Activity.RESULT_OK) {
             mAddressPresenter.getDefaultShippingAddress(0x17)
-        }else if (requestCode == 0x18 && resultCode == Activity.RESULT_OK) {
+        } else if (requestCode == 0x18 && resultCode == Activity.RESULT_OK) {
             data?.let { getPresenter().modPersonalData(mapOf("city" to it.getStringExtra("city")), 0x18) }
         }
 //        else if (requestCode == 0x17 && resultCode == Activity.RESULT_OK) {

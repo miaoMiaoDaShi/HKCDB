@@ -87,6 +87,7 @@ class ConversionCommodityDetailActivity : BaseMvpActivity<MvpView, CreditsAndCur
      * 信用分
      */
     private var mBannerCount = 0
+
     override fun createPresenter(): CreditsAndCurrencyPresenter = CreditsAndCurrencyPresenter()
 
     override fun start() {
