@@ -9,9 +9,9 @@ import cn.zcoder.xxp.base.ext.load
 import cn.zcoder.xxp.base.ext.showSnackBar
 import cn.zcoder.xxp.base.mvp.ui.MvpView
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseMvpActivity
-import com.amap.api.maps.model.LatLng
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import com.google.android.gms.maps.model.LatLng
 import com.upholstery.share.battery.R
 import com.upholstery.share.battery.app.Constant
 import com.upholstery.share.battery.mvp.modle.entity.NearTheSitesResponse

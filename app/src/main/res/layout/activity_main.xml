@@ -57,12 +57,13 @@
         android:layout_height="0px"
         android:layout_weight="1">
 
-        <com.amap.api.maps.MapView
+        <fragment
             android:id="@+id/mMapView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:name="com.google.android.gms.maps.SupportMapFragment">
 
-        </com.amap.api.maps.MapView>
+        </fragment>
 
         <RelativeLayout
             android:layout_width="match_parent"
