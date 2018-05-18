@@ -1,6 +1,7 @@
 package com.upholstery.share.battery.utils
 
-import com.amap.api.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLng
+
 
 /**
  * Created by Zcoder

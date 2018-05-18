@@ -49,13 +49,15 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.amap.api:3dmap:latest.integration'
-    implementation 'com.amap.api:location:latest.integration'
-    implementation 'com.amap.api:3dmap:5.0.0'
-    implementation 'com.amap.api:location:3.3.0'
-    implementation 'com.amap.api:search:5.0.0'
+//    implementation 'com.amap.api:3dmap:latest.integration'
+//    implementation 'com.amap.api:location:latest.integration'
+//    implementation 'com.amap.api:3dmap:5.0.0'
+//    implementation 'com.amap.api:location:3.3.0'
+//    implementation 'com.amap.api:search:5.0.0'
     implementation 'com.github.hackware1993:MagicIndicator:1.5.0'
     implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.google.android.gms:play-services-maps:15.0.1'
+    implementation 'com.google.android.gms:play-services-location:15.0.1'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
     //recyclerview分组，顶部浮动

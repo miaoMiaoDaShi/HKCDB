@@ -3,6 +3,7 @@ package com.upholstery.share.battery.mvp.ui.activity
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.IntentSender
 import android.graphics.Point
 import android.location.Location
 import android.os.Bundle
@@ -19,9 +20,6 @@ import cn.zcoder.xxp.base.ext.showSnackBar
 import cn.zcoder.xxp.base.ext.visible
 import cn.zcoder.xxp.base.mvp.ui.MvpView
 import cn.zcoder.xxp.base.mvp.ui.activity.BaseMvpActivity
-import com.amap.api.maps.AMap
-import com.amap.api.maps.CameraUpdateFactory
-import com.amap.api.maps.model.*
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.upholstery.share.battery.R
 import com.upholstery.share.battery.app.Constant
@@ -31,60 +29,132 @@ import com.upholstery.share.battery.mvp.modle.entity.UsingOrderResponse
 import com.upholstery.share.battery.mvp.presenter.HomePresenter
 import com.upholstery.share.battery.mvp.presenter.ModPersonalDataPresenter
 import com.upholstery.share.battery.mvp.ui.dialog.SiteDetailPop
-import com.upholstery.share.battery.mvp.ui.dialog.WarningDialog
 import com.upholstery.share.battery.utils.MapUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import android.location.LocationManager
+import com.google.android.gms.common.api.ResolvableApiException
+import com.google.android.gms.location.*
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import com.upholstery.share.battery.mvp.ui.dialog.TipDialog
 import com.upholstery.share.battery.mvp.ui.dialog.WarningTipsDialog
+import timber.log.Timber
 
 
 /**
  *
  */
 class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickListener,
-        AMap.OnMyLocationChangeListener, AMap.OnMarkerClickListener, AMap.OnCameraChangeListener {
-    override fun onCameraChangeFinish(p0: CameraPosition?) {
-        p0?.let {
-            if (mCurrentZoom != it.zoom) {
-                mCurrentZoom = it.zoom
-            } else {
-                calculateCenterLocation()
+        OnMapReadyCallback, GoogleMap.OnCameraIdleListener, GoogleMap.OnMarkerClickListener {
+
+
+    private var mGoogleMap: GoogleMap? = null
+    private val mFusedLocationClient by lazy {
+        LocationServices.getFusedLocationProviderClient(this@MainActivity)
+    }
+    private val REQUEST_CHECK_SETTINGS = 0x10
+
+    @SuppressLint("MissingPermission")
+    override fun onMapReady(p0: GoogleMap?) {
+        mGoogleMap = p0?.apply {
+            //界面配置
+            //调整缩放
+            animateCamera(CameraUpdateFactory.zoomBy(13f))
+
+            //去除一些没卵用的按钮
+            with(uiSettings) {
+                isZoomControlsEnabled = false
+                isMyLocationButtonEnabled = false
             }
+            //开启定位图城
+            isMyLocationEnabled = true
+            setOnCameraIdleListener(this@MainActivity)
+            setOnMarkerClickListener(this@MainActivity)
+
+            //定位请求发起(检测)
+            val locationRequest = createLocationRequest()
+            LocationServices.getSettingsClient(this@MainActivity)
+                    .checkLocationSettings(
+                            LocationSettingsRequest.Builder()
+                                    .addLocationRequest(locationRequest)
+                                    .build())
+                    .addOnSuccessListener {
+
+                    }
+                    .addOnFailureListener { exception ->
+                        if (exception is ResolvableApiException){
+                            try {
+                                exception.startResolutionForResult(this@MainActivity,
+                                        REQUEST_CHECK_SETTINGS)
+                            } catch (sendEx: IntentSender.SendIntentException) {
+                            }
+                        }
+                    }
+
+
+
+            //请求的发起
+            mFusedLocationClient.requestLocationUpdates(locationRequest,object:LocationCallback(){
+                override fun onLocationResult(p0: LocationResult?) {
+                    super.onLocationResult(p0)
+                    p0?.let {
+                        mLocation = it.lastLocation
+                        Timber.i("接收到位置: 经度: ${it.lastLocation.longitude} 维度${it.lastLocation.latitude}")
+                        if (mIsFrist) {
+                            mIsFrist = false
+                            val latLng = LatLng(it.lastLocation.latitude, it.lastLocation.longitude)
+                            mGoogleMap?.animateCamera(CameraUpdateFactory.newLatLng(latLng))
+                            loadNearTheSitesByLocation(latLng)
+                        }
+
+                    }
+                }
+
+                override fun onLocationAvailability(p0: LocationAvailability?) {
+                    super.onLocationAvailability(p0)
+                }
+            },null)
+
         }
 
+
+
     }
+
+    /**
+     * 定位请求相关配置
+     */
+    fun createLocationRequest(): LocationRequest {
+        return LocationRequest().apply {
+            interval = 10000
+            fastestInterval = 5000
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        }
+    }
+
+    override fun onCameraIdle() {
+        calculateCenterLocation()
+    }
+
 
     private var mCurrentZoom = 0f
-    override fun onCameraChange(p0: CameraPosition?) {
-    }
-//    override fun onCameraChange(p0: CameraPosition?) {
-//
-//        p0?.let {
-//            if (it.zoom != mMapZoom) {
-//                mMapZoom = it.zoom
-//                calculateCenterLocation()
-//            }
-//        }
-//    }
-//
-//    var mMapZoom = 0f
-//    override fun onCameraChangeFinish(p0: CameraPosition?) {
-//
-//
-//    }
+
 
     override fun onMarkerClick(p0: Marker): Boolean {
-
         mMarkerData[p0.id]?.let {
             SiteDetailPop(it, this)
                     .showAtLocation(find(R.id.mTvBorrow),
                             Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL, 0, 0)
         }
-
         return true
     }
 
@@ -98,11 +168,14 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
      * 计算当前中心点  对应的经纬度
      */
     private fun calculateCenterLocation() {
-        val projection = mAmap.projection
-        val centerLatLng = projection.fromScreenLocation(
-                Point(mIvCenterLocation.x.toInt(), mIvCenterLocation.y.toInt()))
+        mGoogleMap?.apply {
+            val projection = projection
+            val centerLatLng = projection.fromScreenLocation(
+                    Point(mIvCenterLocation.x.toInt(), mIvCenterLocation.y.toInt()))
 
-        loadNearTheSitesByLocation(centerLatLng)
+            loadNearTheSitesByLocation(centerLatLng)
+        }
+
     }
 
 
@@ -232,20 +305,22 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
      * 添加商家信息到地图上
      */
     private fun setupMarkerToMap(data: List<NearTheSitesResponse.DataBean>) {
-        mAmap.clear()
+        mGoogleMap?.run {
+            clear()
+            mLocation?.let { location->
+                data.forEach {
+                    //計算距離
+                    it.distance = MapUtils
+                            .calculateLineDistance(LatLng(location.latitude, location.longitude),
+                                    LatLng(it.lat, it.lng))
 
+                    mMarkerData[addMarker(MarkerOptions()
+                            .icon(BitmapDescriptorFactory
+                                    .fromResource(R.drawable.ic_merchant))
+                            .position(LatLng(it.lat, it.lng))).id] = it
+                }
+            }
 
-
-        data.forEach {
-            //計算距離
-            it.distance = MapUtils
-                    .calculateLineDistance(LatLng(mLocation.latitude, mLocation.longitude),
-                            LatLng(it.lat, it.lng))
-
-            mMarkerData[mAmap.addMarker(MarkerOptions()
-                    .icon(BitmapDescriptorFactory
-                            .fromResource(R.drawable.ic_merchant))
-                    .position(LatLng(it.lat, it.lng))).id] = it
         }
 
 
@@ -260,7 +335,6 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
         return HomePresenter()
     }
 
-    lateinit var mAmap: AMap
 
     override fun getLayoutId(): Int = R.layout.activity_main
 
@@ -325,35 +399,9 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
     private var mIsMove = false
 
     private fun initMap(savedInstanceState: Bundle?) {
-        mMapView.onCreate(savedInstanceState)
-        mAmap = mMapView.map
-        mAmap.uiSettings.isZoomControlsEnabled = false
-
-        //定位
-        val myLocationStyle = MyLocationStyle()
-        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE_NO_CENTER)
-        myLocationStyle.interval(2_000)
-        mAmap.myLocationStyle = myLocationStyle
-        mAmap.isMyLocationEnabled = true
-        mAmap.setOnMyLocationChangeListener(this)
-        mAmap.setOnCameraChangeListener(this)
-//        mAmap.setOnMapTouchListener { event ->
-//            when (event.action) {
-//                MotionEvent.ACTION_MOVE -> {
-//                    mIsMove = true
-//                }
-//                MotionEvent.ACTION_UP -> {
-//                    if (mIsMove) {
-//                        mIsMove = false
-//                        calculateCenterLocation()
-//                    }
-//                }
-//                else -> {
-//                }
-//            }
-//            false
-//        }
-        mAmap.setOnMarkerClickListener(this)
+        val mapFragment = supportFragmentManager
+                .findFragmentById(R.id.mMapView) as SupportMapFragment
+        mapFragment.getMapAsync(this)
 
     }
 
@@ -364,18 +412,18 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
     /**
      * 當前位置
      */
-    private lateinit var mLocation: Location
+    private var mLocation: Location ?= null
 
-    override fun onMyLocationChange(p0: Location) {
-        mLocation = p0
-        //第一次 位移到当前位置
-        if (mIsFrist) {
-            mIsFrist = false
-            val latLng = LatLng(p0.latitude, p0.longitude)
-            mAmap.animateCamera(CameraUpdateFactory.newLatLng(latLng))
-            loadNearTheSitesByLocation(latLng)
-        }
-    }
+//    override fun onMyLocationChange(p0: Location) {
+//        mLocation = p0
+//        //第一次 位移到当前位置
+//        if (mIsFrist) {
+//            mIsFrist = false
+//            val latLng = LatLng(p0.latitude, p0.longitude)
+//            mGoogleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng))
+//            loadNearTheSitesByLocation(latLng)
+//        }
+//    }
 
     /**
      * 根据位置 加载数据
@@ -416,9 +464,8 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
                 startActivity<AboutActivity>()
             }
             R.id.mIvToSite -> {
-
                 mLocation?.let {
-                    val projection = mAmap.projection
+                    val projection = mGoogleMap!!.projection
                     val centerLatLng = projection.fromScreenLocation(
                             Point(mIvCenterLocation.x.toInt(), mIvCenterLocation.y.toInt()))
                     startActivity<NearTheSitesActivity>("lat" to centerLatLng.latitude,
@@ -466,7 +513,7 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
      */
     private fun toRefresh() {
         mLocation?.let {
-            val latLng = LatLng(mLocation.latitude, mLocation.longitude)
+            val latLng = LatLng(it.latitude, it.longitude)
             loadNearTheSitesByLocation(latLng)
         }
 
@@ -491,33 +538,7 @@ class MainActivity : BaseMvpActivity<MvpView, HomePresenter>(), View.OnClickList
     }
 
 
-    /**
-     * marker  跳一跳
-     */
-    fun jumpPoint(marker: Marker) {
-        val handler = Handler()
-        val start = SystemClock.uptimeMillis()
-        val duration: Long = 1500
-        val proj = mAmap.projection
-        val markerLatlng = marker.position
-        val markerPoint = proj.toScreenLocation(markerLatlng)
-        markerPoint.offset(0, -100)
-        val startLatLng = proj.fromScreenLocation(markerPoint)
-
-        val interpolator = BounceInterpolator()
-        handler.post(object : Runnable {
-            override fun run() {
-                val elapsed = SystemClock.uptimeMillis() - start
-                val t = interpolator.getInterpolation(elapsed.toFloat() / duration)
-                val lng = t * markerLatlng.longitude + (1 - t) * startLatLng.longitude
-                val lat = t * markerLatlng.latitude + (1 - t) * startLatLng.latitude
-                marker.position = LatLng(lat, lng)
-                if (t < 1.0) {
-                    handler.postDelayed(this, 16)
-                }
-            }
-        })
     }
 
 
-}
+
