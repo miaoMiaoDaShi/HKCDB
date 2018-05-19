@@ -113,7 +113,7 @@ class CreditsAndCurrencyActivity : BaseMvpActivity<MvpView, CreditsAndCurrencyPr
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
         find<ToolBar>(R.id.mToolBar)
-                .setTitle(R.string.credits_and_currency)
+                .setTitle(R.string.day_day_trust)
                 .setOnLeftImageListener { finish() }
         mSwipeRefresh.setOnRefreshListener(this)
         initRecyclerView()
@@ -127,7 +127,7 @@ class CreditsAndCurrencyActivity : BaseMvpActivity<MvpView, CreditsAndCurrencyPr
             override fun convert(helper: BaseViewHolder, item: CreditCommodityResponse.DataBean) {
                 helper.setText(R.id.mTvCommodityName, item.name)
                         .setText(R.id.mTvCreditCount, "${item.point}")
-                        .getView<ImageView>(R.id.mIvCommodityImage).load(item.image)
+                        .getView<ImageView>(R.id.mIvCommodityImage).load(item.image?:R.drawable.ic_image_error)
             }
 
         }

@@ -22,13 +22,21 @@ class GuideCommonPageFragment : BaseFragment() {
 
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
-        mIvGuideImage.load(arguments.getString("url"))
+        //mIvGuideImage.load(arguments.getString("url"))
+        mIvGuideImage.load(arguments.getInt("resId"))
     }
 
     companion object {
         fun newInstance(url: String): Fragment {
             val bundle = Bundle()
             bundle.putString("url", url)
+            val fragment = GuideCommonPageFragment()
+            fragment.arguments = bundle
+            return fragment
+        }
+        fun newInstance(resId: Int): Fragment {
+            val bundle = Bundle()
+            bundle.putInt("resId", resId)
             val fragment = GuideCommonPageFragment()
             fragment.arguments = bundle
             return fragment

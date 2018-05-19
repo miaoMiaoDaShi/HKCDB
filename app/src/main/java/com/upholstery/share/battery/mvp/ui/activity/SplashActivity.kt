@@ -14,7 +14,7 @@ import org.jetbrains.anko.startActivity
  */
 class SplashActivity : BaseActivity() {
     private var mUserInfo by Preference(Constant.KEY_USER_INFO, "")
-    private var mIsFirstEnter by Preference(Constant.KEY_IS_FIRST_ENTER, true)
+    private var mIsFirstEnter  = true//by Preference(Constant.KEY_IS_FIRST_ENTER, true)
     override fun getLayoutId(): Int = -1
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)

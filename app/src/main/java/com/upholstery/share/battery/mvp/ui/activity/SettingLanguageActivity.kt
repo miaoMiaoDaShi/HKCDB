@@ -14,6 +14,7 @@ import com.upholstery.share.battery.mvp.ui.widgets.ToolBar
 import kotlinx.android.synthetic.main.activity_recycle.*
 import org.jetbrains.anko.find
 import android.util.DisplayMetrics
+import com.upholstery.share.battery.mvp.ui.dialog.WarningDialog
 import org.jetbrains.anko.startActivity
 import java.util.*
 
@@ -27,6 +28,7 @@ import java.util.*
 
 class SettingLanguageActivity : BaseActivity() {
     private var mCurrentLanguage by Preference("language", "auto")
+    private val mOriginalLanguage by Preference("language", "auto")
     override fun getLayoutId(): Int {
         return R.layout.activity_recycle
     }
@@ -47,7 +49,7 @@ class SettingLanguageActivity : BaseActivity() {
                 LanguageInfo(1, Locale.SIMPLIFIED_CHINESE.language, "中文", false),
                 LanguageInfo(2, Locale.ENGLISH.language, "English", false)
         )
-        when (mCurrentLanguage) {
+        when (mOriginalLanguage) {
             "auto" -> {
                 languages[0].isSelect = true
             }
@@ -131,7 +133,17 @@ class SettingLanguageActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        changeLanguage(mCurrentLanguage)
+        if (mCurrentLanguage != mOriginalLanguage) {
+            val warningDialog = WarningDialog.newInstance(getString(R.string.mod_language_tip),
+                    getString(R.string.cancel), getString(R.string.confirm))
+            warningDialog.setListener({
+                finish()
+            }, {
+                changeLanguage(mCurrentLanguage)
+            })
+
+        } else
+
         super.onBackPressed()
     }
 }

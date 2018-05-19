@@ -82,7 +82,7 @@ class MsgActivity : BaseMvpActivity<MvpView, MsgPresenter>(), SwipeRefreshLayout
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
         findViewById<ToolBar>(R.id.mToolBar)
-                .setTitle(R.string.msg)
+                .setTitle(R.string.best_new_msg)
                 .setOnLeftImageListener { finish() }
 
         mSwipeRefresh.setOnRefreshListener(this)

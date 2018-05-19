@@ -291,4 +291,8 @@
     <string name="category">分類</string>
     <string name="detail_xq">詳情</string>
     <string name="i_know">我知道了</string>
+    <string name="day_day_trust">daydayTrust</string>
+    <string name="best_new_msg">最新消息</string>
+    <string name="update_to_new">更新最新版本</string>
+    <string name="mod_language_tip">更改語言將會重啟該app</string>
 </resources>

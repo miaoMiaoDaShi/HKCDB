@@ -48,6 +48,7 @@
 </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:layout_height="150px"
             android:paddingRight="26px"
             android:paddingLeft="26px">

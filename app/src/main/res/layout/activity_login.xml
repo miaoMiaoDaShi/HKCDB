@@ -117,20 +117,35 @@
                 android:layout_height="1dp"
                 android:background="@android:color/white" />
 
-            <EditText
-                android:id="@+id/mEtPhone"
-                android:layout_width="match_parent"
-                android:layout_height="100px"
-                android:background="@android:color/transparent"
-                android:drawableLeft="@drawable/ic_phone_full"
-                android:drawablePadding="20px"
-                android:hint="@string/please_input_phone_num"
-                android:inputType="number"
-                android:maxLines="1"
-                android:paddingLeft="26px"
-                android:paddingRight="26px"
-                android:textColorHint="@color/gray"
-                android:textSize="15sp" />
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:gravity="center_vertical"
+               android:orientation="horizontal">
+               <EditText
+                   android:id="@+id/mEtPhone"
+                   android:layout_width="0px"
+                   android:layout_weight="1"
+                   android:layout_height="100px"
+                   android:background="@android:color/transparent"
+                   android:drawableLeft="@drawable/ic_phone_full"
+                   android:drawablePadding="20px"
+                   android:hint="@string/please_input_phone_num"
+                   android:inputType="number"
+                   android:maxLines="1"
+                   android:paddingLeft="26px"
+                   android:paddingRight="26px"
+                   android:textColorHint="@color/gray"
+                   android:textSize="15sp" />
+               <Button
+                   android:id="@+id/mBtnVer"
+                   android:layout_width="200px"
+                   android:layout_height="match_parent"
+                   android:background="@drawable/select_btn_yellow"
+                   android:text="@string/just_ver"
+                   android:textColor="@color/black"
+                   android:textSize="15sp" />
+           </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -161,11 +176,11 @@
                     android:paddingRight="26px"
                     android:textColorHint="@color/gray"
                     android:textSize="15sp" />
-
                 <cn.zcoder.xxp.base.widget.TimerButton
                     android:id="@+id/mBtnGetVerCode"
                     android:layout_width="210px"
                     android:layout_height="65px"
+                    android:visibility="gone"
                     android:layout_marginRight="26px"
                     android:background="@drawable/bg_btn_black"
                     android:gravity="center"
@@ -179,16 +194,6 @@
     android:layout_weight="1"
     android:layout_width="match_parent"
     android:layout_height="0px"/>
-    <Button
-        android:id="@+id/mBtnVer"
-        android:layout_width="600px"
-        android:layout_height="80px"
-        android:layout_below="@id/mCardViewBlock"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/bg_btn_yellow_stroke"
-        android:text="@string/just_ver"
-        android:textColor="@color/yellow"
-        android:textSize="15sp" />
 
     <Button
         android:id="@+id/mBtnLogin"
@@ -206,6 +211,7 @@
     <LinearLayout
         android:id="@+id/mLineBlock"
         android:layout_width="600px"
+        android:visibility="invisible"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -233,6 +239,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:visibility="invisible"
         android:id="@+id/mLlLoginTypeBlock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -267,7 +274,7 @@
           android:layout_weight="1"
           android:layout_width="0px"
           android:layout_height="80px"
-          android:background="@drawable/bg_btn_yellow_stroke"
+          android:background="@drawable/bg_btn_register"
           android:text="@string/register_new_account"
           android:textColor="@color/yellow"
           android:textSize="15sp" />

@@ -153,7 +153,8 @@ class BorrowRecordActivity : BaseMvpActivity<MvpView, BorrowRecordPresenter>(),
             override fun convert(helper: BaseViewHolder, item: BorrowRecordResponse.DataBean) {
                 helper.setText(R.id.tvCreatTime, TimeUtils.millis2String(item.createTime, SimpleDateFormat(" yyyy-MM-dd")))
                         .setText(R.id.tvUseTime, "${item.used}分")
-                        .setText(R.id.tvMoney, String.format("%.2f", item.cost / 100.0))
+                        //.setText(R.id.tvMoney, String.format("%.2f", item.cost / 100.0))
+                        .setVisible(R.id.tvMoney,false)
                         .setText(R.id.tvStatus, types[item.statusX - 1])
                         .setTextColor(R.id.tvStatus, getColor(typeColors[item.statusX - 1]))
                         .addOnClickListener(R.id.tvOperation)

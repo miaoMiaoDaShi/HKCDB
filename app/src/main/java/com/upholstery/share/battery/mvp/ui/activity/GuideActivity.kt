@@ -37,15 +37,30 @@ class GuideActivity : BaseActivity() {
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
 
-        setup(listOf("http://e.hiphotos.baidu.com/image/pic/item/ac345982b2b7d0a250be39bac7ef76094b369aa5.jpg",
-                "http://d.hiphotos.baidu.com/image/pic/item/8601a18b87d6277fcdb9b01d24381f30e924fc68.jpg",
-                "http://a.hiphotos.baidu.com/image/pic/item/7dd98d1001e939014974b01977ec54e736d196a6.jpg"))
+       setup(
+               listOf(
+                       R.drawable.bg_guide_a,
+                       R.drawable.bg_guide_b,
+                       R.drawable.bg_guide_c,
+                       R.drawable.bg_guide_d,
+                       R.drawable.bg_guide_e
+               )
+       )
     }
 
-    private fun setup(urls: List<String>) {
+//    private fun setup(urls: List<String>) {
+//        var pages: MutableList<Fragment> = ArrayList()
+//        for (url in urls) {
+//            pages.add(GuideCommonPageFragment.newInstance(url))
+//        }
+//        pages.add(GuideLastPageFragment.newInstance())
+//
+//        mVp.adapter = FragmentPageAdapter(pages, supportFragmentManager)
+//    }
+    private fun setup(resIds: List<Int>) {
         var pages: MutableList<Fragment> = ArrayList()
-        for (url in urls) {
-            pages.add(GuideCommonPageFragment.newInstance(url))
+        for (resId in resIds) {
+            pages.add(GuideCommonPageFragment.newInstance(resId))
         }
         pages.add(GuideLastPageFragment.newInstance())
 
