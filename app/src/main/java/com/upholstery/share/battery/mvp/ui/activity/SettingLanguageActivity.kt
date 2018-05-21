@@ -45,8 +45,8 @@ class SettingLanguageActivity : BaseActivity() {
     private fun initRecyclerView() {
         mRv.layoutManager = LinearLayoutManager(applicationContext)
         var languages = mutableListOf(
-                LanguageInfo(0, "auto", "自動", false),
-                LanguageInfo(1, Locale.SIMPLIFIED_CHINESE.language, "中文", false),
+               // LanguageInfo(0, "auto", "自動", false),
+                LanguageInfo(1, Locale.TAIWAN.language, "中文", false),
                 LanguageInfo(2, Locale.ENGLISH.language, "English", false)
         )
         when (mOriginalLanguage) {

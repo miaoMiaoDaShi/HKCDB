@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_splash"
+                android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/mLlLoginAndRegisterBlock"
+        android:layout_width="match_parent"
+        android:layout_height="80px"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="250px"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/mBtnLogin"
+            android:layout_width="300px"
+            android:layout_height="80px"
+            android:background="@drawable/select_btn_yellow"
+            android:text="@string/login"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"/>
+
+        <Button
+            android:id="@+id/mBtnRegister"
+            android:layout_width="300px"
+            android:layout_height="80px"
+            android:layout_marginLeft="30px"
+            android:background="@drawable/select_btn_yellow"
+            android:text="@string/register"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"/>
+    </LinearLayout>
+</RelativeLayout>
