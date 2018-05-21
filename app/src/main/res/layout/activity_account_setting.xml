@@ -91,6 +91,7 @@
        <RelativeLayout
            android:id="@+id/mRlMyCoupon"
            android:paddingLeft="26px"
+           android:visibility="gone"
            android:paddingRight="26px"
            android:layout_width="match_parent"
            android:layout_height="100px"
@@ -112,6 +113,7 @@
        <View
            android:layout_width="match_parent"
            android:layout_height="0.5dp"
+           android:visibility="gone"
            android:background="@color/divisionColor50"/>
        <RelativeLayout
            android:id="@+id/mRlSwitchLanguage"
