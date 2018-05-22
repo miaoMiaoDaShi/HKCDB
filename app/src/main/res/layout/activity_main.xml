@@ -18,9 +18,9 @@
 
         <ImageView
             android:id="@+id/mIvLogo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_man" />
+            android:layout_width="40px"
+            android:layout_height="40px"
+            android:src="@mipmap/ic_launcher" />
 
         <View
             android:layout_width="0px"
