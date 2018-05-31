@@ -23,7 +23,7 @@ import timber.log.Timber
  */
 
 class ScanActivity : BaseActivity(), ZXingScannerView.ResultHandler {
-    private val SCAN_PREFIX = "http://wx.gaadme.com/app/device.html?sno="
+    private val SCAN_PREFIX = "daydaycharge.com?sno="
     override fun handleResult(p0: Result?) {
 
         //
