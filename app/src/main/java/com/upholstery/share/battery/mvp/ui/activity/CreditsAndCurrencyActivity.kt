@@ -4,6 +4,7 @@ import android.graphics.Rect
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
@@ -117,16 +118,18 @@ class CreditsAndCurrencyActivity : BaseMvpActivity<MvpView, CreditsAndCurrencyPr
                 .setOnLeftImageListener { finish() }
         mSwipeRefresh.setOnRefreshListener(this)
         initRecyclerView()
+
     }
 
     private lateinit var mAdapter: BaseQuickAdapter<CreditCommodityResponse.DataBean, BaseViewHolder>
     private fun initRecyclerView() {
-        mRv.layoutManager = GridLayoutManager(applicationContext, 2)
+        //mRv.layoutManager = GridLayoutManager(applicationContext, 2)
+        mRv.layoutManager = LinearLayoutManager(applicationContext)
         mAdapter = object : BaseQuickAdapter<CreditCommodityResponse.DataBean, BaseViewHolder>
         (R.layout.recycler_credits_commodity) {
             override fun convert(helper: BaseViewHolder, item: CreditCommodityResponse.DataBean) {
                 helper.setText(R.id.mTvCommodityName, item.name)
-                        .setText(R.id.mTvCreditCount, "${item.point}")
+                        .setText(R.id.mTvCreditCount, "${item.point} ${getString(R.string.credits)}")
                         .getView<ImageView>(R.id.mIvCommodityImage).load(item.image?:R.drawable.ic_image_error)
             }
 

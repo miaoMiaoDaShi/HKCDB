@@ -295,4 +295,6 @@
     <string name="best_new_msg">最新消息</string>
     <string name="update_to_new">更新最新版本</string>
     <string name="mod_language_tip">更改語言將會重啟該app</string>
+    <string name="xingyongfen">信用分</string>
+    <string name="suoxujifen">所需積分</string>
 </resources>

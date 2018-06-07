@@ -1,59 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@android:color/white"
-    android:orientation="vertical">
-<android.support.v7.widget.CardView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="5dp">
+    android:background="@android:color/white"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/mIvCommodityImage"
+        android:layout_width="160px"
+        android:layout_height="160px"
+        android:scaleType="centerCrop" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@android:color/white">
-        <ImageView
-            android:id="@+id/mIvCommodityImage"
-            android:layout_width="match_parent"
-            android:layout_height="350px"
-            android:scaleType="centerCrop"/>
-        <TextView
-            android:id="@+id/mTvCommodityName"
-            android:layout_margin="26px"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="dasdsadsad"
-            android:textSize="14sp"
-            android:singleLine="true"
-            android:ellipsize="marquee"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:textColor="@android:color/black" />
-    <RelativeLayout
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-       android:layout_marginRight="26px"
-        android:layout_marginLeft="26px"
-        android:layout_marginBottom="26px">
+        android:background="@android:color/white"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/mTvCreditsTitle"
+            android:id="@+id/mTvCommodityName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:layout_margin="26px"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:text="dasdsadsad"
             android:textColor="@android:color/black"
-            android:text="信用分"/>
-        <TextView
-            android:id="@+id/mTvCreditCount"
-            android:layout_marginLeft="26px"
-            android:layout_toRightOf="@id/mTvCreditsTitle"
-            android:layout_width="wrap_content"
+            android:textSize="14sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@android:color/holo_red_dark"
-            android:text="666"/>
-    </RelativeLayout>
+            android:layout_marginBottom="26px"
+            android:layout_marginLeft="26px"
+            android:layout_marginRight="26px">
+
+            <TextView
+                android:id="@+id/mTvCreditsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/suoxujifen"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/mTvCreditCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/mTvCreditsTitle"
+                android:text="100 積分"
+                android:textColor="@color/orange"
+                android:textSize="14sp" />
+        </RelativeLayout>
     </LinearLayout>
-</android.support.v7.widget.CardView>
 </LinearLayout>
